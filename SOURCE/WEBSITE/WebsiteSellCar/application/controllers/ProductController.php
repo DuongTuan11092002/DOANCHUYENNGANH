@@ -21,7 +21,13 @@ class ProductController extends CI_Controller {
 	{	
 		$this->load->view('TemplateAD/header');
 		$this->load->view('TemplateAD/navbar');
-		$this->load->view('productCarAD/create');
+		/* ---------------------------- hàm gọi danh mục ---------------------------- */
+		$this->load->model('CategoryModel');
+		$data['Category'] = $this->CategoryModel->selectCategory();
+		/* ------------------------------ hàm gọi hãng ------------------------------ */
+		$this->load->model('AutoMakerModel');
+        $data['autoMaker'] = $this->AutoMakerModel->selectAutoMaker();
+		$this->load->view('productCarAD/create', $data);
 		$this->load->view('TemplateAD/footer');
         
 	}
@@ -32,7 +38,7 @@ class ProductController extends CI_Controller {
 		$this->load->view('TemplateAD/header');
 		$this->load->view('TemplateAD/navbar');
 		$this->load->model('ProductModel');
-		$data['products'] = $this->ProductModel->selectProduct();
+		$data['products'] = $this->ProductModel->selectAllProduct();
 		$this->load->view('productCarAD/list', $data);
 		$this->load->view('TemplateAD/footer');
         
@@ -78,6 +84,8 @@ class ProductController extends CI_Controller {
 								'description' => $this->input->post('productDesc'),
 								'price'=> $this->input->post('productPrice'),
 								'create_at' => $this->input->post('productTime'),
+								'autoMakerID'=> $this->input->post('autoMaker_id'),
+								'categoriesID'=> $this->input->post('categories_id'),
 								'thumnail' => $product_filename
 
 							];
@@ -100,8 +108,16 @@ class ProductController extends CI_Controller {
 	public function edit($productCarID){
 		$this->load->view('TemplateAD/header');
 		$this->load->view('TemplateAD/navbar');
-		$this->load->model('ProductModel');
-		$data['product'] = $this->ProductModel->selectProductById($productCarID);
+			/* ---------------------------- hàm gọi danh mục ---------------------------- */
+			$this->load->model('CategoryModel');
+			$data['Category'] = $this->CategoryModel->selectCategory();
+			/* ------------------------------ hàm gọi hãng ------------------------------ */
+			$this->load->model('AutoMakerModel');
+			$data['autoMaker'] = $this->AutoMakerModel->selectAutoMaker();
+			/* ---------------------------- hàm gọi sản phẩm ---------------------------- */
+			$this->load->model('ProductModel');
+			$data['products'] = $this->ProductModel->selectProductById($productCarID);
+
 		$this->load->view('productCarAD/edit', $data);
 		$this->load->view('TemplateAD/footer');
 	}
@@ -145,6 +161,8 @@ class ProductController extends CI_Controller {
 								'description' => $this->input->post('productDesc'),
 								'price'=> $this->input->post('productPrice'),
 								'create_at' => $this->input->post('productTime'),
+								'autoMakerID'=> $this->input->post('autoMaker_id'),
+								'categoriesID'=> $this->input->post('categories_id'),
 								'thumnail' => $product_filename
 
 							];
@@ -155,9 +173,12 @@ class ProductController extends CI_Controller {
 						$data = [
 							// các cột database------------lấy từ các input 
 							'productCarName' => $this->input->post('productName'),
-							'description' => $this->input->post('productDesc'),
-							'price'=> $this->input->post('productPrice'),
-							'create_at' => $this->input->post('productTime'),
+								'description' => $this->input->post('productDesc'),
+								'price'=> $this->input->post('productPrice'),
+								'create_at' => $this->input->post('productTime'),
+								'autoMakerID'=> $this->input->post('autoMaker_id'),
+								'categoriesID'=> $this->input->post('categories_id'),
+							
 
 						];
 					}
@@ -176,6 +197,7 @@ class ProductController extends CI_Controller {
 
 
 	//deleteProduct
+	
 	public function delete($productCarID){
 					$this->load->model('ProductModel');
 					$this->ProductModel->deleteProduct($productCarID);

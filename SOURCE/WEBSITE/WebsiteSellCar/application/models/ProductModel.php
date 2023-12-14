@@ -9,9 +9,13 @@
             }
 
         //show select
-            public function selectProduct(){
+            public function selectAllProduct(){
 
-                $query = $this->db->get('productcar');
+                $query = $this->db->select('categories.categoriesName as tendanhmuc, productcar.*, autoMaker.autoMakerName as tenhang')
+                ->from('categories')
+                ->join('productcar', 'productCar.categoriesID = categories.categoriesID') //khóa ngoại - khóa chính <==> khóa chính = khóa ngoại
+                ->join('autoMaker', 'autoMaker.autoMakerID = productcar.autoMakerID')
+                ->get();
                 return $query->result();
             }
 

@@ -8,7 +8,7 @@
                 //email = $email gán biến trong bẳng data là email
                 //password = $password gán biến trong bảng data là password
                 //phương thức get('') cọn bảng trong database cần lấy
-                $query = $this->db->where('email', $email)->where('password', $password)->get('user');
+                $query = $this->db->where('email', $email)->where('password', $password)->get('users');
                 return $query->result(); // trả về kết quả
             }
 

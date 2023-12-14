@@ -4,6 +4,10 @@
     Thêm sản phẩm
   </div>
   <div class="card-body">
+
+  <a href="<?php echo base_url('productCar/list')?>" class="btn btn-success">Danh sách sản phẩm</a>
+  
+  <hr>
                 <?php
                 if($this->session->flashdata('success')){
                 ?>
@@ -17,40 +21,75 @@
                 ?> 
   <form action="<?php echo base_url('productCar/includeProduct')?>" method="POST" enctype="multipart/form-data">
   <div class="form-group">
-    <label for="exampleInputEmail1">Tên sản phẩm</label>
-    <input type="text" name="productName" class="form-control" id="exampleInputEmail1"  >
+    <label for="exampleInputNameCar">Tên sản phẩm</label>
+    <input type="text" name="productName" class="form-control" id="exampleInputNameCar"  >
     <?php echo '<span class="text text-danger">'. form_error('productName') .'</span>'; ?>
 
   </div>
   <div class="form-group">
-    <label for="exampleInputPassword1">Mô tả</label>
-    <input type="text" name="productDesc" class="form-control" id="exampleInputPassword1" >
+    <label for="exampleInputDescCar">Mô tả</label>
+    <!--<input type="text" name="productDesc" class="form-control" id="exampleInputDescCar" >-->
+    <textarea name="productDesc" class="form-control" id="exampleInputDescCar"  cols="500" rows="4"></textarea>
+    
     <?php echo '<span class="text text-danger">'. form_error('productDesc') .'</span>'; ?>
   
     
   </div>
 
   <div class="form-group">
-    <label for="exampleInputPassword1">Giá</label>
-    <input type="text" name="productPrice" class="form-control" id="exampleInputPassword1" >
+    <label for="exampleInputPriceCar">Giá</label>
+    <input type="number" name="productPrice" class="form-control" id="exampleInputPriceCar" >
     <?php echo '<span class="text text-danger">'. form_error('productPrice') .'</span>'; ?>
 
                 
   </div>
 
   <div class="form-group">
-    <label for="exampleInputPassword1">Ngày Tạo</label>
-    <input type="text" name="productTime" class="form-control" id="exampleInputPassword1" >
+    <label for="exampleInputTimeCar">Ngày Tạo</label>
+    <input type="date" name="productTime" class="form-control" id="exampleInputTimeCar" >
     <?php echo '<span class="text text-danger">'. form_error('productTime') .'</span>'; ?>
 
                 
   </div>
 
   <div class="form-group">
-    <label for="exampleInputPassword1">Hình ảnh</label>
-    <input type="file" name="productIMG" class="form-control-file" id="exampleInputPassword1" >
+    <label for="exampleInputIMGCar">Hình ảnh</label>
+    <input type="file" name="productIMG" class="form-control-file" id="exampleInputIMGCar" >
     <small><?php if(isset($error)){echo $error;}?></small>
                 
+  </div>
+
+  <div class="form-group">
+        <div class="form-group">
+          <label for="exampleFormControllSelect1">Hãng</label>
+          <select  name="autoMaker_id" class="form-control" id="exampleFormControllSelect1" >
+          <?php
+          foreach($autoMaker as $key => $valueAutoMaker) {
+            ?>
+              <option value="<?php echo $valueAutoMaker -> autoMakerID?>"> <?php echo $valueAutoMaker -> autoMakerName?></option>
+
+        <?php
+          }
+        ?>
+          </select>              
+        </div>
+  </div>
+
+
+  <div class="form-group">
+        <div class="form-group">
+          <label for="exampleFormControllSelect2">Danh mục</label>
+          <select  name="categories_id" class="form-control" id="exampleFormControllSelect2" >
+          <?php
+          foreach($Category as $key => $valueCategory) {
+            ?>
+              <option value="<?php echo $valueCategory -> categoriesID?>"> <?php echo $valueCategory -> categoriesName?></option>
+
+        <?php
+          }
+        ?>
+          </select>              
+        </div>
   </div>
  
  
