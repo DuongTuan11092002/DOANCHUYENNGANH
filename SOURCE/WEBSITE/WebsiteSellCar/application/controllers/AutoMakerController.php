@@ -51,6 +51,9 @@ public function formCreateAutoMaker()
 						$data = [
 							// các cột database------------lấy từ các input 				
 							'autoMakerName' => $this->input->post('autoMakerName'),
+							'status' => $this->input->post('autoMakerStatus'),
+
+
 						];
 				
 						// hàm gọi 
@@ -96,6 +99,8 @@ public function	update($autoMakerID)
 							$data = [
 								// các cột database------------lấy từ các input 				
 								'autoMakerName' => $this->input->post('autoMakerName'),
+								'status' => $this->input->post('autoMakerStatus'),
+
 							];
 							
 							// hàm gọi 

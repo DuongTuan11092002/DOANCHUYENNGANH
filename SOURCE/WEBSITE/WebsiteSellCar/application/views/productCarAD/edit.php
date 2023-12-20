@@ -93,6 +93,14 @@
           </select>              
         </div>
   </div>
+
+  <div class="form-group">
+    <label for="exampleInputCategory">Trạng thái</label>
+    <select name="productStatus" id="" class="form-control">
+      <option value="1" selected>Hiển thị</option>
+      <option value="0">Không hiển thị</option>
+    </select>
+  </div>
  
  
   <button type="submit" class="btn btn-primary">Cập nhật</button>

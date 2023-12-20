@@ -22,9 +22,16 @@
         <input type="text" name="CategoryName" value="<?php echo $categoryEdit-> categoriesName?>" class="form-control" id="exampleInputCategory"  >
         <?php echo '<span class="text text-danger">'. form_error('CategoryName') .'</span>'; ?>
       </div>
-    
-                    
-      </div>
+      <div class="form-group">     
+          <label for="exampleInputCategory">Trạng thái</label>
+          <select name="CategoryStatus" id="" class="form-control">
+            <option value="1" selected>Hiển thị</option>
+            <option value="0">Không hiển thị</option>
+          </select>
+        </div>
+                  
+                        
+      
      
      
       <button type="submit" class="btn btn-primary">Thêm</button>

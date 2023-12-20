@@ -26,6 +26,13 @@
     <input type="text" name="CategoryName" class="form-control" id="exampleInputCategory" placeholder="Vui lòng nhập các dòng xe"  >
     <?php echo '<span class="text text-danger">'. form_error('CategoryName') .'</span>'; ?>
   </div>
+  <div class="form-group">
+    <label for="exampleInputCategory">Trạng thái</label>
+    <select name="CategoryStatus" id="" class="form-control">
+      <option value="1" selected>Hiển thị</option>
+      <option value="0">Không hiển thị</option>
+    </select>
+  </div>
 
                 
  

@@ -25,6 +25,14 @@
     <label for="exampleInputAutoMakerName">Tên Hãng xe</label>
     <input type="text" name="autoMakerName" class="form-control" id="exampleInputAutoMakerName"  >
     <?php echo '<span class="text text-danger">'. form_error('autoMakerName') .'</span>'; ?>
+   
+  </div>
+  <div class="form-group">
+    <label for="exampleInputCategory">Trạng thái</label>
+    <select name="autoMakerStatus" id="" class="form-control">
+      <option value="1" selected>Hiển thị</option>
+      <option value="0">Không hiển thị</option>
+    </select>
   </div>
 
  

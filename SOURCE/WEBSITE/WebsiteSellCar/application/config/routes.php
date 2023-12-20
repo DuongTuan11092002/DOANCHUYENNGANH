@@ -2,13 +2,23 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 
-$route['default_controller'] = 'welcome';
+$route['default_controller'] = 'indexController';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+/* ----------------------------------Home ----- --------------------------------- */
+$route['danh-muc/(:any)']['GET'] = 'IndexController/Category/$1';
+$route['thuong-hieu/(:any)']['GET'] = 'IndexController/AutoMaker/$1';
+$route['san-pham/(:any)']['GET'] = 'IndexController/ProductCar/$1';
+$route['gio-hang/(:any)']['GET'] = 'IndexController/Cart';
+$route['dang-nhap/(:any)']['GET'] = 'IndexController/Login';
 
 
 
-/* -------------------------------------------------------------------------- */
+
+
+
+
+/* --------------------Admin--------------------------------------- */
 /*                                    LOGIN                                   */
 
 $route['login']['GET'] = 'LoginController/index'; //route này khi đăng nhập mở login 
@@ -32,6 +42,7 @@ $route['productCar/delete/(:any)']['GET'] = 'ProductController/delete/$1';
 
 $route['productCar/edit/(:any)']['GET'] = 'ProductController/edit/$1';   
 $route['productCar/update/(:any)']['POST'] = 'ProductController/update/$1';  
+
 
 
 $route['productCar/includeProduct']['POST'] = 'ProductController/includeProduct';

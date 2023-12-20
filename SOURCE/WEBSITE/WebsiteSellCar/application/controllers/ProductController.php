@@ -84,6 +84,8 @@ class ProductController extends CI_Controller {
 								'description' => $this->input->post('productDesc'),
 								'price'=> $this->input->post('productPrice'),
 								'create_at' => $this->input->post('productTime'),
+								'status' => $this->input->post('productStatus'),
+
 								'autoMakerID'=> $this->input->post('autoMaker_id'),
 								'categoriesID'=> $this->input->post('categories_id'),
 								'thumnail' => $product_filename
@@ -161,6 +163,7 @@ class ProductController extends CI_Controller {
 								'description' => $this->input->post('productDesc'),
 								'price'=> $this->input->post('productPrice'),
 								'create_at' => $this->input->post('productTime'),
+								'status' => $this->input->post('productStatus'),
 								'autoMakerID'=> $this->input->post('autoMaker_id'),
 								'categoriesID'=> $this->input->post('categories_id'),
 								'thumnail' => $product_filename
@@ -176,6 +179,7 @@ class ProductController extends CI_Controller {
 								'description' => $this->input->post('productDesc'),
 								'price'=> $this->input->post('productPrice'),
 								'create_at' => $this->input->post('productTime'),
+								'status' => $this->input->post('productStatus'),
 								'autoMakerID'=> $this->input->post('autoMaker_id'),
 								'categoriesID'=> $this->input->post('categories_id'),
 							

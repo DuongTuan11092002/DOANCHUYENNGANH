@@ -43,7 +43,8 @@ class CategoryController extends CI_Controller {
 							//mảng data insert
 							$data = [
 								// các cột database------------lấy từ các input 
-								'categoriesName' => $this->input->post('CategoryName')
+								'categoriesName' => $this->input->post('CategoryName'),
+								'status' => $this->input->post('CategoryStatus'),
 								
 
 							];
@@ -81,6 +82,8 @@ class CategoryController extends CI_Controller {
 							//mảng data insert
 							$data = [
 								'categoriesName' => $this->input->post('CategoryName'),
+								'status' => $this->input->post('CategoryStatus'),
+
 							];
 							// hàm gọi 
 							$this->load->model('CategoryModel');

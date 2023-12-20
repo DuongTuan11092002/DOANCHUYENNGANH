@@ -22,6 +22,7 @@
                 <th scope="col">Hãng</th>
                 <th scope="col">danh mục</th>
                 <th scope="col">Hình ảnh</th>
+                <th scope="col">Tình trạng</th>
                 <th scope="col">Quản lý</th>
               </tr>
             </thead>
@@ -39,10 +40,11 @@
                 <td><?php echo $value->create_at ?></td>
                 <td><?php echo $value->tenhang?></td>
                 <td><?php echo $value->tendanhmuc ?></td>
-
+                
                 <td>
                   <img src="<?php echo base_url('/uploads/productCar/'.$value->thumnail)?>" alt="" width="150" height="150">
                 </td>
+                <td><?php echo $value->status ?></td>
 
                 <td>
                   <a href="<?php echo base_url('productCar/edit/'.$value->productCarID)?>" class="btn btn-warning">Sửa</a>
