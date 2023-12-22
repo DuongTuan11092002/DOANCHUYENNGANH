@@ -5,16 +5,40 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'indexController';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
-/* ----------------------------------Home ----- --------------------------------- */
+
+
+/* -------------------------------------------------------------------------- */
+/*                            TRẢNG-CHỦ-NGƯỜI-DÙNG                            */
 $route['trang-chu/']['GET'] = 'IndexController/index';
 
 $route['danh-muc/(:any)']['GET'] = 'IndexController/Category/$1';
 $route['thuong-hieu/(:any)']['GET'] = 'IndexController/AutoMaker/$1';
 $route['san-pham/(:any)']['GET'] = 'IndexController/ProductCar/$1';
-/* -------------------------------- GIO-HANG -------------------------------- */
+
+
+
+
+/* -------------------------------- GIỎ-HÀNG -------------------------------- */
 $route['gio-hang']['GET'] = 'IndexController/Cart';
+/* ------------------------------ thêm-giỏ-hàng ----------------------------- */
 $route['dat-hang']['POST'] = 'IndexController/AddToCart';
-/* ----------------------------------- -- ----------------------------------- */
+/* -------------------------- xóa-sản-phẩm-giỏ-hàng ------------------------- */
+$route['xoa-gio-hang']['GET'] = 'IndexController/DeleteAllCart';
+$route['xoa-san-pham/(:any)']['GET'] = 'IndexController/DeleteItemCart/$1';
+/* ---------------------------- cập-nhật-giỏ-hàng --------------------------- */
+$route['cap-nhat-gio-hang']['POST'] = 'IndexController/UpdateCart';
+/* ------------------------------- thanh-toán ------------------------------- */
+$route['kiem-tra-thanh-toan']['GET'] = 'IndexController/Checkout';
+/* -------------------------------------------------------------------------- */
+
+
+
+/* -------------------------------------------------------------------------- */
+/*                            ĐĂNG-NHẬP-NGƯỜI-DÙNG                            */
+
+/* -------------------------------------------------------------------------- */
+
+
 $route['dang-nhap/']['GET'] = 'IndexController/Login';
 
 
@@ -23,24 +47,28 @@ $route['dang-nhap/']['GET'] = 'IndexController/Login';
 
 
 
-/* --------------------Admin--------------------------------------- */
-/*                                    LOGIN                                   */
+/* -----------------------------------ADMIN--------------------------------------- */
+/*                                    LOGIN (ADMIN)                                   */
 
 $route['login']['GET'] = 'LoginController/index'; //route này khi đăng nhập mở login 
-$route['login-user']['POST'] = 'LoginController/login'; //  route này khi nhẫn login vào trang login-user
+$route['login-admin']['POST'] = 'LoginController/login'; //  route này khi nhẫn login vào trang login-ADMIN
 
 /* -------------------------------------------------------------------------- */
 
+
+
 /* -------------------------------------------------------------------------- */
-/*                               DOASBOARD ADMIN                              */
+/*                               DOASBOARD (ADMIN)                              */
 
 $route['dashboard']['GET'] = 'DashboardController/index'; //  route này khi nhẫn login vào trang login-user
 $route['logout']['GET'] = 'DashboardController/logout';
 
 /* -------------------------------------------------------------------------- */
 
+
+
 /* -------------------------------------------------------------------------- */
-/*                                 PRODUCT CAR                                */
+/*                                 PRODUCT CAR (ADMIN)                               */
 
 $route['productCar/list']['GET'] = 'ProductController/list'; // route   
 $route['productCar/delete/(:any)']['GET'] = 'ProductController/delete/$1';   
@@ -56,8 +84,10 @@ $route['productCar/create']['GET'] = 'ProductController/create';
 
 /* -------------------------------------------------------------------------- */
 
+
+
 /* -------------------------------------------------------------------------- */
-/*                               PRODUCT DETAIL                               */
+/*                               PRODUCT DETAIL  (ADMIN)                             */
 
 $route['productCarDetail/list']['GET'] = 'ProductDetailController/list';   
 $route['productCarDetail/delete/(:any)']['GET'] = 'ProductDetailController/delete/$1';   
@@ -86,7 +116,7 @@ $route['productCarDetail/create']['GET'] = 'ProductDetailController/create';
 /* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
-/*                                 AUTO MAKER                                 */
+/*                                 AUTO MAKER (ADMIN)                                */
 
 $route['AutoMaker/list']['GET'] = 'AutoMakerController/list';   
 $route['AutoMaker/delete/(:any)']['GET'] = 'AutoMakerController/delete/$1';  
@@ -115,7 +145,7 @@ $route['AutoMaker/create']['GET'] = 'AutoMakerController/create';
 
 
 /* -------------------------------------------------------------------------- */
-/*                                  CATEGORY                                  */
+/*                                  CATEGORY  (ADMIN)                              */
 
 $route['Category/list']['GET'] = 'CategoryController/list';   //show danh sách
 $route['Category/delete/(:any)']['GET'] = 'CategoryController/delete/$1';   //delete
@@ -130,7 +160,7 @@ $route['Category/formCategory']['POST'] = 'CategoryController/formCategory';
 /* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
-/*                                    News                                    */
+/*                                    NEWS (ADMIN)                                  */
 $route['New/list']['GET'] = 'NewController/list';   //show danh sách
 $route['New/delete/(:any)']['GET'] = 'NewController/delete/$1';   
 
@@ -146,7 +176,7 @@ $route['New/formCreateNew']['POST'] = 'NewController/formNew';
 
 
 /* -------------------------------------------------------------------------- */
-/*                                 NEWS DETAIL                                */
+/*                                 NEWS DETAIL (ADMIN)                            */
 $route['NewDetail/list']['GET'] = 'NewDetailController/list';   //show danh sách
 $route['New/delete/(:any)']['GET'] = 'NewController/delete/$1';   
 
@@ -159,5 +189,4 @@ $route['NewDetail/create']['GET'] = 'NewDetailController/create';
 $route['NewDetail/formCreateNewDetail']['POST'] = 'NewDetailController/formNewDetail';
 /* -------------------------------------------------------------------------- */
 
-/* -------------------------------- GIO-HANG -------------------------------- */
 

@@ -118,7 +118,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="<?php base_url('trang-chu/') ?>"><img src="<?php echo base_url('frontend/img/logo.png') ?>" alt=""></a>
+                        <a href="<?php echo base_url('/') ?>"><img src="<?php echo base_url('frontend/img/logo.png') ?>" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -145,8 +145,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="<?php echo base_url('gio-hang') ?>"><i class="fa fa-shopping-bag"> CART</i></a></li>
+                            <li><a href="<?php echo base_url('kiem-tra-thanh-toan')?>"><i class="fa fa-money"> checkout</i></a></li>
+                            <li><a href="<?php echo base_url('gio-hang') ?>"><i class="fa fa-shopping-bag"> cart</i></a></li>
                         </ul>
                         <div class="header__cart__price">item: <span>$150.00</span></div>
                     </div>

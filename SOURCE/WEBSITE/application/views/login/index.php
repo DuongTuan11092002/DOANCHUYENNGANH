@@ -17,7 +17,7 @@
 
 
 
-            <form method="POST" action="<?php echo base_url('login-user') ?>">
+            <form method="POST" action="<?php echo base_url('login-admin') ?>">
             <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
                 <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">

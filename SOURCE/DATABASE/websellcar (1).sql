@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 14, 2023 at 09:44 AM
+-- Generation Time: Dec 22, 2023 at 05:28 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -29,19 +29,21 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `automaker` (
   `autoMakerID` int(11) NOT NULL,
-  `autoMakerName` varchar(255) NOT NULL
+  `autoMakerName` varchar(255) NOT NULL,
+  `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `automaker`
 --
 
-INSERT INTO `automaker` (`autoMakerID`, `autoMakerName`) VALUES
-(1, 'TOYOTA'),
-(2, 'MAZDA'),
-(3, 'SUZUKI'),
-(4, 'TESLA'),
-(5, 'HONDA');
+INSERT INTO `automaker` (`autoMakerID`, `autoMakerName`, `status`) VALUES
+(1, 'TOYOTA', 1),
+(2, 'MAZDA', 1),
+(3, 'SUZUKI', 1),
+(4, 'TESLA', 1),
+(5, 'HONDA', 1),
+(6, 'KIA', 1);
 
 -- --------------------------------------------------------
 
@@ -77,8 +79,12 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`categoriesID`, `categoriesName`, `slug`, `image`, `status`) VALUES
-(1, 'SEDAN', '', '', 0),
-(2, 'SUV', '', '', 0);
+(1, 'SEDAN', '', '', 1),
+(2, 'SUV', '', '', 1),
+(3, 'HatchBack', '', '', 1),
+(4, 'Crossover (CUV)', '', '', 1),
+(5, 'Pickup – xe bán tải', '', '', 1),
+(6, 'Coupe – xe thể thao', '', '', 1);
 
 -- --------------------------------------------------------
 
@@ -166,6 +172,7 @@ CREATE TABLE `productcar` (
   `price` varchar(255) NOT NULL,
   `thumnail` varchar(255) NOT NULL,
   `slug` varchar(255) DEFAULT NULL,
+  `status` int(11) NOT NULL,
   `create_at` varchar(255) DEFAULT NULL,
   `update_at` varchar(255) DEFAULT NULL,
   `deleted` smallint(6) DEFAULT NULL,
@@ -177,12 +184,13 @@ CREATE TABLE `productcar` (
 -- Dumping data for table `productcar`
 --
 
-INSERT INTO `productcar` (`productCarID`, `productCarName`, `description`, `price`, `thumnail`, `slug`, `create_at`, `update_at`, `deleted`, `autoMakerID`, `categoriesID`) VALUES
-(1, 'TOYOTA Vios', 'Dòng xe được mọi người tiếp cận', '500000000', '17018535241699172599Mazda.jpg', NULL, '2023-12-18', NULL, NULL, 3, 2),
-(2, 'MAZDA', 'Tiếp cận thị trường mới', '450000000', '17018535761699172599Mazda.jpg', NULL, '2023-12-08', NULL, NULL, 2, 1),
-(3, 'Tesla', 'xe xịn', '500000000', '170193445217007290601699172599Mazda.jpg', NULL, '2222-12-12', NULL, NULL, 3, 2),
-(6, 'MAZDA 3', 'Xe gia đình', '700000000', '170193636817007290601699172599Mazda.jpg', NULL, '2022-12-23', NULL, NULL, 5, 2),
-(7, 'HONDA CIVIC', 'sport car', '1000000000', '170193648017007290601699172599Mazda.jpg', NULL, '2023-12-09', NULL, NULL, 5, 1);
+INSERT INTO `productcar` (`productCarID`, `productCarName`, `description`, `price`, `thumnail`, `slug`, `status`, `create_at`, `update_at`, `deleted`, `autoMakerID`, `categoriesID`) VALUES
+(1, 'TOYOTA Vios', 'Dòng xe được mọi người tiếp cận', '500000000', '17018535241699172599Mazda.jpg', NULL, 1, '2023-12-18', NULL, NULL, 3, 2),
+(2, 'MAZDA', 'Tiếp cận thị trường mới', '450000000', '17018535761699172599Mazda.jpg', NULL, 1, '2023-12-08', NULL, NULL, 2, 1),
+(3, 'Tesla', 'xe xịn', '500000000', '170193445217007290601699172599Mazda.jpg', NULL, 1, '2222-12-12', NULL, NULL, 3, 2),
+(6, 'MAZDA 3', 'Xe gia đình', '700000000', '170193636817007290601699172599Mazda.jpg', NULL, 1, '2022-12-23', NULL, NULL, 5, 2),
+(7, 'HONDA CIVIC', 'sport car', '1000000000', '170193648017007290601699172599Mazda.jpg', NULL, 1, '2023-12-09', NULL, NULL, 5, 1),
+(8, 'KIA Morning 2022', 'Tổng quan KIA Morning Được sản xuất từ năm 2004 đến nay bởi Hàn Quốc, Tại thị trường Việt Nam, KIA Morning 2021 được phân phối qua 6 phiên bản từ tiêu chuẩn đến cao cấp (thêm 2 phiên bản GT-Line và X-Line). Dòng xe này được cho là phù hợp với những khác', '304000000', '1703135173kiaMorning.jpg', NULL, 1, '2023-02-22', NULL, NULL, 6, 3);
 
 -- --------------------------------------------------------
 
@@ -346,7 +354,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `automaker`
 --
 ALTER TABLE `automaker`
-  MODIFY `autoMakerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `autoMakerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `cart`
@@ -358,7 +366,7 @@ ALTER TABLE `cart`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `categoriesID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `categoriesID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `librarycar`
@@ -394,7 +402,7 @@ ALTER TABLE `orderdetail`
 -- AUTO_INCREMENT for table `productcar`
 --
 ALTER TABLE `productcar`
-  MODIFY `productCarID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `productCarID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `productcardetail`
