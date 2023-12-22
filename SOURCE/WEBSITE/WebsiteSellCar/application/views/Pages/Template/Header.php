@@ -16,14 +16,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="frontend/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="frontend/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="frontend/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="frontend/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="frontend/css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="frontend/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="frontend/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="frontend/css/style.css" type="text/css">
+    <link rel="stylesheet" href="<?php echo base_url('frontend/css/bootstrap.min.css') ?>" type="text/css">
+    <link rel="stylesheet" href="<?php echo base_url('frontend/css/font-awesome.min.css') ?>" type="text/css">
+    <link rel="stylesheet" href="<?php echo base_url('frontend/css/elegant-icons.css') ?>" type="text/css">
+    <link rel="stylesheet" href="<?php echo base_url('frontend/css/nice-select.css') ?>" type="text/css">
+    <link rel="stylesheet" href="<?php echo base_url('frontend/css/jquery-ui.min.css') ?>" type="text/css">
+    <link rel="stylesheet" href="<?php echo base_url('frontend/css/owl.carousel.min.css') ?>" type="text/css">
+    <link rel="stylesheet" href="<?php echo base_url('frontend/css/slicknav.min.css') ?>" type="text/css">
+    <link rel="stylesheet" href="<?php echo base_url('frontend/css/style.css') ?>" type="text/css">
 </head>
 
 <body>
@@ -118,7 +118,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="<?php base_url('/') ?>"><img src="frontend/img/logo.png" alt=""></a>
+                        <a href="<?php base_url('trang-chu/') ?>"><img src="<?php echo base_url('frontend/img/logo.png') ?>" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -146,7 +146,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="header__cart">
                         <ul>
                             <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                            <li><a href="<?php echo base_url('gio-hang') ?>"><i class="fa fa-shopping-bag"> CART</i></a></li>
                         </ul>
                         <div class="header__cart__price">item: <span>$150.00</span></div>
                     </div>

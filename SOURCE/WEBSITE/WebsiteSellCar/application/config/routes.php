@@ -6,11 +6,16 @@ $route['default_controller'] = 'indexController';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 /* ----------------------------------Home ----- --------------------------------- */
+$route['trang-chu/']['GET'] = 'IndexController/index';
+
 $route['danh-muc/(:any)']['GET'] = 'IndexController/Category/$1';
 $route['thuong-hieu/(:any)']['GET'] = 'IndexController/AutoMaker/$1';
 $route['san-pham/(:any)']['GET'] = 'IndexController/ProductCar/$1';
-$route['gio-hang/(:any)']['GET'] = 'IndexController/Cart';
-$route['dang-nhap/(:any)']['GET'] = 'IndexController/Login';
+/* -------------------------------- GIO-HANG -------------------------------- */
+$route['gio-hang']['GET'] = 'IndexController/Cart';
+$route['dat-hang']['POST'] = 'IndexController/AddToCart';
+/* ----------------------------------- -- ----------------------------------- */
+$route['dang-nhap/']['GET'] = 'IndexController/Login';
 
 
 
@@ -153,3 +158,6 @@ $route['NewDetail/update/(:any)']['POST'] = 'NewDetailController/update/$1';
 $route['NewDetail/create']['GET'] = 'NewDetailController/create';
 $route['NewDetail/formCreateNewDetail']['POST'] = 'NewDetailController/formNewDetail';
 /* -------------------------------------------------------------------------- */
+
+/* -------------------------------- GIO-HANG -------------------------------- */
+

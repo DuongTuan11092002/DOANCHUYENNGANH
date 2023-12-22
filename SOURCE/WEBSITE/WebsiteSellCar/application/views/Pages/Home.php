@@ -89,7 +89,7 @@
             </div>
             <div class="row featured__filter">
                 <?php
-                            foreach ($ProductCar as $key => $productCar) {
+                            foreach ($AllProductCar as $key => $productCar) {
                                 ?>
                 <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
                     <div class="featured__item">
@@ -98,13 +98,12 @@
                             <ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                <li><a href="<?php echo base_url('dat-hang') ?>"><i class="fa fa-shopping-cart"></i></a></li>
                             </ul>
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="#" class="text-uppercase"><?php echo $productCar -> productCarName ?></a></h6>
+                            <h6><a href="<?php echo base_url('san-pham/'. $productCar -> productCarID)?>" class="text-uppercase"><?php echo $productCar -> productCarName ?></a></h6>
                             <h5>Giá: <?php echo number_format($productCar-> price).'VNĐ' ?> </h5>
-                            <p><?php echo $productCar -> description ?></p>
                         </div>
                     </div>
                     </div>
