@@ -17,11 +17,11 @@ $route['san-pham/(:any)']['GET'] = 'IndexController/ProductCar/$1';
 
 
 
-
-/* -------------------------------- GIỎ-HÀNG -------------------------------- */
+/* -------------------------------------------------------------------------- */
+/*                                  GIỎ-HÀNG                                  */
 $route['gio-hang']['GET'] = 'IndexController/Cart';
 /* ------------------------------ thêm-giỏ-hàng ----------------------------- */
-$route['dat-hang']['POST'] = 'IndexController/AddToCart';
+$route['them-gio-hang']['POST'] = 'IndexController/AddToCart';
 /* -------------------------- xóa-sản-phẩm-giỏ-hàng ------------------------- */
 $route['xoa-gio-hang']['GET'] = 'IndexController/DeleteAllCart';
 $route['xoa-san-pham/(:any)']['GET'] = 'IndexController/DeleteItemCart/$1';
@@ -29,6 +29,12 @@ $route['xoa-san-pham/(:any)']['GET'] = 'IndexController/DeleteItemCart/$1';
 $route['cap-nhat-gio-hang']['POST'] = 'IndexController/UpdateCart';
 /* ------------------------------- thanh-toán ------------------------------- */
 $route['kiem-tra-thanh-toan']['GET'] = 'IndexController/Checkout';
+/* ---------------------------- CONFIRM-DAT-HANG ---------------------------- */
+$route['xac-nhan-dat-hang']['POST'] = 'IndexController/ConfirmCheckout';
+/* -------------------------------------------------------------------------- */
+
+
+
 /* -------------------------------------------------------------------------- */
 
 
@@ -36,10 +42,16 @@ $route['kiem-tra-thanh-toan']['GET'] = 'IndexController/Checkout';
 /* -------------------------------------------------------------------------- */
 /*                            ĐĂNG-NHẬP-NGƯỜI-DÙNG                            */
 
+$route['dang-nhap']['GET'] = 'IndexController/Login';
+$route['dang-nhap-nguoi-dung']['POST'] = 'IndexController/LoginCustomer';
+$route['dang-xuat']['GET'] = 'IndexController/Logout';
+/* --------------------------------- ĐĂNG-KÝ -------------------------------- */
+$route['dang-ky']['GET'] = 'IndexController/Register';
+$route['dang-ky-customer']['POST'] = 'IndexController/RegisterCustomer';
+
+
 /* -------------------------------------------------------------------------- */
 
-
-$route['dang-nhap/']['GET'] = 'IndexController/Login';
 
 
 

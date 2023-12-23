@@ -29,7 +29,7 @@
                         <div class="product__details__price"><?php echo number_format($detail -> giasanpham).' VNĐ' ?></div>
                         <p><?php echo $detail -> motasanpham ?></p>
                         
-                        <form action="<?php echo base_url('dat-hang') ?>" method="post">
+                        <form action="<?php echo base_url('them-gio-hang') ?>" method="post">
                             <input type="hidden" value="<?php echo $detail-> productCarID?>" name="product_id">
                             <div class="product__details__quantity">
                             <div class="quantity">

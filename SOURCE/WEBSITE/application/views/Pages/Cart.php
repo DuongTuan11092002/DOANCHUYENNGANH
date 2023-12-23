@@ -95,7 +95,7 @@
                                 <?php echo number_format($subtotal) ?>   
                             </span></li>
                         </ul>
-                        <a href="<?php echo base_url('thanh-toan') ?>" class="primary-btn text-uppercase">đặt hàng</a>
+                        <a href="<?php echo base_url('kiem-tra-thanh-toan') ?>" class="primary-btn text-uppercase">đặt hàng</a>
                     </div>
                 </div>
             </div>

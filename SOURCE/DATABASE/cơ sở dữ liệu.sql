@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 22, 2023 at 05:28 AM
+-- Generation Time: Dec 23, 2023 at 10:16 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -24,13 +24,36 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `admin`
+--
+
+CREATE TABLE `admin` (
+  `account` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `fullname` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `status` varchar(255) DEFAULT '1',
+  `phone` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`account`, `password`, `fullname`, `address`, `email`, `status`, `phone`) VALUES
+('DuongTuan', '202cb962ac59075b964b07152d234b70', 'Kim Dương Tuấn', 'Trà Vinh', 'admin@gmail.com', '1', '0911096648');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `automaker`
 --
 
 CREATE TABLE `automaker` (
   `autoMakerID` int(11) NOT NULL,
   `autoMakerName` varchar(255) NOT NULL,
-  `status` int(11) NOT NULL
+  `status` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -38,27 +61,11 @@ CREATE TABLE `automaker` (
 --
 
 INSERT INTO `automaker` (`autoMakerID`, `autoMakerName`, `status`) VALUES
-(1, 'TOYOTA', 1),
-(2, 'MAZDA', 1),
-(3, 'SUZUKI', 1),
-(4, 'TESLA', 1),
-(5, 'HONDA', 1),
-(6, 'KIA', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `cart`
---
-
-CREATE TABLE `cart` (
-  `cart_id` int(11) NOT NULL,
-  `account` varchar(255) DEFAULT NULL,
-  `productCarID` int(11) DEFAULT NULL,
-  `accessaryID` int(11) DEFAULT NULL,
-  `quantity` int(11) NOT NULL,
-  `create_at` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+(1, 'VinFast', 1),
+(2, 'Mazda', 1),
+(3, 'Toyota', 1),
+(4, 'Mercedes-benz', 1),
+(5, 'Lexus', 1);
 
 -- --------------------------------------------------------
 
@@ -69,35 +76,19 @@ CREATE TABLE `cart` (
 CREATE TABLE `categories` (
   `categoriesID` int(11) NOT NULL,
   `categoriesName` varchar(255) NOT NULL,
-  `slug` varchar(255) NOT NULL,
-  `image` varchar(255) NOT NULL,
-  `status` int(11) NOT NULL
+  `status` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `categories`
 --
 
-INSERT INTO `categories` (`categoriesID`, `categoriesName`, `slug`, `image`, `status`) VALUES
-(1, 'SEDAN', '', '', 1),
-(2, 'SUV', '', '', 1),
-(3, 'HatchBack', '', '', 1),
-(4, 'Crossover (CUV)', '', '', 1),
-(5, 'Pickup – xe bán tải', '', '', 1),
-(6, 'Coupe – xe thể thao', '', '', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `librarycar`
---
-
-CREATE TABLE `librarycar` (
-  `libraryCarID` int(11) NOT NULL,
-  `thumnail` varchar(255) NOT NULL,
-  `productCarID` int(11) DEFAULT NULL,
-  `productCarDetail` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `categories` (`categoriesID`, `categoriesName`, `status`) VALUES
+(1, 'Sedan', 1),
+(2, 'Hatchback', 1),
+(3, 'SUV', 1),
+(4, 'Crossover', 1),
+(5, 'Coupe', 1);
 
 -- --------------------------------------------------------
 
@@ -108,10 +99,10 @@ CREATE TABLE `librarycar` (
 CREATE TABLE `newsdetail` (
   `newsDetailID` int(11) NOT NULL,
   `newsDetailHeading` varchar(255) NOT NULL,
-  `descriptionDetail` varchar(255) NOT NULL,
-  `newsDetailIMG` varchar(255) NOT NULL,
-  `newsID` int(11) DEFAULT NULL,
-  `create_at` varchar(255) NOT NULL
+  `descriptionDetail` varchar(255) DEFAULT NULL,
+  `newsDetailIMG` varchar(255) DEFAULT NULL,
+  `newsID` int(11) NOT NULL,
+  `create_at` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -123,9 +114,10 @@ CREATE TABLE `newsdetail` (
 CREATE TABLE `newslist` (
   `newsID` int(11) NOT NULL,
   `newsHeading` varchar(255) NOT NULL,
-  `description` varchar(255) NOT NULL,
-  `thumnail` varchar(255) NOT NULL,
-  `create_at` varchar(255) NOT NULL
+  `description` varchar(255) DEFAULT NULL,
+  `thumnail` varchar(255) DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT 1,
+  `create_at` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -136,8 +128,7 @@ CREATE TABLE `newslist` (
 
 CREATE TABLE `order` (
   `orderID` int(11) NOT NULL,
-  `account` varchar(255) DEFAULT NULL,
-  `fullname` varchar(255) NOT NULL,
+  `account` varchar(255) NOT NULL,
   `phone` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL,
   `orderDate` varchar(255) NOT NULL,
@@ -154,9 +145,8 @@ CREATE TABLE `orderdetail` (
   `orderDetailID` int(11) NOT NULL,
   `price` varchar(255) NOT NULL,
   `total` int(11) NOT NULL,
-  `orderID` int(11) DEFAULT NULL,
-  `accessaryID` int(11) DEFAULT NULL,
-  `productCarID` int(11) DEFAULT NULL
+  `orderID` int(11) NOT NULL,
+  `productCarID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -169,28 +159,22 @@ CREATE TABLE `productcar` (
   `productCarID` int(11) NOT NULL,
   `productCarName` varchar(255) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
-  `price` varchar(255) NOT NULL,
-  `thumnail` varchar(255) NOT NULL,
-  `slug` varchar(255) DEFAULT NULL,
-  `status` int(11) NOT NULL,
+  `price` varchar(255) DEFAULT NULL,
+  `thumnail` varchar(255) DEFAULT NULL,
+  `status` int(11) DEFAULT 1,
   `create_at` varchar(255) DEFAULT NULL,
   `update_at` varchar(255) DEFAULT NULL,
   `deleted` smallint(6) DEFAULT NULL,
-  `autoMakerID` int(11) DEFAULT NULL,
-  `categoriesID` int(11) DEFAULT NULL
+  `autoMakerID` int(11) NOT NULL,
+  `categoriesID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `productcar`
 --
 
-INSERT INTO `productcar` (`productCarID`, `productCarName`, `description`, `price`, `thumnail`, `slug`, `status`, `create_at`, `update_at`, `deleted`, `autoMakerID`, `categoriesID`) VALUES
-(1, 'TOYOTA Vios', 'Dòng xe được mọi người tiếp cận', '500000000', '17018535241699172599Mazda.jpg', NULL, 1, '2023-12-18', NULL, NULL, 3, 2),
-(2, 'MAZDA', 'Tiếp cận thị trường mới', '450000000', '17018535761699172599Mazda.jpg', NULL, 1, '2023-12-08', NULL, NULL, 2, 1),
-(3, 'Tesla', 'xe xịn', '500000000', '170193445217007290601699172599Mazda.jpg', NULL, 1, '2222-12-12', NULL, NULL, 3, 2),
-(6, 'MAZDA 3', 'Xe gia đình', '700000000', '170193636817007290601699172599Mazda.jpg', NULL, 1, '2022-12-23', NULL, NULL, 5, 2),
-(7, 'HONDA CIVIC', 'sport car', '1000000000', '170193648017007290601699172599Mazda.jpg', NULL, 1, '2023-12-09', NULL, NULL, 5, 1),
-(8, 'KIA Morning 2022', 'Tổng quan KIA Morning Được sản xuất từ năm 2004 đến nay bởi Hàn Quốc, Tại thị trường Việt Nam, KIA Morning 2021 được phân phối qua 6 phiên bản từ tiêu chuẩn đến cao cấp (thêm 2 phiên bản GT-Line và X-Line). Dòng xe này được cho là phù hợp với những khác', '304000000', '1703135173kiaMorning.jpg', NULL, 1, '2023-02-22', NULL, NULL, 6, 3);
+INSERT INTO `productcar` (`productCarID`, `productCarName`, `description`, `price`, `thumnail`, `status`, `create_at`, `update_at`, `deleted`, `autoMakerID`, `categoriesID`) VALUES
+(1, 'Toyota Camry 2.0Q', 'Toyota Camry 2023 là dòng xe sở hữu kích thước tổng thể DxRxC (mm) - 4.885 x 1.840 x 1.445, chiều dài cơ sở 2.825mm, khoảng sáng gầm 140 mm. Có thể nói rằng Camry sở hữu kích thước lớn nhất trong các dòng Sedan hạng D hiện nay. Xe ra mắt thị trường với 4 ', '1069999998', '1703322269cac-dong-xe-toyota-27.jpg', 1, '2023-12-12', NULL, NULL, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -201,11 +185,11 @@ INSERT INTO `productcar` (`productCarID`, `productCarName`, `description`, `pric
 CREATE TABLE `productcardetail` (
   `productCarDetailID` int(11) NOT NULL,
   `productCarDetailName` varchar(255) NOT NULL,
-  `productCarDetailTextEngine` varchar(255) DEFAULT NULL,
-  `productCarDetailTextInterio` varchar(255) DEFAULT NULL,
-  `productCarDetailTextTechniques` varchar(255) DEFAULT NULL,
-  `images` varchar(255) NOT NULL,
-  `productCarID` int(11) DEFAULT NULL
+  `productCarDetailTextEngine` varchar(800) DEFAULT NULL,
+  `productCarDetailTextInterio` varchar(800) DEFAULT NULL,
+  `productCarDetailTextTechniques` varchar(800) DEFAULT NULL,
+  `images` varchar(255) DEFAULT NULL,
+  `productCarID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -213,26 +197,22 @@ CREATE TABLE `productcardetail` (
 --
 
 INSERT INTO `productcardetail` (`productCarDetailID`, `productCarDetailName`, `productCarDetailTextEngine`, `productCarDetailTextInterio`, `productCarDetailTextTechniques`, `images`, `productCarID`) VALUES
-(1, 'TOYOTA VIOS', 'Động cơ mạnh mẽ mới', 'Nội thất tinh tế', 'Công nghệ mới', '17018540411699248200newDetail2.png', 1);
+(1, 'Toyota Camry 2.5Q', 'dòng xe này còn được nâng cấp với động cơ 4 xy lanh Dynamic Force sử dụng van biến thiên điều khiển điện tử VVT-iE: 2.0L mã M20A-FKS (ở phiên bản 2.0G và 2.0Q) cho công suất tối đa 170 mã lực, mô men xoắn cực đại 206Nm và động cơ 2.5L mã A25A-FKS (phiên b', 'Tất cả ghế ngồi xe Toyota Camry đều được bọc chất liệu da sang trọng, tạo cảm giác êm ái, dễ chịu khi sử dụng. Ghế lái được tích hợp chức năng chỉnh điện 10 hướng, riêng các phiên bản Camry 2.0Q, 2.5Q và 2.5HV còn được trang bị thêm tính năng nhớ ghế ở 2 ', 'xe còn được trang bị 03 chế độ lái là ECO (tiết kiệm), Normal (thông thường) và Sport (thể thao) nhằm thỏa mãn nhu cầu cá nhân của từng khách hàng. Bộ lốp thay đổi thành 235/45R18 có khả năng bám đường tốt hơn. Những tính năng độc quyền đáng chú ý khác tr', '1703322695cac-dong-xe-toyota-27.jpg', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `role`
+-- Table structure for table `shipping`
 --
 
-CREATE TABLE `role` (
-  `roleID` int(11) NOT NULL,
-  `roleName` varchar(255) NOT NULL
+CREATE TABLE `shipping` (
+  `shippingID` int(11) NOT NULL,
+  `fullname` varchar(255) NOT NULL,
+  `phone` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `method` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `role`
---
-
-INSERT INTO `role` (`roleID`, `roleName`) VALUES
-(1, 'ADMIN'),
-(2, 'USER');
 
 -- --------------------------------------------------------
 
@@ -243,21 +223,20 @@ INSERT INTO `role` (`roleID`, `roleName`) VALUES
 CREATE TABLE `users` (
   `account` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `fullname` varchar(255) NOT NULL,
+  `fullname` varchar(255) DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
-  `email` varchar(255) NOT NULL,
-  `status` varchar(255) NOT NULL,
-  `phone` varchar(255) DEFAULT NULL,
-  `avatar` varchar(255) DEFAULT NULL,
-  `roleID` int(11) DEFAULT NULL
+  `email` varchar(255) DEFAULT NULL,
+  `status` varchar(255) DEFAULT '1',
+  `phone` varchar(255) NOT NULL,
+  `avatar` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`account`, `password`, `fullname`, `address`, `email`, `status`, `phone`, `avatar`, `roleID`) VALUES
-('ADMIN', '202cb962ac59075b964b07152d234b70', 'Kim Dương Tuấn', 'Trà Vinh', 'Admin@gmail.com', '1', '0911096648', NULL, 1);
+INSERT INTO `users` (`account`, `password`, `fullname`, `address`, `email`, `status`, `phone`, `avatar`) VALUES
+('VanA', '202cb962ac59075b964b07152d234b70', 'Nguyễn Văn A', 'Châu thành, Đồng Tháp', 'VanA@gmail.com', '1', '091234566', NULL);
 
 --
 -- Indexes for dumped tables
@@ -270,26 +249,10 @@ ALTER TABLE `automaker`
   ADD PRIMARY KEY (`autoMakerID`);
 
 --
--- Indexes for table `cart`
---
-ALTER TABLE `cart`
-  ADD PRIMARY KEY (`cart_id`),
-  ADD KEY `productCarID` (`productCarID`),
-  ADD KEY `account` (`account`);
-
---
 -- Indexes for table `categories`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`categoriesID`);
-
---
--- Indexes for table `librarycar`
---
-ALTER TABLE `librarycar`
-  ADD PRIMARY KEY (`libraryCarID`),
-  ADD KEY `productCarID` (`productCarID`),
-  ADD KEY `productCarDetail` (`productCarDetail`);
 
 --
 -- Indexes for table `newsdetail`
@@ -308,7 +271,8 @@ ALTER TABLE `newslist`
 -- Indexes for table `order`
 --
 ALTER TABLE `order`
-  ADD PRIMARY KEY (`orderID`);
+  ADD PRIMARY KEY (`orderID`),
+  ADD KEY `account` (`account`);
 
 --
 -- Indexes for table `orderdetail`
@@ -334,17 +298,16 @@ ALTER TABLE `productcardetail`
   ADD KEY `productCarID` (`productCarID`);
 
 --
--- Indexes for table `role`
+-- Indexes for table `shipping`
 --
-ALTER TABLE `role`
-  ADD PRIMARY KEY (`roleID`);
+ALTER TABLE `shipping`
+  ADD PRIMARY KEY (`shippingID`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`account`),
-  ADD KEY `roleID` (`roleID`);
+  ADD PRIMARY KEY (`account`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -354,25 +317,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `automaker`
 --
 ALTER TABLE `automaker`
-  MODIFY `autoMakerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `cart`
---
-ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `autoMakerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `categoriesID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `librarycar`
---
-ALTER TABLE `librarycar`
-  MODIFY `libraryCarID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `categoriesID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `newsdetail`
@@ -402,43 +353,35 @@ ALTER TABLE `orderdetail`
 -- AUTO_INCREMENT for table `productcar`
 --
 ALTER TABLE `productcar`
-  MODIFY `productCarID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `productCarID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `productcardetail`
 --
 ALTER TABLE `productcardetail`
-  MODIFY `productCarDetailID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `productCarDetailID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `role`
+-- AUTO_INCREMENT for table `shipping`
 --
-ALTER TABLE `role`
-  MODIFY `roleID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `shipping`
+  MODIFY `shippingID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `cart`
---
-ALTER TABLE `cart`
-  ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`productCarID`) REFERENCES `productcar` (`productCarID`),
-  ADD CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`account`) REFERENCES `users` (`account`);
-
---
--- Constraints for table `librarycar`
---
-ALTER TABLE `librarycar`
-  ADD CONSTRAINT `librarycar_ibfk_1` FOREIGN KEY (`productCarID`) REFERENCES `productcar` (`productCarID`),
-  ADD CONSTRAINT `librarycar_ibfk_2` FOREIGN KEY (`productCarDetail`) REFERENCES `productcardetail` (`productCarDetailID`);
-
---
 -- Constraints for table `newsdetail`
 --
 ALTER TABLE `newsdetail`
   ADD CONSTRAINT `newsdetail_ibfk_1` FOREIGN KEY (`newsID`) REFERENCES `newslist` (`newsID`);
+
+--
+-- Constraints for table `order`
+--
+ALTER TABLE `order`
+  ADD CONSTRAINT `order_ibfk_1` FOREIGN KEY (`account`) REFERENCES `users` (`account`);
 
 --
 -- Constraints for table `orderdetail`
@@ -459,12 +402,6 @@ ALTER TABLE `productcar`
 --
 ALTER TABLE `productcardetail`
   ADD CONSTRAINT `productcardetail_ibfk_1` FOREIGN KEY (`productCarID`) REFERENCES `productcar` (`productCarID`);
-
---
--- Constraints for table `users`
---
-ALTER TABLE `users`
-  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`roleID`) REFERENCES `role` (`roleID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

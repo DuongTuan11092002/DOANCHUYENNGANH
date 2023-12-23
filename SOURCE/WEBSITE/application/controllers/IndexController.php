@@ -126,23 +126,193 @@ public function ProductCar($id)
 /* -------------------------------------------------------------------------- */
 /* --------------------------- KIỂM-TRA-THANH-TOÁN -------------------------- */
 	public function Checkout() {
-		$this->load->view('Pages/Template/Header', $this->data);
-		$this->load->view('Pages/Checkout');
-		$this->load->view('Pages/Template/Footer');
+		//kiểm tra khi customer login chưa nếu cố vào trang thanh toán(Checkout) thì đây ra trang giỏ hàng
+		if($this->session->userdata('loggedInCustomer')){ 
+			$this->load->view('Pages/Template/Header', $this->data);
+			$this->load->view('Pages/Checkout');
+			$this->load->view('Pages/Template/Footer');
+		}else{
+			redirect(base_url().'gio-hang', 'refresh');	
+		}
 	}
 
 
 
 /* ------------------------------------ - ----------------------------------- */
 
-	public function Login()
-	{
+/* -------------------------------------------------------------------------- */
+/*                            DANG-NHAP-KHACH-HANG                            */
+public function Login()
+{
+	
+			$this->load->view('Pages/Template/Header');
+			$this->load->view('Pages/Login');
+			$this->load->view('Pages/Template/Footer');
+			
 
-		$this->load->view('Pages/Template/Header');
-		$this->load->view('Pages/Login');
-		$this->load->view('Pages/Template/Footer');
-		
+	
+}
+
+
+public function loginCustomer()
+	{
+		$this->form_validation->set_rules('email', 'Email', 'trim|required', ['required' => 'Vui lòng nhập %s của bạn']);
+		$this->form_validation->set_rules('password','Password', 'trim|required', ['required' => 'Vui lòng nhập %s của bạn']);
+
+		if ($this->form_validation->run() == true) 
+		{
+				//$this->load->view('myform');
+				$email = $this->input->post('email'); //create a variable for the email 
+				$password = md5($this->input->post('password')); //create a variable for the password
+				$this->load->model('LoginModel'); //this is use all functions in file
+				$result = $this->LoginModel->checkLoginCustomer($email, $password); //hàm checkLogin(có 2 biến đã tạo) được sử dụng trong model->LoginModel để kiểm tra dữ liệu
+				
+				//cho điều kiện if else
+				if(count($result) > 0)
+				{
+					//mảng session 
+					$session_array = array(
+						//dòng id sẽ lấy kết quả $result[0] đầu tiên tham chiếu trong cột id database
+						'accountName' => $result[0]->accountName,
+						//dòng fullname sẽ lấy kết quả $result[0] đầu tiên tham chiếu trong cột fullname database
+						'fullname' => $result[0]->fullname,
+						//dòng email sẽ lấy kết quả $result[0] đầu tiên tham chiếu trong cột email database
+						'email' => $result[0]->email,
+					);
+					$this->session->set_userdata('loggedInCustomer',$session_array);
+					//lệnh thông báo khi đăng nhập thành công
+					$this->session->set_flashdata('success','Đăng nhập thành công');
+					//nhảy trang khi đăng nhập thành công
+					redirect(base_url('/kiem-tra-thanh-toan'));
+				}else{
+					$this->session->set_flashdata('error','Sai tài khoản hoặc mật khẩu');
+					redirect(base_url('/dang-nhap'));
+				}
+			}
+		else
+		{
+				$this->Login();
+		}
 	}
 
 
+
+	public function Logout() {
+		$this->session->unset_userdata('loggedInCustomer');
+		redirect(base_url('/dang-nhap'));
+	}
+
+/* -------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------- */
+/*                              ĐĂNG-KÝ-CUSTOMER                              */
+public function Register()
+{
+	
+			$this->load->view('Pages/Template/Header');
+			$this->load->view('Pages/Register');
+			$this->load->view('Pages/Template/Footer');
+	
+}
+
+public function registerCustomer(){
+	$this->form_validation->set_rules('account', 'Tài khoản', 'trim|required', ['required' => 'Vui lòng nhập %s của bạn']);
+	$this->form_validation->set_rules('fullname','Họ và tên', 'trim|required', ['required' => 'Vui lòng nhập %s của bạn']);
+	$this->form_validation->set_rules('address', 'Địa chỉ', 'trim|required', ['required' => 'Vui lòng nhập %s của bạn']);
+	$this->form_validation->set_rules('phone', 'Số điện thoại', 'trim|required', ['required' => 'Vui lòng nhập %s của bạn']);
+	$this->form_validation->set_rules('email', 'Email', 'trim|required', ['required' => 'Vui lòng nhập %s của bạn']);
+	$this->form_validation->set_rules('password','Password', 'trim|required', ['required' => 'Vui lòng nhập %s của bạn']);
+
+	if ($this->form_validation->run() == true) 
+	{
+			//$this->load->view('myform');
+			$account = $this->input->post('account');
+			$fullname = $this->input->post('fullname');
+			$address = $this->input->post('address');
+			$phone = $this->input->post('phone');
+			$email = $this->input->post('email'); //create a variable for the email 
+			$password = md5($this->input->post('password')); //create a variable for the password
+			$data = array(
+				'account' => $account,
+				'fullname' => $fullname,
+				'address' => $address,
+				'phone' => $phone,
+				'email' => $email,
+				'password' => $password
+
+			);
+			$this->load->model('LoginModel'); //this is use all functions in file
+			$result = $this->LoginModel->RegisterCustomer($data); //hàm checkLogin(có 2 biến đã tạo) được sử dụng trong model->LoginModel để kiểm tra dữ liệu
+			
+			//cho điều kiện if else
+			if($result)
+			{
+				//mảng session 
+				$session_array = array(
+					//dòng id sẽ lấy kết quả $result[0] đầu tiên tham chiếu trong cột id database
+					'accountName' => $account,
+					//dòng fullname sẽ lấy kết quả $result[0] đầu tiên tham chiếu trong cột fullname database
+					'fullname' => $fullname,
+					//dòng email sẽ lấy kết quả $result[0] đầu tiên tham chiếu trong cột email database
+					'email' => $email,
+				);
+				$this->session->set_userdata('loggedInCustomer',$session_array);
+				//lệnh thông báo khi đăng nhập thành công
+				$this->session->set_flashdata('success','Đăng nhập thành công');
+				//nhảy trang khi đăng nhập thành công
+				redirect(base_url('/kiem-tra-thanh-toan'));
+			}else{
+				$this->session->set_flashdata('error','Sai tài khoản hoặc mật khẩu');
+				redirect(base_url('dang-ky'));
+			}
+		}
+	else
+	{
+			$this->Register();
+	}
+}
+
+/* -------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------- */
+/*                               XỬ-LÝ-ĐẶT-HÀNG                               */
+public function ConfirmCheckout() {
+	$this->form_validation->set_rules('Fullname', 'Họ và tên', 'trim|required', ['required' => 'Vui lòng nhập %s của bạn']);
+	$this->form_validation->set_rules('Address','Địa chỉ', 'trim|required', ['required' => 'Vui lòng nhập %s của bạn']);
+	$this->form_validation->set_rules('Phone', 'Số điện thoại', 'trim|required', ['required' => 'Vui lòng nhập %s của bạn']);
+	$this->form_validation->set_rules('Email', 'Email', 'trim|required', ['required' => 'Vui lòng nhập %s của bạn']);
+	if ($this->form_validation->run() == true) 
+	{
+		$fullname = $this->input->post('Fullname');
+		$address = $this->input->post('Address');
+		$phone = $this->input->post('Phone');
+		$email = $this->input->post('Email'); //create a variable for the email 
+		$method = $this->input->post('hinh-thuc-thanh-toan'); //create a variable for the email 
+	
+		$data = array(
+			'fullname' => $fullname,
+			'address' => $address,
+			'phone' => $phone,
+			'email' => $email,
+			'method' => $method
+
+		);
+			$this->load->model('LoginModel'); //this is use all functions in file
+			$result = $this->LoginModel->NewShipping($data);
+			
+			//cho điều kiện if else
+			if($result)
+			{				
+				$this->session->set_flashdata('success','Đã đặt hàng thành công chúng tôi sẽ liên hệ sớm nhất');
+				redirect(base_url('/kiem-tra-thanh-toan'));
+			}else{
+				$this->session->set_flashdata('error','Xác nhận thanh toán không thành công');
+				redirect(base_url('/kiem-tra-thanh-toan'));
+			}
+	}else{
+		$this->Checkout();
+	}
+}
+
+/* -------------------------------------------------------------------------- */
 }

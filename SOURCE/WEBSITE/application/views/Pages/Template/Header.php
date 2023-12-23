@@ -24,6 +24,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="stylesheet" href="<?php echo base_url('frontend/css/owl.carousel.min.css') ?>" type="text/css">
     <link rel="stylesheet" href="<?php echo base_url('frontend/css/slicknav.min.css') ?>" type="text/css">
     <link rel="stylesheet" href="<?php echo base_url('frontend/css/style.css') ?>" type="text/css">
+<style>
+    .divider:after,
+    .divider:before {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #eee;
+    }
+    .h-custom {
+    height: calc(100% - 73px);
+    }
+    @media (max-width: 450px) {
+    .h-custom {
+    height: 100%;
+    }
+    }
+
+</style>
 </head>
 
 <body>
@@ -34,56 +52,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="loader"></div>
     </div>
 
-    <!-- Humberger Begin -->
-    <!-- <div class="humberger__menu__overlay"></div>
-    <div class="humberger__menu__wrapper">
-        <div class="humberger__menu__logo">
-            <a href="#"><img src="frontend/img/logo.png" alt=""></a>
-        </div>
-        <div class="humberger__menu__cart">
-            <ul>
-                <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
-            </ul>
-            <div class="header__cart__price">item: <span>$150.00</span></div>
-        </div>
-        <div class="humberger__menu__widget">
-
-            <div class="header__top__right__auth">
-                <a href="#"><i class="fa fa-user"></i> Login</a>
-            </div>
-        </div>
-        <nav class="humberger__menu__nav mobile-menu">
-            <ul>
-                <li class="active"><a href="./index.html">Home</a></li>
-                <li><a href="./shop-grid.html">Shop</a></li>
-                <li><a href="#">Pages</a>
-                    <ul class="header__menu__dropdown">
-                        <li><a href="./shop-details.html">Shop Details</a></li>
-                        <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                        <li><a href="./checkout.html">Check Out</a></li>
-                        <li><a href="./blog-details.html">Blog Details</a></li>
-                    </ul>
-                </li>
-                <li><a href="./blog.html">Blog</a></li>
-                <li><a href="./contact.html">Contact</a></li>
-            </ul>
-        </nav>
-        <div id="mobile-menu-wrap"></div>
-        <div class="header__top__right__social">
-            <a href="#"><i class="fa fa-facebook"></i></a>
-            <a href="#"><i class="fa fa-twitter"></i></a>
-            <a href="#"><i class="fa fa-linkedin"></i></a>
-            <a href="#"><i class="fa fa-pinterest-p"></i></a>
-        </div>
-        <div class="humberger__menu__contact">
-            <ul>
-                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-                <li>Free Shipping for all Order of $99</li>
-            </ul>
-        </div>
-    </div> -->
-    <!-- Humberger End -->
 
     <!-- Header Section Begin -->
     <header class="header">
@@ -105,10 +73,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <a href="#"><i class="fa fa-linkedin"></i></a>
                                 <a href="#"><i class="fa fa-pinterest-p"></i></a>
                             </div>
-                  
+                    
+                            <?php
+                                if($this->session->userdata('loggedInCustomer')) {
+                            ?>
                             <div class="header__top__right__auth">
-                                <a href="#"><i class="fa fa-user"></i> Login</a>
+                                <a href="<?php echo base_url('dang-xuat') ?>"><i class="fa fa-user"> <?php echo $this->session->userdata('loggedInCustomer')['fullname']  ?> </i> Đăng xuất</a>
                             </div>
+
+                            <?php
+                                }else{
+                            ?>
+
+                            <div class="header__top__right__auth">
+                                <a href="<?php echo base_url('dang-nhap') ?>"><i class="fa fa-user"></i> Đăng nhập</a>
+                            </div>
+                            <?php
+                                }
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -145,10 +127,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
+                            <?php
+                            if($this->session->userdata('loggedInCustomer')) {
+                            ?>
                             <li><a href="<?php echo base_url('kiem-tra-thanh-toan')?>"><i class="fa fa-money"> checkout</i></a></li>
+                            <?php
+                            }
+                            ?>
                             <li><a href="<?php echo base_url('gio-hang') ?>"><i class="fa fa-shopping-bag"> cart</i></a></li>
                         </ul>
-                        <div class="header__cart__price">item: <span>$150.00</span></div>
                     </div>
                 </div>
             </div>

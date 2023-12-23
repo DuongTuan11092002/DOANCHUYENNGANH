@@ -67,16 +67,28 @@
             <div class="row">
             
                 <div class="col-lg-8">
-                <form  onsubmit="return confirm('Xác nhận đặt hàng')" method="POST">
+                <form  onsubmit="return confirm('Xác nhận đặt hàng')" method="POST" action="<?php echo base_url('xac-nhan-dat-hang') ?>">
                         <div class="checkout__form">
                         <h4>Thông tin chi tiết </h4>
+                        <?php
+                            if($this->session->flashdata('success')){
+                                ?>
+                            <div class="alert alert-success"> <?php echo $this->session->flashdata('success') ?></div>
+                            <?php
+                            }elseif($this->session->flashdata('error')){
+                            ?>
+                            <div class="alert alert-danger"> <?php echo $this->session->flashdata('error') ?></div>
+                        <?php
+                            }
+                        ?>
                             <div class="row">
                                 <div class="col-lg-8 col-md-6">
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="checkout__input">
                                                 <p>Họ Tên<span>*</span></p>
-                                                <input type="text" name="Name">
+                                                <input type="text" name="Fullname">
+                                                <?php echo form_error('Fullname'); ?>
                                             </div>
                                         </div>
                                     
@@ -84,18 +96,22 @@
                                     <div class="checkout__input">
                                         <p>Địa chỉ<span>*</span></p>
                                         <input type="text" name="Address">
+                                                <?php echo form_error('Address'); ?>
+
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="checkout__input">
                                                 <p>Phone<span>*</span></p>
                                                 <input type="text" name="Phone">
+                                                <?php echo form_error('Phone'); ?>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="checkout__input">
                                                 <p>Email<span>*</span></p>
                                                 <input type="text" name="Email">
+                                                <?php echo form_error('Email'); ?>
                                             </div>
                                         </div>
                                         
@@ -104,16 +120,14 @@
             
                                                 <p>Hình thức thanh toán<span>*</span></p>
                                                 <select name="hinh-thuc-thanh-toan" id="">
-                                                    <option value="" selected>Tiền mặt</option>
-                                                    <option value="">Thẻ ngân hàng</option>
+                                                    <option value="cod" selected>Tiền mặt</option>
+                                                    <option value="vnpay">Thẻ ngân hàng</option>
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-success">Xác nhận thanh toán</button>
                                 </div>
                             </div>
-                </form>
             </div>  
                 </div>
                 <div class="col-lg-4">
@@ -124,10 +138,12 @@
                                 <?php echo number_format($subtotal) ?>   
                             </span></li>
                         </ul>
-                        <a href="<?php echo base_url('thanh-toan') ?>" class="primary-btn text-uppercase">thanh toán</a>
+                        <button type="submit" class="primary-btn text-uppercase">Xác nhận thanh toán</button>
                     </div>
                 </div>
             </div>
+            </form>
+
             <?php
                         }else{
                             echo '<span class="text text-danger">Không có sản phẩm thanh toán</span>';
