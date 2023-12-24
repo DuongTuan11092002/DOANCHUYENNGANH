@@ -13,6 +13,7 @@
               <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Tên Hãng xe</th>
+                <th scope="col">Trạng thái</th>
                 <th scope="col">Quản lý</th>
               </tr>
             </thead>
@@ -25,6 +26,15 @@
               <tr>
                 <th scope="row"><?php echo $value->autoMakerID ?></th>
                 <td><?php echo $value->autoMakerName ?></td>
+                <td>
+                  <?php 
+                    if($value->status == 1){
+                      echo "<span class='text text-primary'>Hiển thị</span>";
+                    }else{
+                      echo "<span class='text text-warning'>Không hiển thị</span>";
+                    }
+                  ?>
+                </td>
                 
                 
                 

@@ -13,6 +13,7 @@
               <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Tên danh mục</th>
+                <th scope="col">Trạng thái</th>
                 <th scope="col">Quản lý</th>
               </tr>
             </thead>
@@ -23,6 +24,16 @@
               <tr>
                 <th scope="row"><?php echo $value->categoriesID ?></th>
                 <td><?php echo $value->categoriesName ?></td>
+                <td>
+                  <?php 
+                    if($value->status == 1){
+                      echo "<span class='text text-primary'>Hiển thị</span>";
+                    }else{
+                      echo "<span class='text text-warning'>Không hiển thị</span>";
+                    }
+                  ?>
+                </td>
+
                 
                 <td>
                   <a href="<?php echo base_url('Category/edit/'.$value->categoriesID)?>" class="btn btn-warning">Sửa</a>

@@ -127,7 +127,7 @@ public function ProductCar($id)
 /* --------------------------- KIỂM-TRA-THANH-TOÁN -------------------------- */
 	public function Checkout() {
 		//kiểm tra khi customer login chưa nếu cố vào trang thanh toán(Checkout) thì đây ra trang giỏ hàng
-		if($this->session->userdata('loggedInCustomer')){ 
+		if($this->session->userdata('loggedInCustomer') && $this->cart->contents()){ 
 			$this->load->view('Pages/Template/Header', $this->data);
 			$this->load->view('Pages/Checkout');
 			$this->load->view('Pages/Template/Footer');
@@ -275,7 +275,7 @@ public function registerCustomer(){
 /* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
-/*                               XỬ-LÝ-ĐẶT-HÀNG                               */
+/*                               XỬ-LÝ-ĐẶT-HÀNG  GỬI ĐƠN                             */
 public function ConfirmCheckout() {
 	$this->form_validation->set_rules('Fullname', 'Họ và tên', 'trim|required', ['required' => 'Vui lòng nhập %s của bạn']);
 	$this->form_validation->set_rules('Address','Địa chỉ', 'trim|required', ['required' => 'Vui lòng nhập %s của bạn']);
@@ -297,14 +297,39 @@ public function ConfirmCheckout() {
 			'method' => $method
 
 		);
-			$this->load->model('LoginModel'); //this is use all functions in file
+			$this->load->model('LoginModel');
+			
 			$result = $this->LoginModel->NewShipping($data);
 			
 			//cho điều kiện if else
 			if($result)
-			{				
+			{	
+				//Phần Order			
+				// Cho ngẫu nhiên về mã đơn hàng
+				$order_code = rand(00,99999);
+				$data_order = array(
+					'order_code' => $order_code,
+					'shippingID' => $result,
+					'status' => 1
+					
+				);
+				$them_order = $this->LoginModel->them_order($data_order);
+
+				//Order Detail
+				foreach ($this->cart->contents() as $items) {
+					$data_order_detail = array(
+						'orderCode' => $order_code,
+						'productCarID' => $items['id'],
+						'quantity' => $items['qty'],
+						
+					);
+				$them_order_detail = $this->LoginModel->them_order_detail($data_order_detail);
+
+				}
 				$this->session->set_flashdata('success','Đã đặt hàng thành công chúng tôi sẽ liên hệ sớm nhất');
-				redirect(base_url('/kiem-tra-thanh-toan'));
+				$this->cart->destroy(); // sau khi thanh toán xong thì xóa sản phẩm khỏi giỏ hàng
+
+				redirect(base_url('/cam-on'));
 			}else{
 				$this->session->set_flashdata('error','Xác nhận thanh toán không thành công');
 				redirect(base_url('/kiem-tra-thanh-toan'));
@@ -315,4 +340,19 @@ public function ConfirmCheckout() {
 }
 
 /* -------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------- */
+/*                                 CẢM-ƠN-PAGE                                */
+public function Thank()
+{
+	
+			$this->load->view('Pages/Template/Header');
+			$this->load->view('Pages/Thank');
+			$this->load->view('Pages/Template/Footer');
+	
+}
+/* -------------------------------------------------------------------------- */
+
+
+
 }

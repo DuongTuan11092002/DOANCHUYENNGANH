@@ -16,7 +16,7 @@
               <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Tên sản phẩm</th>
-                <th scope="col">Mô tả</th>
+                <th scope="col" style="width:300px;">Mô tả</th>
                 <th scope="col">Giá</th>
                 <th scope="col">Ngày Tạo</th>
                 <th scope="col">Hãng</th>
@@ -44,7 +44,15 @@
                 <td>
                   <img src="<?php echo base_url('/uploads/productCar/'.$value->thumnail)?>" alt="" width="150" height="150">
                 </td>
-                <td><?php echo $value->status ?></td>
+                <td>
+                  <?php 
+                    if($value->status == 1){
+                      echo "<span class='text text-primary'>Hiển thị</span>";
+                    }else{
+                      echo "<span class='text text-warning'>Không hiển thị</span>";
+                    }
+                  ?>
+                </td>
 
                 <td>
                   <a href="<?php echo base_url('productCar/edit/'.$value->productCarID)?>" class="btn btn-warning">Sửa</a>

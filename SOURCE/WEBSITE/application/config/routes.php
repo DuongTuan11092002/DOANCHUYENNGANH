@@ -32,7 +32,8 @@ $route['kiem-tra-thanh-toan']['GET'] = 'IndexController/Checkout';
 /* ---------------------------- CONFIRM-DAT-HANG ---------------------------- */
 $route['xac-nhan-dat-hang']['POST'] = 'IndexController/ConfirmCheckout';
 /* -------------------------------------------------------------------------- */
-
+/* -------------------------- PAGE-THANK-AGTER-BUY -------------------------- */
+$route['cam-on']['GET'] = 'IndexController/Thank';
 
 
 /* -------------------------------------------------------------------------- */
@@ -201,4 +202,10 @@ $route['NewDetail/create']['GET'] = 'NewDetailController/create';
 $route['NewDetail/formCreateNewDetail']['POST'] = 'NewDetailController/formNewDetail';
 /* -------------------------------------------------------------------------- */
 
+
+/* -------------------------------------------------------------------------- */
+/*                                  ĐƠN-HÀNG                                  */
+$route['Order/list']['GET'] = 'OrderController/index';
+
+/* -------------------------------------------------------------------------- */
 
