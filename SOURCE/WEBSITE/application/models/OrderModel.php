@@ -9,6 +9,26 @@
                 ->get();
                 return $query->result();
             }
+
+        //view detail
+                public function selectOrderDetail($orderCode){
+                    $query = $this->db->select('orderdetail.quantity as qty,orderdetail.orderCode,orderdetail.productCarID, productcar.*')
+                    ->from('orderdetail')
+                    ->join('productcar', 'productcar.productCarID = orderdetail.productCarID') //khóa ngoại - khóa chính <==> khóa chính = khóa ngoại
+                    ->where('orderdetail.orderCode',$orderCode)   
+                    ->get();
+                    return $query->result();
+                }
+
+                //khi xóa đơn hàng thì chi tiết cũng cùng xóa
+                //xoá đơn hàng
+                public function DeleteOrder($order_code){
+                    return $this->db->delete('order',['order_code' => $order_code]);
+                }
+                //xóa chi tiết đơn hàng 
+                public function DeleteOrderDetail($data,$orderCode){
+                    return $this->db->update('order',$data,['order_code' => $orderCode]);
+                }
     }
 
 

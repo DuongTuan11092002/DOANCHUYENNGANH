@@ -206,6 +206,14 @@ $route['NewDetail/formCreateNewDetail']['POST'] = 'NewDetailController/formNewDe
 /* -------------------------------------------------------------------------- */
 /*                                  ĐƠN-HÀNG                                  */
 $route['Order/list']['GET'] = 'OrderController/index';
+$route['Order/view/(:any)']['GET'] = 'OrderController/View/$1';
+$route['Order/delete/(:any)']['GET'] = 'OrderController/DeleteOrder/$1';
+
+/* ---------------------- THÔNG-BÁO-TÌNH-TRẠNG-ĐƠN-HÀNG --------------------- */
+$route['Order/process']['POST'] = 'OrderController/Process';
+
+
+
 
 /* -------------------------------------------------------------------------- */
 
