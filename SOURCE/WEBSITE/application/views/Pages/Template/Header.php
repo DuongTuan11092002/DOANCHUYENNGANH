@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 ?>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Welcome to Car Shop</title>
+    <title><?= $this->config->config['page_title'] ?></title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
@@ -24,29 +24,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="stylesheet" href="<?php echo base_url('frontend/css/owl.carousel.min.css') ?>" type="text/css">
     <link rel="stylesheet" href="<?php echo base_url('frontend/css/slicknav.min.css') ?>" type="text/css">
     <link rel="stylesheet" href="<?php echo base_url('frontend/css/style.css') ?>" type="text/css">
-<style>
-    .divider:after,
-    .divider:before {
-    content: "";
-    flex: 1;
-    height: 1px;
-    background: #eee;
-    }
-    .h-custom {
-    height: calc(100% - 73px);
-    }
-    @media (max-width: 450px) {
-    .h-custom {
-    height: 100%;
-    }
-    }
+    <style>
+        .divider:after,
+        .divider:before {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #eee;
+        }
 
-</style>
+        .h-custom {
+            height: calc(100% - 73px);
+        }
+
+        @media (max-width: 450px) {
+            .h-custom {
+                height: 100%;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    
+
     <!-- Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>
@@ -73,23 +74,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <a href="#"><i class="fa fa-linkedin"></i></a>
                                 <a href="#"><i class="fa fa-pinterest-p"></i></a>
                             </div>
-                    
-                            <?php
-                                if($this->session->userdata('loggedInCustomer')) {
-                            ?>
-                            <div class="header__top__right__auth">
-                                <a href="<?php echo base_url('dang-xuat') ?>"><i class="fa fa-user"> <?php echo $this->session->userdata('loggedInCustomer')['fullname']  ?> </i> Đăng xuất</a>
-                            </div>
 
                             <?php
-                                }else{
+                            if ($this->session->userdata('loggedInCustomer')) {
+                            ?>
+                                <div class="header__top__right__auth">
+                                    <a href="<?php echo base_url('dang-xuat') ?>"><i class="fa fa-user"> <?php echo $this->session->userdata('loggedInCustomer')['fullname']  ?> </i> Đăng xuất</a>
+                                </div>
+
+                            <?php
+                            } else {
                             ?>
 
-                            <div class="header__top__right__auth">
-                                <a href="<?php echo base_url('dang-nhap') ?>"><i class="fa fa-user"></i> Đăng nhập</a>
-                            </div>
+                                <div class="header__top__right__auth">
+                                    <a href="<?php echo base_url('dang-nhap') ?>"><i class="fa fa-user"></i> Đăng nhập</a>
+                                </div>
                             <?php
-                                }
+                            }
                             ?>
                         </div>
                     </div>
@@ -108,15 +109,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <ul>
                             <li class="active"><a href="<?php base_url('/') ?>">Trang chủ</a></li>
                             <!-- <li><a href="./shop-grid.html">Shop</a></li> -->
-                            <li><a href="#">Cửa hàng</a>        
+                            <li><a href="#">Cửa hàng</a>
                                 <ul class="header__menu__dropdown">
-                                    <?php 
-                                        foreach ($Category as $key => $cate) {
+                                    <?php
+                                    foreach ($Category as $key => $cate) {
                                     ?>
-                                    <li><a href="<?php echo base_url('danh-muc/'.$cate -> categoriesID)  ?>"><?php echo $cate -> categoriesName ?></a></li>
-                                   <?php
-                                        }
-                                   ?>
+                                        <li><a href="<?php echo base_url('danh-muc/' . $cate->categoriesID)  ?>"><?php echo $cate->categoriesName ?></a></li>
+                                    <?php
+                                    }
+                                    ?>
                                 </ul>
                             </li>
                             <li><a href="./blog.html">Blog</a></li>
@@ -128,9 +129,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="header__cart">
                         <ul>
                             <?php
-                            if($this->session->userdata('loggedInCustomer')) {
+                            if ($this->session->userdata('loggedInCustomer')) {
                             ?>
-                            <li><a href="<?php echo base_url('kiem-tra-thanh-toan')?>"><i class="fa fa-money"> checkout</i></a></li>
+                                <li><a href="<?php echo base_url('kiem-tra-thanh-toan') ?>"><i class="fa fa-money"> checkout</i></a></li>
                             <?php
                             }
                             ?>

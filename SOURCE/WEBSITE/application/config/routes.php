@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 
 $route['default_controller'] = 'indexController';
@@ -11,9 +11,11 @@ $route['translate_uri_dashes'] = FALSE;
 /*                            TRẢNG-CHỦ-NGƯỜI-DÙNG                            */
 $route['trang-chu/']['GET'] = 'IndexController/index';
 
-$route['danh-muc/(:any)']['GET'] = 'IndexController/Category/$1';
-$route['thuong-hieu/(:any)']['GET'] = 'IndexController/AutoMaker/$1';
-$route['san-pham/(:any)']['GET'] = 'IndexController/ProductCar/$1';
+$route['danh-muc/(:any)/(:any)']['GET'] = 'IndexController/Category/$1/$2';
+$route['thuong-hieu/(:any)/(:any)']['GET'] = 'IndexController/AutoMaker/$1/$2';
+$route['san-pham/(:any)/(:any)']['GET'] = 'IndexController/ProductCar/$1/$2';
+$route['tim-kiem']['GET'] = 'IndexController/Search';
+
 
 
 
@@ -84,15 +86,15 @@ $route['logout']['GET'] = 'DashboardController/logout';
 /*                                 PRODUCT CAR (ADMIN)                               */
 
 $route['productCar/list']['GET'] = 'ProductController/list'; // route   
-$route['productCar/delete/(:any)']['GET'] = 'ProductController/delete/$1';   
+$route['productCar/delete/(:any)']['GET'] = 'ProductController/delete/$1';
 
-$route['productCar/edit/(:any)']['GET'] = 'ProductController/edit/$1';   
-$route['productCar/update/(:any)']['POST'] = 'ProductController/update/$1';  
+$route['productCar/edit/(:any)']['GET'] = 'ProductController/edit/$1';
+$route['productCar/update/(:any)']['POST'] = 'ProductController/update/$1';
 
 
 
 $route['productCar/includeProduct']['POST'] = 'ProductController/includeProduct';
-$route['productCar/create']['GET'] = 'ProductController/create'; 
+$route['productCar/create']['GET'] = 'ProductController/create';
 
 
 /* -------------------------------------------------------------------------- */
@@ -102,15 +104,15 @@ $route['productCar/create']['GET'] = 'ProductController/create';
 /* -------------------------------------------------------------------------- */
 /*                               PRODUCT DETAIL  (ADMIN)                             */
 
-$route['productCarDetail/list']['GET'] = 'ProductDetailController/list';   
-$route['productCarDetail/delete/(:any)']['GET'] = 'ProductDetailController/delete/$1';   
+$route['productCarDetail/list']['GET'] = 'ProductDetailController/list';
+$route['productCarDetail/delete/(:any)']['GET'] = 'ProductDetailController/delete/$1';
 
-$route['productCarDetail/edit/(:any)']['GET'] = 'ProductDetailController/edit/$1';   
-$route['productCarDetail/update/(:any)']['POST'] = 'ProductDetailController/update/$1';  
+$route['productCarDetail/edit/(:any)']['GET'] = 'ProductDetailController/edit/$1';
+$route['productCarDetail/update/(:any)']['POST'] = 'ProductDetailController/update/$1';
 
 
 $route['productCarDetail/formCreateProductDetail']['POST'] = 'ProductDetailController/formCreateProductDetail';
-$route['productCarDetail/create']['GET'] = 'ProductDetailController/create'; 
+$route['productCarDetail/create']['GET'] = 'ProductDetailController/create';
 /* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
@@ -131,11 +133,11 @@ $route['productCarDetail/create']['GET'] = 'ProductDetailController/create';
 /* -------------------------------------------------------------------------- */
 /*                                 AUTO MAKER (ADMIN)                                */
 
-$route['AutoMaker/list']['GET'] = 'AutoMakerController/list';   
-$route['AutoMaker/delete/(:any)']['GET'] = 'AutoMakerController/delete/$1';  
+$route['AutoMaker/list']['GET'] = 'AutoMakerController/list';
+$route['AutoMaker/delete/(:any)']['GET'] = 'AutoMakerController/delete/$1';
 
-$route['AutoMaker/edit/(:any)']['GET'] = 'AutoMakerController/edit/$1';  
-$route['AutoMaker/update/(:any)']['POST'] = 'AutoMakerController/update/$1';   
+$route['AutoMaker/edit/(:any)']['GET'] = 'AutoMakerController/edit/$1';
+$route['AutoMaker/update/(:any)']['POST'] = 'AutoMakerController/update/$1';
 
 $route['AutoMaker/formCreateAutoMaker']['POST'] = 'AutoMakerController/formCreateAutoMaker';
 $route['AutoMaker/create']['GET'] = 'AutoMakerController/create';
@@ -175,11 +177,11 @@ $route['Category/formCategory']['POST'] = 'CategoryController/formCategory';
 /* -------------------------------------------------------------------------- */
 /*                                    NEWS (ADMIN)                                  */
 $route['New/list']['GET'] = 'NewController/list';   //show danh sách
-$route['New/delete/(:any)']['GET'] = 'NewController/delete/$1';   
+$route['New/delete/(:any)']['GET'] = 'NewController/delete/$1';
 
 
-$route['New/edit/(:any)']['GET'] = 'NewController/edit/$1';  
-$route['New/update/(:any)']['POST'] = 'NewController/update/$1';   
+$route['New/edit/(:any)']['GET'] = 'NewController/edit/$1';
+$route['New/update/(:any)']['POST'] = 'NewController/update/$1';
 
 
 $route['New/create']['GET'] = 'NewController/create';
@@ -191,11 +193,11 @@ $route['New/formCreateNew']['POST'] = 'NewController/formNew';
 /* -------------------------------------------------------------------------- */
 /*                                 NEWS DETAIL (ADMIN)                            */
 $route['NewDetail/list']['GET'] = 'NewDetailController/list';   //show danh sách
-$route['New/delete/(:any)']['GET'] = 'NewController/delete/$1';   
+$route['New/delete/(:any)']['GET'] = 'NewController/delete/$1';
 
 
-$route['NewDetail/edit/(:any)']['GET'] = 'NewDetailController/edit/$1';  
-$route['NewDetail/update/(:any)']['POST'] = 'NewDetailController/update/$1';   
+$route['NewDetail/edit/(:any)']['GET'] = 'NewDetailController/edit/$1';
+$route['NewDetail/update/(:any)']['POST'] = 'NewDetailController/update/$1';
 
 
 $route['NewDetail/create']['GET'] = 'NewDetailController/create';
@@ -216,4 +218,3 @@ $route['Order/process']['POST'] = 'OrderController/Process';
 
 
 /* -------------------------------------------------------------------------- */
-

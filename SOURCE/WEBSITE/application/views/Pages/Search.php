@@ -43,13 +43,13 @@
               <div class="col-lg-9">
                   <div class="hero__search">
                       <div class="hero__search__form">
-                          <form action="#">
+                          <form action="<?php echo base_url('tim-kiem') ?>">
                               <div class="hero__search__categories">
                                   All Categories
                                   <span class="arrow_carrot-down"></span>
                               </div>
-                              <input type="text" placeholder="What do yo u need?">
-                              <button type="submit" class="site-btn">SEARCH</button>
+                              <input type="text" name="keyword" placeholder="Tìm kiếm sản phẩm">
+                              <button type="submit" class="site-btn">Tìm Kiếm</button>
                           </form>
                       </div>
                       <div class="hero__search__phone">
@@ -68,22 +68,22 @@
                               <div class="row">
                                   <div class="col-lg-12">
                                       <div class="section-title">
-                                          <h2>Dòng xe: <?php echo $title ?></h2>
+                                          <h2>Tìm kiếm: <?php echo $title ?></h2>
                                       </div>
 
                                   </div>
                               </div>
                               <div class="row featured__filter">
                                   <?php
-                                    foreach ($Category_Product as $key => $category_productCar) {
+                                    foreach ($Product as $key => $pro) {
                                     ?>
                                       <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
                                           <form action="<?php echo base_url('them-gio-hang') ?>" method="post">
                                               <div class="featured__item">
-                                                  <input type="hidden" value="<?php echo $category_productCar->productCarID ?>" name="product_id">
+                                                  <input type="hidden" value="<?php echo $pro->productCarID ?>" name="product_id">
                                                   <input type="hidden" value="1" name="quantity">
                                                   <div class="featured__item__pic set-bg rounded">
-                                                      <img src="<?php echo base_url('uploads/productCar/' . $category_productCar->thumnail) ?>" alt="" width="100%" height="100%">
+                                                      <img src="<?php echo base_url('uploads/productCar/' . $pro->thumnail) ?>" alt="" width="100%" height="100%">
                                                       <ul class="featured__item__pic__hover">
                                                           <li><button href="#" class="btn btn-primary"><i class="fa fa-heart"></i></button></li>
                                                           <li><button href="#" class="btn btn-success"><i class="fa fa-retweet"></i></button></li>
@@ -91,8 +91,8 @@
                                                       </ul>
                                                   </div>
                                                   <div class="featured__item__text">
-                                                      <h6><a href="<?php echo base_url('san-pham/' . $category_productCar->productCarID . '/' . $category_productCar->slug) ?>" class="text-uppercase"><?php echo $category_productCar->productCarName ?></a></h6>
-                                                      <h5>Giá: <?php echo number_format($category_productCar->price) . 'VNĐ' ?> </h5>
+                                                      <h6><a href="<?php echo base_url('san-pham/' . $pro->productCarID . '/' . $pro->slug) ?>" class="text-uppercase"><?php echo $pro->productCarName ?></a></h6>
+                                                      <h5>Giá: <?php echo number_format($pro->price) . 'VNĐ' ?> </h5>
                                                   </div>
                                               </div>
                                           </form>
