@@ -9,13 +9,60 @@ class IndexController extends CI_Controller
 		parent::__construct();
 		$this->load->model('IndexModel');
 		$this->load->library('cart');
+		$this->load->library('email');
 		$this->data['Category'] = $this->IndexModel->getCategoryHome();
 		$this->data['AutoMaker'] = $this->IndexModel->getAutoMakerHome();
+		$this->load->library('pagination');
 	}
 
 	public function index()
 	{
-		$this->data['AllProductCar'] = $this->IndexModel->getAllProducts(); //load data
+
+		/* ----------------------------- PANIGATION-PAGE ---------------------------- */
+
+		// //custom config link
+		// $config = array();
+		// $config["base_url"] = base_url() . '/phan-trang/index';
+		// $config['total_rows'] = ceil($this->IndexModel->countAllProduct()); //đếm tất cả sản phẩm //8 //hàm ceil làm tròn phân trang 
+		// $config["per_page"] = 4; //từng trang 3 sản phẩm
+		// $config["uri_segment"] = 3; //lấy số trang hiện tại
+		// $config['use_page_numbers'] = TRUE; //trang có số
+		// $config['full_tag_open'] = '<ul class="pagination">';
+		// $config['full_tag_close'] = '</ul>';
+		// $config['first_link'] = 'First';
+		// $config['first_tag_open'] = '<li>';
+		// $config['first_tag_close'] = '</li>';
+		// $config['last_link'] = 'Last';
+		// $config['last_tag_open'] = '<li>';
+		// $config['last_tag_close'] = '</li>';
+		// $config['cur_tag_open'] = '<li class="active"><a>';
+		// $config['cur_tag_close'] = '</a></li>';
+		// $config['num_tag_open'] = '<li>';
+		// $config['num_tag_close'] = '</li>';
+		// $config['next_tag_open'] = '<li>';
+		// $config['next_tag_close'] = '</li>';
+		// $config['prev_tag_open'] = '<li>';
+		// $config['prev_tag_close'] = '</li>';
+		// //end custom config link
+		// $this->pagination->initialize($config); //tự động tạo trang
+		// $this->page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 1; //Trang hiện tại đang chọn
+		// $this->data["links"] = $this->pagination->create_links(); //tự động tạo links phân trang dựa vào trang hiện tại
+		// $this->data['allproduct_pagination'] = $this->IndexModel->getIndexPagination($config["per_page"], $this->page);
+		// //pagination
+
+		/* ------------------------------- FILTER-KY-TU ------------------------------ */
+		if (isset($_GET['kytu'])) {
+			$kytu = $_GET['kytu'];
+			$this->data['AllProductCar'] = $this->IndexModel->getProductKytu($kytu);
+		} else if (isset($_GET['gia'])) {
+			$gia = $_GET['gia'];
+			$this->data['AllProductCar'] = $this->IndexModel->getProductGia($gia);
+		} else {
+			$this->data['AllProductCar'] = $this->IndexModel->getAllProducts(); //load data
+
+		}
+
+
 		$this->load->view('Pages/Template/Header', $this->data);
 		$this->load->view('Pages/Home', $this->data);
 		$this->load->view('Pages/Template/Footer');
@@ -25,7 +72,18 @@ class IndexController extends CI_Controller
 
 	public function Category($id)
 	{
-		$this->data['Category_Product'] = $this->IndexModel->getCategoryProduct($id); //load data
+
+		/* --------------------------------- FILTER --------------------------------- */
+		if (isset($_GET['kytu'])) {
+			$kytu = $_GET['kytu'];
+			$this->data['Category_Product'] = $this->IndexModel->getCategoryKytu($id, $kytu);
+		} else if (isset($_GET['gia'])) {
+			$gia = $_GET['gia'];
+			$this->data['Category_Product'] = $this->IndexModel->getCategoryGia($id, $gia);
+		} else {
+			$this->data['Category_Product'] = $this->IndexModel->getCategoryProduct($id); //load data
+
+		}
 		$this->data['title'] = $this->IndexModel->getCategoryTitle($id); //title
 		$this->load->view('Pages/Template/Header', $this->data);
 		$this->load->view('Pages/Category', $this->data);
@@ -35,7 +93,19 @@ class IndexController extends CI_Controller
 
 	public function AutoMaker($AutoMakerID)
 	{
-		$this->data['AutoMaker_Product'] = $this->IndexModel->getAutoMakerProduct($AutoMakerID); //load data
+		/* --------------------------------- FILTER --------------------------------- */
+		if (isset($_GET['kytu'])) {
+			$kytu = $_GET['kytu'];
+			$this->data['AutoMaker_Product'] = $this->IndexModel->getAutoMakerKytu($AutoMakerID, $kytu);
+		} else if (isset($_GET['gia'])) {
+			$gia = $_GET['gia'];
+			$this->data['AutoMaker_Product'] = $this->IndexModel->getAutoMakerGia($AutoMakerID, $gia);
+		} else {
+			$this->data['AutoMaker_Product'] = $this->IndexModel->getAutoMakerProduct($AutoMakerID);
+		}
+
+
+		// $this->data['AutoMaker_Product'] = $this->IndexModel->getAutoMakerProduct($AutoMakerID); //load data
 		$this->data['title'] = $this->IndexModel->getAutoMakerTitle($AutoMakerID);
 		$this->load->view('Pages/Template/Header', $this->data);
 		$this->load->view('Pages/Brand', $this->data);
@@ -352,6 +422,37 @@ class IndexController extends CI_Controller
 		$this->load->view('Pages/Template/Header', $this->data);
 		$this->load->view('Pages/Search', $this->data);
 		$this->load->view('Pages/Template/Footer');
+	}
+	/* -------------------------------------------------------------------------- */
+
+	/* -------------------------------------------------------------------------- */
+	/*                             PHÂN-TRANG-SẢN-PHẨM                            */
+
+	/* -------------------------------------------------------------------------- */
+
+
+	/* -------------------------------------------------------------------------- */
+	/*                                  GỬI-EMAIL                                 */
+	public function SendEmail()
+	{
+		$config = array();
+		$config['protocol'] = 'smtp';
+		$config['smtp_host'] = 'ssl://smtp.gmail.com';
+		$config['smtp_user'] = 'Kim884740@gmail.com';
+		$config['smtp_pass'] = 'smtp';
+		$config['smtp_port'] = 456;
+		$config['charset'] = 'utf-8';
+
+
+		$this->email->from('Kim884740@gmail.com', 'Công ty F8-Car'); // email gửi
+		$this->email->to('Kim884740@gmail.com'); // email nhận
+		// $this->email->cc('another@another-example.com');
+		// $this->email->bcc('them@their-example.com');
+
+		$this->email->subject('Email Test');
+		$this->email->message('Testing the email class.');
+
+		$this->email->send();
 	}
 	/* -------------------------------------------------------------------------- */
 }

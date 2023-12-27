@@ -32,7 +32,7 @@ class IndexModel extends CI_model
             ->from('categories')
             ->join('productcar', 'productCar.categoriesID = categories.categoriesID') //khóa ngoại - khóa chính <==> khóa chính = khóa ngoại
             ->join('autoMaker', 'autoMaker.autoMakerID = productcar.autoMakerID')
-            ->where('productcar.categoriesID=' . $id)
+            ->where('productcar.categoriesID=', $id)
             ->get();
         return $query->result();
     }
@@ -42,7 +42,7 @@ class IndexModel extends CI_model
         $this->db->select('categories.*');
         $this->db->from('categories');
         $this->db->limit(1);
-        $this->db->where('categories.categoriesID=' . $id);
+        $this->db->where('categories.categoriesID=', $id);
         $query = $this->db->get();
         $result = $query->row();
         return $title = $result->categoriesName;
@@ -54,7 +54,7 @@ class IndexModel extends CI_model
         $query = $this->db->select('productcar.price as giasanpham, productcardetail.*, productcar.description as motasanpham')
             ->from('productcar')
             ->join('productcardetail', 'productcardetail.productCarID = productcar.productCarID') //khóa ngoại - khóa chính <==> khóa chính = khóa ngoại
-            ->where('productcardetail.productCarID=' . $id)
+            ->where('productcardetail.productCarID=', $id)
             ->get();
         return $query->result();
     }
@@ -94,4 +94,94 @@ class IndexModel extends CI_model
         $query = $this->db->get('productcar');
         return $query->result();
     }
+
+
+    /* ------------------------------- PANIGATION ------------------------------- */
+    public function countAllProduct()
+    {
+        return $this->db->count_all('productcar');
+    }
+
+    public function getIndexPagination($limit, $start)
+    {
+        $this->db->limit($limit, $start);
+        $query = $this->db->get_where('productcar', ['status' => 1]);
+        return $query->result();
+    }
+
+
+    /* -------------------------------------------------------------------------- */
+    /*                               SECTION-FILTER                               */
+    //productcar
+    public function getProductKytu($kytu)
+    {
+        $query = $this->db->select('productcar.*')
+            ->from('productcar')
+            ->order_by('productcar.productCarName', $kytu)
+            ->get();
+        return $query->result();
+    }
+
+    public function getProductGia($gia)
+    {
+        $query = $this->db->select('productcar.*')
+            ->from('productcar')
+            ->order_by('productcar.price', $gia)
+            ->get();
+        return $query->result();
+    }
+
+    /* ----------------------------- FILTER-CATEGORY ---------------------------- */
+    public function getCategoryKytu($id, $kytu)
+    {
+        $query = $this->db->select('categories.categoriesName as tendanhmuc, productcar.*, autoMaker.autoMakerName as tenhang')
+            ->from('categories')
+            ->join('productcar', 'productCar.categoriesID = categories.categoriesID') //khóa ngoại - khóa chính <==> khóa chính = khóa ngoại
+            ->join('autoMaker', 'autoMaker.autoMakerID = productcar.autoMakerID')
+            ->where('productcar.categoriesID=' . $id)
+            ->order_by('productcar.productCarName', $kytu)
+
+            ->get();
+        return $query->result();
+    }
+
+    public function getCategoryGia($id, $gia)
+    {
+        $query = $this->db->select('categories.categoriesName as tendanhmuc, productcar.*, autoMaker.autoMakerName as tenhang')
+            ->from('categories')
+            ->join('productcar', 'productCar.categoriesID = categories.categoriesID') //khóa ngoại - khóa chính <==> khóa chính = khóa ngoại
+            ->join('autoMaker', 'autoMaker.autoMakerID = productcar.autoMakerID')
+            ->where('productcar.categoriesID=', $id)
+            ->order_by('productcar.price', $gia)
+
+            ->get();
+        return $query->result();
+    }
+
+    /* ----------------------------- FILTER-AUTOMAKER ---------------------------- */
+    public function getAutoMakerKytu($AutoMakerID, $kytu)
+    {
+        $query = $this->db->select('categories.categoriesName as tendanhmuc, productcar.*, autoMaker.autoMakerName as tenhang')
+            ->from('categories')
+            ->join('productcar', 'productCar.categoriesID = categories.categoriesID') //khóa ngoại - khóa chính <==> khóa chính = khóa ngoại
+            ->join('autoMaker', 'autoMaker.autoMakerID = productcar.autoMakerID')
+            ->where('productcar.autoMakerID=' . $AutoMakerID)
+            ->order_by('productcar.productCarName', $kytu)
+            ->get();
+        return $query->result();
+    }
+
+    public function getAutoMakerGia($AutoMakerID, $gia)
+    {
+        $query = $this->db->select('categories.categoriesName as tendanhmuc, productcar.*, autoMaker.autoMakerName as tenhang')
+            ->from('categories')
+            ->join('productcar', 'productCar.categoriesID = categories.categoriesID') //khóa ngoại - khóa chính <==> khóa chính = khóa ngoại
+            ->join('autoMaker', 'autoMaker.autoMakerID = productcar.autoMakerID')
+            ->where('productcar.autoMakerID=' . $AutoMakerID)
+            ->order_by('productcar.price', $gia)
+            ->get();
+        return $query->result();
+    }
+
+    /* -------------------------------------------------------------------------- */
 }
