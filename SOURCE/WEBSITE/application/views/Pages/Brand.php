@@ -21,8 +21,8 @@
                   </div>
 
                   <div class="row">
-                      <div class="col-md-3">
-                          <h4>Lộc Sản phẩm: </h4>
+                      <h4>Lọc Sản phẩm: </h4>
+                      <div class="col-md-5">
                           <div class="form-group mt-2">
                               <select class="form-control select-filter" name="" id="select-filter">
                                   <option value="0">Lọc theo</option>
@@ -32,6 +32,20 @@
                                   <option value="?gia=desc">Giá giảm dần</option>
                               </select>
                           </div>
+                      </div>
+
+                      <div class="col-md-5">
+                          <form method="get">
+                              <p>
+                                  <label for="amount">Lọc giá:</label>
+                                  <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold; width:80%;">
+                              </p>
+                              <div id="slider-range"></div>
+                              <input type="hidden" class="price_from" name="from">
+                              <input type="hidden" class="price_to" name="to">
+
+                              <input type="submit" value="Lọc giá" class="btn btn-primary filter-price mt-3">
+                          </form>
                       </div>
                   </div>
                   <div class="row featured__filter mt-4">

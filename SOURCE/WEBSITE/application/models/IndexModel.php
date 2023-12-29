@@ -158,6 +158,45 @@ class IndexModel extends CI_model
         return $query->result();
     }
 
+    /* ------------------------------- RANGE PRICE ------------------------------ */
+    public function getMinCategoryPrice($id)
+    {
+        $this->db->select('productcar.*');
+        $this->db->from('productcar');
+        $this->db->select_min('price');
+        $this->db->where('productcar.categoriesID', $id);
+        $this->db->limit(1);
+        $query = $this->db->get();
+        $result = $query->row();
+        return $price = $result->price;
+    }
+
+    public function getMaxCategoryPrice($id)
+    {
+        $this->db->select('productcar.*');
+        $this->db->from('productcar');
+        $this->db->select_max('price');
+        $this->db->where('productcar.categoriesID', $id);
+        $this->db->limit(1);
+        $query = $this->db->get();
+        $result = $query->row();
+        return $price = $result->price;
+    }
+
+    public function getCategoryPriceRange($id, $price_from, $price_to)
+    {
+        $query = $this->db->select('categories.categoriesName as tendanhmuc, productcar.*, autoMaker.autoMakerName as tenhang')
+            ->from('categories')
+            ->join('productcar', 'productCar.categoriesID = categories.categoriesID') //khóa ngoại - khóa chính <==> khóa chính = khóa ngoại
+            ->join('autoMaker', 'autoMaker.autoMakerID = productcar.autoMakerID')
+            ->where('productcar.categoriesID=', $id)
+            ->where('productcar.price >=', $price_from)
+            ->where('productcar.price <=', $price_to)
+            ->order_by('productcar.price', 'asc')
+            ->get();
+        return $query->result();
+    }
+
     /* ----------------------------- FILTER-AUTOMAKER ---------------------------- */
     public function getAutoMakerKytu($AutoMakerID, $kytu)
     {
@@ -183,5 +222,82 @@ class IndexModel extends CI_model
         return $query->result();
     }
 
+    /* ----------------------------- RANGE-AUTOMAKER ---------------------------- */
+    public function getMinAutoMakerPrice($AutoMakerID)
+    {
+        $this->db->select('productcar.*');
+        $this->db->from('productcar');
+        $this->db->select_min('price');
+        $this->db->where('productcar.autoMakerID', $AutoMakerID);
+        $this->db->limit(1);
+        $query = $this->db->get();
+        $result = $query->row();
+        return $price = $result->price;
+    }
+
+    public function getMaxAutoMakerPrice($AutoMakerID)
+    {
+        $this->db->select('productcar.*');
+        $this->db->from('productcar');
+        $this->db->select_max('price');
+        $this->db->where('productcar.autoMakerID', $AutoMakerID);
+        $this->db->limit(1);
+        $query = $this->db->get();
+        $result = $query->row();
+        return $price = $result->price;
+    }
+
+    public function getAutoMakerPriceRange($id, $price_from, $price_to)
+    {
+        $query = $this->db->select('categories.categoriesName as tendanhmuc, productcar.*, autoMaker.autoMakerName as tenhang')
+            ->from('categories')
+            ->join('productcar', 'productCar.categoriesID = categories.categoriesID') //khóa ngoại - khóa chính <==> khóa chính = khóa ngoại
+            ->join('autoMaker', 'autoMaker.autoMakerID = productcar.autoMakerID')
+            ->where('productcar.autoMakerID=', $id)
+            ->where('productcar.price >=', $price_from)
+            ->where('productcar.price <=', $price_to)
+            ->order_by('productcar.price', 'asc')
+            ->get();
+        return $query->result();
+    }
+    /* -------------------------------------------------------------------------- */
+
+    /* -------------------------------------------------------------------------- */
+    /*                               FILTER-PRODUCT                               */
+
+    public function getMinProductPrice()
+    {
+        $this->db->select('productcar.*');
+        $this->db->from('productcar');
+        $this->db->select_min('price');
+        $this->db->limit(1);
+        $query = $this->db->get();
+        $result = $query->row();
+        return $price = $result->price;
+    }
+
+    public function getMaxProductPrice()
+    {
+        $this->db->select('productcar.*');
+        $this->db->from('productcar');
+        $this->db->select_max('price');
+        $this->db->limit(1);
+        $query = $this->db->get();
+        $result = $query->row();
+        return $price = $result->price;
+    }
+
+    public function getProductPriceRange($price_from, $price_to)
+    {
+        $query = $this->db->select('categories.categoriesName as tendanhmuc, productcar.*, autoMaker.autoMakerName as tenhang')
+            ->from('categories')
+            ->join('productcar', 'productCar.categoriesID = categories.categoriesID') //khóa ngoại - khóa chính <==> khóa chính = khóa ngoại
+            ->join('autoMaker', 'autoMaker.autoMakerID = productcar.autoMakerID')
+            ->where('productcar.price >=', $price_from)
+            ->where('productcar.price <=', $price_to)
+            ->order_by('productcar.price', 'asc')
+            ->get();
+        return $query->result();
+    }
     /* -------------------------------------------------------------------------- */
 }

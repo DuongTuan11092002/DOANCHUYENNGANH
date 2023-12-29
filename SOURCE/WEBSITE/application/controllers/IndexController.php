@@ -62,6 +62,21 @@ class IndexController extends CI_Controller
 
 		}
 
+		/* ------------------------------ RANGE-PRODUCT ----------------------------- */
+		$this->data['min_price'] = $this->IndexModel->getMinProductPrice(); //set minimum price
+		$this->data['max_price'] = $this->IndexModel->getMaxProductPrice(); //set maximun price
+
+		if (isset($_GET['to']) && $_GET['from']) {
+
+			$from_price = $_GET['from'];
+			$to_price = $_GET['to'];
+
+			$this->data['AllProductCar'] = $this->IndexModel->getProductPriceRange($from_price, $to_price);
+		} else {
+			$this->data['AllProductCar'] = $this->IndexModel->getAllProducts(); //load data
+
+		}
+
 
 		$this->load->view('Pages/Template/Header', $this->data);
 		$this->load->view('Pages/Home', $this->data);
@@ -70,7 +85,7 @@ class IndexController extends CI_Controller
 	/* -------------------------------------------------------------------------- */
 	/*                                  DANH MỤC                                  */
 
-	public function Category($id)
+	public function Category($id) //finished with category
 	{
 
 		/* --------------------------------- FILTER --------------------------------- */
@@ -84,6 +99,23 @@ class IndexController extends CI_Controller
 			$this->data['Category_Product'] = $this->IndexModel->getCategoryProduct($id); //load data
 
 		}
+		/* ------------------------------ FILTER PRICE ---------------------------(finish)--- */
+		$this->data['min_price'] = $this->IndexModel->getMinCategoryPrice($id); //set minimum price
+		$this->data['max_price'] = $this->IndexModel->getMaxCategoryPrice($id); //set maximun price
+
+		if (isset($_GET['to']) && $_GET['from']) {
+
+			$from_price = $_GET['from'];
+			$to_price = $_GET['to'];
+
+			$this->data['Category_Product'] = $this->IndexModel->getCategoryPriceRange($id, $from_price, $to_price);
+		} else {
+			$this->data['Category_Product'] = $this->IndexModel->getCategoryProduct($id); //load data
+		}
+
+
+
+
 		$this->data['title'] = $this->IndexModel->getCategoryTitle($id); //title
 		$this->load->view('Pages/Template/Header', $this->data);
 		$this->load->view('Pages/Category', $this->data);
@@ -102,6 +134,20 @@ class IndexController extends CI_Controller
 			$this->data['AutoMaker_Product'] = $this->IndexModel->getAutoMakerGia($AutoMakerID, $gia);
 		} else {
 			$this->data['AutoMaker_Product'] = $this->IndexModel->getAutoMakerProduct($AutoMakerID);
+		}
+
+		/* ------------------------- RANGE-FILTER-AUTOMAKER ------------------------- */
+		$this->data['min_price'] = $this->IndexModel->getMinAutoMakerPrice($AutoMakerID); //set minimum price
+		$this->data['max_price'] = $this->IndexModel->getMaxAutoMakerPrice($AutoMakerID); //set maximun price
+		if (isset($_GET['to']) && $_GET['from']) {
+
+			$from_price = $_GET['from'];
+			$to_price = $_GET['to'];
+
+			$this->data['AutoMaker_Product'] = $this->IndexModel->getAutoMakerPriceRange($AutoMakerID, $from_price, $to_price);
+		} else {
+			$this->data['AutoMaker_Product'] = $this->IndexModel->getAutoMakerProduct($AutoMakerID);
+			//load data
 		}
 
 
