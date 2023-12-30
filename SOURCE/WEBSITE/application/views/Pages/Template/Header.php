@@ -122,7 +122,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 </ul>
                             </li>
                             <li><a href="./blog.html">Blog</a></li>
-                            <li><a href="./contact.html">Contact</a></li>
+                            <li><a href="<?php echo base_url('lien-he') ?>">Liên hệ</a></li>
                         </ul>
                     </nav>
                 </div>

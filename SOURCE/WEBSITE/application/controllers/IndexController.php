@@ -15,6 +15,21 @@ class IndexController extends CI_Controller
 		$this->load->library('pagination');
 	}
 
+	public function Error404()
+	{
+		$this->load->view('Pages/Template/Header');
+		$this->load->view('404/index');
+		$this->load->view('Pages/Template/Footer');
+	}
+
+	public function Contact()
+	{
+		$this->load->view('Pages/Template/Header');
+		$this->load->view('Pages/Contact');
+		$this->load->view('Pages/Template/Footer');
+	}
+
+
 	public function index()
 	{
 
@@ -50,23 +65,17 @@ class IndexController extends CI_Controller
 		// $this->data['allproduct_pagination'] = $this->IndexModel->getIndexPagination($config["per_page"], $this->page);
 		// //pagination
 
-		/* ------------------------------- FILTER-KY-TU ------------------------------ */
+		/* ------------------------------- FILTER ------------------------------ */
+
+		$this->data['min_price'] = $this->IndexModel->getMinProductPrice(); //set minimum price
+		$this->data['max_price'] = $this->IndexModel->getMaxProductPrice(); //set maximun price
 		if (isset($_GET['kytu'])) {
 			$kytu = $_GET['kytu'];
 			$this->data['AllProductCar'] = $this->IndexModel->getProductKytu($kytu);
 		} else if (isset($_GET['gia'])) {
 			$gia = $_GET['gia'];
 			$this->data['AllProductCar'] = $this->IndexModel->getProductGia($gia);
-		} else {
-			$this->data['AllProductCar'] = $this->IndexModel->getAllProducts(); //load data
-
-		}
-
-		/* ------------------------------ RANGE-PRODUCT ----------------------------- */
-		$this->data['min_price'] = $this->IndexModel->getMinProductPrice(); //set minimum price
-		$this->data['max_price'] = $this->IndexModel->getMaxProductPrice(); //set maximun price
-
-		if (isset($_GET['to']) && $_GET['from']) {
+		} else if (isset($_GET['to']) && $_GET['from']) {
 
 			$from_price = $_GET['from'];
 			$to_price = $_GET['to'];
@@ -76,6 +85,7 @@ class IndexController extends CI_Controller
 			$this->data['AllProductCar'] = $this->IndexModel->getAllProducts(); //load data
 
 		}
+
 
 
 		$this->load->view('Pages/Template/Header', $this->data);
@@ -88,6 +98,9 @@ class IndexController extends CI_Controller
 	public function Category($id) //finished with category
 	{
 
+		$this->data['min_price'] = $this->IndexModel->getMinCategoryPrice($id); //set minimum price
+		$this->data['max_price'] = $this->IndexModel->getMaxCategoryPrice($id); //set maximun price
+
 		/* --------------------------------- FILTER --------------------------------- */
 		if (isset($_GET['kytu'])) {
 			$kytu = $_GET['kytu'];
@@ -95,22 +108,14 @@ class IndexController extends CI_Controller
 		} else if (isset($_GET['gia'])) {
 			$gia = $_GET['gia'];
 			$this->data['Category_Product'] = $this->IndexModel->getCategoryGia($id, $gia);
-		} else {
-			$this->data['Category_Product'] = $this->IndexModel->getCategoryProduct($id); //load data
-
-		}
-		/* ------------------------------ FILTER PRICE ---------------------------(finish)--- */
-		$this->data['min_price'] = $this->IndexModel->getMinCategoryPrice($id); //set minimum price
-		$this->data['max_price'] = $this->IndexModel->getMaxCategoryPrice($id); //set maximun price
-
-		if (isset($_GET['to']) && $_GET['from']) {
-
+		} else if (isset($_GET['to']) && $_GET['from']) {
 			$from_price = $_GET['from'];
 			$to_price = $_GET['to'];
 
 			$this->data['Category_Product'] = $this->IndexModel->getCategoryPriceRange($id, $from_price, $to_price);
 		} else {
 			$this->data['Category_Product'] = $this->IndexModel->getCategoryProduct($id); //load data
+
 		}
 
 
@@ -126,20 +131,17 @@ class IndexController extends CI_Controller
 	public function AutoMaker($AutoMakerID)
 	{
 		/* --------------------------------- FILTER --------------------------------- */
+
+		$this->data['min_price'] = $this->IndexModel->getMinAutoMakerPrice($AutoMakerID); //set minimum price
+		$this->data['max_price'] = $this->IndexModel->getMaxAutoMakerPrice($AutoMakerID); //set maximun price
+
 		if (isset($_GET['kytu'])) {
 			$kytu = $_GET['kytu'];
 			$this->data['AutoMaker_Product'] = $this->IndexModel->getAutoMakerKytu($AutoMakerID, $kytu);
 		} else if (isset($_GET['gia'])) {
 			$gia = $_GET['gia'];
 			$this->data['AutoMaker_Product'] = $this->IndexModel->getAutoMakerGia($AutoMakerID, $gia);
-		} else {
-			$this->data['AutoMaker_Product'] = $this->IndexModel->getAutoMakerProduct($AutoMakerID);
-		}
-
-		/* ------------------------- RANGE-FILTER-AUTOMAKER ------------------------- */
-		$this->data['min_price'] = $this->IndexModel->getMinAutoMakerPrice($AutoMakerID); //set minimum price
-		$this->data['max_price'] = $this->IndexModel->getMaxAutoMakerPrice($AutoMakerID); //set maximun price
-		if (isset($_GET['to']) && $_GET['from']) {
+		} else if (isset($_GET['to']) && $_GET['from']) {
 
 			$from_price = $_GET['from'];
 			$to_price = $_GET['to'];
@@ -147,8 +149,9 @@ class IndexController extends CI_Controller
 			$this->data['AutoMaker_Product'] = $this->IndexModel->getAutoMakerPriceRange($AutoMakerID, $from_price, $to_price);
 		} else {
 			$this->data['AutoMaker_Product'] = $this->IndexModel->getAutoMakerProduct($AutoMakerID);
-			//load data
 		}
+
+
 
 
 		// $this->data['AutoMaker_Product'] = $this->IndexModel->getAutoMakerProduct($AutoMakerID); //load data
@@ -192,6 +195,8 @@ class IndexController extends CI_Controller
 		$this->data['Product_Detail'] = $this->IndexModel->getProductDetail($product_id); //load data
 		//DAT-HANG có thư viện có sẵn của CodeIgniter
 		foreach ($this->data['Product_Detail'] as $key => $value) {
+			//thêm câu lệnh kiểm tra số lượng đặt
+
 			$cart = array(
 				'id'      => $value->productCarID,
 				'qty'     => $quantity,
@@ -391,7 +396,7 @@ class IndexController extends CI_Controller
 			$fullname = $this->input->post('Fullname');
 			$address = $this->input->post('Address');
 			$phone = $this->input->post('Phone');
-			$email = $this->input->post('Email'); //create a variable for the email 
+			$email = $this->input->post('Email'); //email
 			$method = $this->input->post('hinh-thuc-thanh-toan'); //create a variable for the email 
 
 			$data = array(
@@ -431,7 +436,14 @@ class IndexController extends CI_Controller
 				}
 				$this->session->set_flashdata('success', 'Đã đặt hàng thành công chúng tôi sẽ liên hệ sớm nhất');
 				$this->cart->destroy(); // sau khi thanh toán xong thì xóa sản phẩm khỏi giỏ hàng
+				//Gửi email sau khi khách hàng xác nhận mua hàng
 
+				// set email
+				$to_email = $email;
+				$title = "Đặt hàng thành công tại F8-Car cho bạn";
+				$message = "Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất";
+				//send email
+				$this->sendEmail($to_email, $title, $message);
 				redirect(base_url('/cam-on'));
 			} else {
 				$this->session->set_flashdata('error', 'Xác nhận thanh toán không thành công');
@@ -479,26 +491,54 @@ class IndexController extends CI_Controller
 
 	/* -------------------------------------------------------------------------- */
 	/*                                  GỬI-EMAIL                                 */
-	public function SendEmail()
+	public function SendEmail($to_email, $title, $message)
 	{
 		$config = array();
 		$config['protocol'] = 'smtp';
 		$config['smtp_host'] = 'ssl://smtp.gmail.com';
 		$config['smtp_user'] = 'Kim884740@gmail.com';
-		$config['smtp_pass'] = 'smtp';
-		$config['smtp_port'] = 456;
+		$config['smtp_pass'] = 'eqfvwielrqtyecnh'; // mật khẩu ứng dụng
+		$config['smtp_port'] = 465;
 		$config['charset'] = 'utf-8';
-
-
+		$this->email->initialize($config);
+		$this->email->set_newline("\r\n");
+		//config
 		$this->email->from('Kim884740@gmail.com', 'Công ty F8-Car'); // email gửi
-		$this->email->to('Kim884740@gmail.com'); // email nhận
+		$this->email->to($to_email); // email nhận
 		// $this->email->cc('another@another-example.com');
 		// $this->email->bcc('them@their-example.com');
 
-		$this->email->subject('Email Test');
-		$this->email->message('Testing the email class.');
+		$this->email->subject($title);
+		$this->email->message($message);
 
 		$this->email->send();
+	}
+	/* -------------------------------------------------------------------------- */
+
+	/* -------------------------------------------------------------------------- */
+	/*                                   CONTACT                                  */
+
+
+	public function SendContact()
+	{
+		$data = array(
+			'fullname' => $this->input->post('fullname'),
+			'email' => $this->input->post('email'),
+			'phone' => $this->input->post('phone'),
+			'address' => $this->input->post('address'),
+			'subject' => $this->input->post('subject'),
+			'message' => $this->input->post('message'),
+		);
+		$result = $this->IndexModel->insertContact($data);
+		if ($result) {
+			$to_email =  $this->input->post('email');
+			$title =  "Thông tin lên hệ khách hàng" . $this->input->post('fullname') . "Tiêu đề" .  $this->input->post('subject');
+			$message = "Thông tin ghi chú của khách hàng" . $this->input->post('message');
+			$this->SendEmail($to_email, $title, $message);
+		}
+		$this->session->set_flashdata('success', 'Gửi  thành công , chúng tôi sẽ liên hệ sớm nhất');
+		//nhảy trang khi đăng nhập thành công
+		redirect(base_url('/lien-he'));
 	}
 	/* -------------------------------------------------------------------------- */
 }

@@ -3,7 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 
 $route['default_controller'] = 'indexController';
-$route['404_override'] = '';
+$route['404_override'] = 'indexController/Error404';
 $route['translate_uri_dashes'] = FALSE;
 
 
@@ -15,6 +15,10 @@ $route['danh-muc/(:any)/(:any)']['GET'] = 'IndexController/Category/$1/$2';
 $route['thuong-hieu/(:any)/(:any)']['GET'] = 'IndexController/AutoMaker/$1/$2';
 $route['san-pham/(:any)/(:any)']['GET'] = 'IndexController/ProductCar/$1/$2';
 $route['tim-kiem']['GET'] = 'IndexController/Search';
+$route['lien-he']['GET'] = 'IndexController/Contact';
+$route['gui-lien-he']['POST'] = 'IndexController/SendContact';
+
+
 
 
 /* -------------------------------------------------------------------------- */
@@ -26,7 +30,7 @@ $route['tim-kiem']['GET'] = 'IndexController/Search';
 
 /* -------------------------------------------------------------------------- */
 /*                                 SEND-EMAIL                                 */
-// $route['test-email'] = 'IndexController/SendEmail';
+$route['test-email'] = 'IndexController/SendEmail';
 
 
 /* -------------------------------------------------------------------------- */
@@ -79,6 +83,10 @@ $route['dang-ky-customer']['POST'] = 'IndexController/RegisterCustomer';
 
 $route['login']['GET'] = 'LoginController/index'; //route này khi đăng nhập mở login 
 $route['login-admin']['POST'] = 'LoginController/login'; //  route này khi nhẫn login vào trang login-ADMIN
+$route['register_admin']['GET'] = 'LoginController/Register'; //route này khi đăng nhập mở login 
+$route['registerInsert']['POST'] = 'LoginController/RegisterInsert'; //  route này khi nhẫn login vào trang login-ADMIN
+
+
 
 /* -------------------------------------------------------------------------- */
 

@@ -58,7 +58,7 @@
             </div>
         </div>
     </div>
-    <div class="hero__item set-bg" data-setbg="frontend/img/hero/banner.jpg">
+    <div class="hero__item set-bg" data-setbg="<?php echo base_url('frontend/img/banner/banner.jpg') ?>">
         <div class="hero__text">
             <span>Xe Hay</span>
             <h2>Xe hơi<br />100% Mới</h2>
