@@ -41,4 +41,19 @@ class OrderModel extends CI_model
     {
         return $this->db->update('order', $data, ['order_code' => $order_code]);
     }
+
+
+    //in đơn hàng
+
+    public function printOrderDetail($orderCode)
+    {
+        $query = $this->db->select('order.order_code,order.status as tinhtrang,orderdetail.quantity as qty,orderdetail.orderCode,orderdetail.productCarID, productcar.*')
+            ->from('orderdetail')
+            ->join('productcar', 'productcar.productCarID = orderdetail.productCarID') //khóa ngoại - khóa chính <==> khóa chính = khóa ngoại
+            ->join('order', 'order.order_code = orderdetail.orderCode') //khóa ngoại - khóa chính <==> khóa chính = khóa ngoại
+
+            ->where('orderdetail.orderCode', $orderCode)
+            ->get();
+        return $query->result();
+    }
 }

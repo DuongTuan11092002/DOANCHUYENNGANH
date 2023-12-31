@@ -17,11 +17,8 @@
           <div class="row">
               <div class="col-lg-12">
                   <div class="section-title">
-                      <h2>SẢN PHẨM XE HƠI</h2>
+                      <h2>SẢN PHẨM XE HƠI MỚI NHẤT</h2>
                   </div>
-
-
-
               </div>
           </div>
 
@@ -85,7 +82,25 @@
                     // echo $links;
                     ?> -->
           </div>
+
+
+          <!-- <div class="row">
+              <div class="col-lg-12">
+                  <div class="section-title from-blog__title">
+                      <h2>Danh mục</h2>
+                  </div>
+                  <?php
+                    //  foreach ($items_category as $key => $cateitem) {
+                    ?>
+                  <?php
+                    //   }
+                    ?>
+              </div>
+
+          </div> -->
       </div>
+
+
   </section>
   <!-- Featured Section End -->
 

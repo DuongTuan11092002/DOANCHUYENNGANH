@@ -1,20 +1,28 @@
+/<!--
+ *  phần dùng gửi email là dùng email thật mới gửi đc phần liên hệ
+ *  dùng form để insert vào csdl chứa thông tin
+ *  
+ -->
+
+
+
 <!-- Contact 5 - Bootstrap Brain Component -->
 <section class="py-3 py-md-5 py-xl-8">
-
+    <?php
+    if ($this->session->flashdata('success')) {
+    ?>
+        <div class="alert alert-success"> <?php echo $this->session->flashdata('success') ?></div>
+    <?php
+    } elseif ($this->session->flashdata('error')) {
+    ?>
+        <div class="alert alert-danger"> <?php echo $this->session->flashdata('error') ?></div>
+    <?php
+    }
+    ?>
 
     <div class="container">
         <div class="row gy-4 gy-md-5 gy-lg-0 align-items-md-center">
-            <?php
-            if ($this->session->flashdata('success')) {
-            ?>
-                <div class="alert alert-success"> <?php echo $this->session->flashdata('success') ?></div>
-            <?php
-            } elseif ($this->session->flashdata('error')) {
-            ?>
-                <div class="alert alert-danger"> <?php echo $this->session->flashdata('error') ?></div>
-            <?php
-            }
-            ?>
+
             <div class="col-12 col-lg-6">
                 <div class="border overflow-hidden">
 

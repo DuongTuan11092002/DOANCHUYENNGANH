@@ -22,12 +22,6 @@ class IndexController extends CI_Controller
 		$this->load->view('Pages/Template/Footer');
 	}
 
-	public function Contact()
-	{
-		$this->load->view('Pages/Template/Header');
-		$this->load->view('Pages/Contact');
-		$this->load->view('Pages/Template/Footer');
-	}
 
 
 	public function index()
@@ -86,7 +80,8 @@ class IndexController extends CI_Controller
 
 		}
 
-
+		// category items
+		// $data['items_category'] = $this->IndexModel->getCategoryItems();
 
 		$this->load->view('Pages/Template/Header', $this->data);
 		$this->load->view('Pages/Home', $this->data);
@@ -517,6 +512,12 @@ class IndexController extends CI_Controller
 
 	/* -------------------------------------------------------------------------- */
 	/*                                   CONTACT                                  */
+	public function Contact()
+	{
+		$this->load->view('Pages/Template/Header');
+		$this->load->view('Pages/Contact');
+		$this->load->view('Pages/Template/Footer');
+	}
 
 
 	public function SendContact()
@@ -532,7 +533,7 @@ class IndexController extends CI_Controller
 		$result = $this->IndexModel->insertContact($data);
 		if ($result) {
 			$to_email =  $this->input->post('email');
-			$title =  "Thông tin lên hệ khách hàng" . $this->input->post('fullname') . "Tiêu đề" .  $this->input->post('subject');
+			$title =   "Tiêu đề khách hàng cần liên hệ:" .  $this->input->post('subject');
 			$message = "Thông tin ghi chú của khách hàng" . $this->input->post('message');
 			$this->SendEmail($to_email, $title, $message);
 		}

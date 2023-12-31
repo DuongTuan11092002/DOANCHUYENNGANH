@@ -24,6 +24,30 @@ class IndexModel extends CI_model
         $query = $this->db->get_where('productCar', ['status' => 1]);
         return $query->result();
     }
+
+    /* -------------------------------------------------------------------------- */
+    /*                         Danh-mục-theo-từng-sản-phẩm                        */
+    // public function getCategoryItems()
+    // {
+    //     $query = $this->db->select('categories.categoriesName as titlecate, productcar.*,categories.categoriesID')
+    //         ->from('categories')
+    //         ->join('productcar', 'productCar.categoriesID = categories.categoriesID') //khóa ngoại - khóa chính <==> khóa chính = khóa ngoại
+    //         ->get();
+    //     $result = $query->result_array();
+    //     // echo "<pre>";
+    //     // print_r($result);
+    //     //tạo mảng 
+    //     $newArray = array();
+    //     foreach ($result as $key => $value) {
+    //         $newArray[$value['titlecate']][] = $value;
+    //     }
+
+    //     return $newArray;
+    // }
+
+    /* -------------------------------------------------------------------------- */
+
+
     /* -------------------------------- category -------------------------------- */
     public function getCategoryProduct($id)
     {
@@ -303,9 +327,22 @@ class IndexModel extends CI_model
 
     /* -------------------------------------------------------------------------- */
     /*                                   CONTACT                                  */
+    public function ContactList()
+    {
+        $query = $this->db->get_where('contact', ['status' => 1]);
+        return $query->result();
+    }
+
     public function insertContact($data)
     {
-        return $this->db->insert('contact', $data);
+        return $this->db->insert('contact', 'desc', $data);
+    }
+
+    // delete
+    public function delete($contactID)
+    {
+
+        return $this->db->delete('contact', ['contactID' => $contactID]);
     }
     /* -------------------------------------------------------------------------- */
 }

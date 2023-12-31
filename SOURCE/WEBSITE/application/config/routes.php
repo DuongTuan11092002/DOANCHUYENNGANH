@@ -97,6 +97,7 @@ $route['registerInsert']['POST'] = 'LoginController/RegisterInsert'; //  route n
 
 $route['dashboard']['GET'] = 'DashboardController/index'; //  route này khi nhẫn login vào trang login-user
 $route['logout']['GET'] = 'DashboardController/logout';
+$route['dashboard/delete/(:any)']['GET'] = 'DashboardController/delete/$1';
 
 /* -------------------------------------------------------------------------- */
 
@@ -234,7 +235,8 @@ $route['Order/delete/(:any)']['GET'] = 'OrderController/DeleteOrder/$1';
 /* ---------------------- THÔNG-BÁO-TÌNH-TRẠNG-ĐƠN-HÀNG --------------------- */
 $route['Order/process']['POST'] = 'OrderController/Process';
 
-
+/* ------------------------------- IN-ĐƠN-HÀNG ------------------------------ */
+$route['Order/print-order/(:any)']['GET'] = 'OrderController/PrintOrder/$1';
 
 
 /* -------------------------------------------------------------------------- */
