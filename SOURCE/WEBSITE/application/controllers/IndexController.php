@@ -11,14 +11,17 @@ class IndexController extends CI_Controller
 		$this->load->library('cart');
 		$this->load->library('email');
 		$this->data['Category'] = $this->IndexModel->getCategoryHome();
+		$this->data['Category_blog'] = $this->IndexModel->getCategoryBlogHome();
 		$this->data['AutoMaker'] = $this->IndexModel->getAutoMakerHome();
+		$this->data['post_list'] = $this->IndexModel->getPost(); //load blog
+
 		$this->load->library('pagination');
 	}
 
 	public function Error404()
 	{
-		$this->load->view('Pages/Template/Header');
-		$this->load->view('404/index');
+		$this->load->view('Pages/Template/Header', $this->data);
+		$this->load->view('404/index', $this->data);
 		$this->load->view('Pages/Template/Footer');
 	}
 
@@ -161,8 +164,11 @@ class IndexController extends CI_Controller
 
 	public function ProductCar($id)
 	{
-		$this->data['Product_Detail'] = $this->IndexModel->getProductDetail($id); //load data
-		$this->data['AllProductCar'] = $this->IndexModel->getAllProducts(); //load data
+		$this->data['Product_Detail'] = $this->IndexModel->getProductDetail($id); //load data 
+		// những sản phẩm khác cùng một danh mục
+		$this->data['Product_related'] = $this->IndexModel->getProductRelated($id); //load dữ liệu về sản phẩm khác trong cùng một danh mục
+		//khi nhấn vào xem chi tiết của một sản phẩm thì trang đó có những sản phẩm khác
+
 
 		$this->load->view('Pages/Template/Header', $this->data);
 		$this->load->view('Pages/Product_detail', $this->data);
@@ -514,8 +520,8 @@ class IndexController extends CI_Controller
 	/*                                   CONTACT                                  */
 	public function Contact()
 	{
-		$this->load->view('Pages/Template/Header');
-		$this->load->view('Pages/Contact');
+		$this->load->view('Pages/Template/Header', $this->data);
+		$this->load->view('Pages/Contact', $this->data);
 		$this->load->view('Pages/Template/Footer');
 	}
 
@@ -542,4 +548,26 @@ class IndexController extends CI_Controller
 		redirect(base_url('/lien-he'));
 	}
 	/* -------------------------------------------------------------------------- */
+	public function CategoryBlog($id)
+	{
+
+		$this->data['Slug'] = $this->IndexModel->getCategorySlugBlog($id); //load title slug
+		$this->data['Category_blog_with_id'] = $this->IndexModel->getCategoryBlogByID($id); //load blog
+
+		$this->data['title'] = $this->IndexModel->getCategoryBlogTitle($id); //title
+		$this->load->view('Pages/Template/Header', $this->data);
+		$this->load->view('Pages/Category_Blog', $this->data);
+		$this->load->view('Pages/Template/Footer');
+	}
+
+	public function Blog($id)
+	{
+
+		$this->data['Slug'] = $this->IndexModel->getCategorySlugBlog($id); //load title slug
+		$this->data['post_list'] = $this->IndexModel->getPost(); //load blog
+
+		$this->load->view('Pages/Template/Header', $this->data);
+		$this->load->view('Pages/Blog', $this->data);
+		$this->load->view('Pages/Template/Footer');
+	}
 }

@@ -26,6 +26,54 @@ class IndexModel extends CI_model
     }
 
     /* -------------------------------------------------------------------------- */
+    /*                                    BLOG                                    */
+    public function getCategoryBlogHome()
+    {
+        $query = $this->db->get_where('category_blog', ['status' => 1]);
+        return $query->result();
+    }
+
+    public function getCategoryBlogTitle($id)
+    {
+        $this->db->select('category_blog.*');
+        $this->db->from('category_blog');
+        $this->db->limit(1);
+        $this->db->where('category_blog.id=', $id);
+        $query = $this->db->get();
+        $result = $query->row();
+        return $title = $result->title;
+    }
+
+    public function getCategorySlugBlog($id)
+    {
+        $this->db->select('category_blog.*');
+        $this->db->from('category_blog');
+        $this->db->limit(1);
+        $this->db->where('category_blog.id=', $id);
+        $query = $this->db->get();
+        $result = $query->row();
+    }
+
+
+    public function getCategoryBlogByID($id)
+    {
+
+        $query = $this->db->select('category_blog.title as tendanhmuc, post.*')
+            ->from('category_blog')
+            ->join('post', 'category_blog.id = post.category_id_blog') //khóa ngoại - khóa chính <==> khóa chính = khóa ngoại
+            ->where('post.category_id_blog=', $id)
+            ->get();
+        return $query->result();
+    }
+
+    public function getPost()
+    {
+        $query = $this->db->get_where('post', ['status' => 1]);
+        return $query->result();
+    }
+    /* -------------------------------------------------------------------------- */
+
+    /* -------------------------------------------------------------------------- */
     /*                         Danh-mục-theo-từng-sản-phẩm                        */
     // public function getCategoryItems()
     // {
@@ -79,6 +127,18 @@ class IndexModel extends CI_model
             ->from('productcar')
             ->join('productcardetail', 'productcardetail.productCarID = productcar.productCarID') //khóa ngoại - khóa chính <==> khóa chính = khóa ngoại
             ->where('productcardetail.productCarID=', $id)
+            ->get();
+        return $query->result();
+    }
+
+    /* ------------------------- Sản-phẩm-cùng-danh-mục ------------------------- */
+    public function getProductRelated($id)
+    {
+        $query = $this->db->select('categories.categoriesName as tendanhmuc, productcar.*, automaker.autoMakerName as tenhang')
+            ->from('categories')
+            ->join('productcar', 'productcar.categoriesID = categories.categoriesID ')
+            ->join('automaker', 'automaker.automakerID = productcar.autoMakerID')
+            ->where_not_in('productcar.productCarID', $id) //trừ ra sản phẩm hiện tại 
             ->get();
         return $query->result();
     }

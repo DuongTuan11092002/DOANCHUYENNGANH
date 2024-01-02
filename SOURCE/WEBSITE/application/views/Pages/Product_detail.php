@@ -100,10 +100,10 @@
           </div>
           <div class="row">
               <?php
-                foreach ($AllProductCar as $key => $product) {
+                foreach ($Product_related as $key => $product) {
                 ?>
                   <div class="col-lg-3 col-md-4 col-sm-6">
-                      <div class="product__item">
+                      <div class="product__item <?php echo $key == 0 ? 'active' : '' ?>">
                           <div class="product__item__pic set-bg" data-setbg="<?php echo base_url('uploads/productCar/' . $product->thumnail) ?>">
                               <ul class="product__item__pic__hover">
                                   <li><a href="#"><i class="fa fa-heart"></i></a></li>

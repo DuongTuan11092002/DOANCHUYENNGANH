@@ -12,6 +12,9 @@ $route['translate_uri_dashes'] = FALSE;
 $route['trang-chu/']['GET'] = 'IndexController/index';
 
 $route['danh-muc/(:any)/(:any)']['GET'] = 'IndexController/Category/$1/$2';
+$route['danh-muc-tin/(:any)/(:any)']['GET'] = 'IndexController/CategoryBlog/$1/$2';
+$route['bai-viet/(:any)/(:any)']['GET'] = 'IndexController/Blog/$1/$2';
+
 $route['thuong-hieu/(:any)/(:any)']['GET'] = 'IndexController/AutoMaker/$1/$2';
 $route['san-pham/(:any)/(:any)']['GET'] = 'IndexController/ProductCar/$1/$2';
 $route['tim-kiem']['GET'] = 'IndexController/Search';
@@ -236,7 +239,33 @@ $route['Order/delete/(:any)']['GET'] = 'OrderController/DeleteOrder/$1';
 $route['Order/process']['POST'] = 'OrderController/Process';
 
 /* ------------------------------- IN-ĐƠN-HÀNG ------------------------------ */
-$route['Order/print-order/(:any)']['GET'] = 'OrderController/PrintOrder/$1';
+// $route['Order/print-order/(:any)']['GET'] = 'OrderController/PrintOrder/$1';
 
+
+/* -------------------------------------------------------------------------- */
+
+
+/* -------------------------------------------------------------------------- */
+/*                              DANH-MỤC-TIN-TỨC                              */
+$route['Blog/list']['GET'] = 'BlogController/list';
+$route['Blog/delete/(:any)']['GET'] = 'BlogController/delete/$1';
+
+$route['Blog/edit/(:any)']['GET'] = 'BlogController/edit/$1';
+$route['Blog/update/(:any)']['POST'] = 'BlogController/update/$1';
+
+$route['Blog/formCreateBlog']['POST'] = 'BlogController/formCreateBlog';
+$route['Blog/create']['GET'] = 'BlogController/create';
+/* -------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------- */
+/*                                  BÀI VIẾT                                  */
+$route['Post/list']['GET'] = 'PostController/list';
+$route['Post/delete/(:any)']['GET'] = 'PostController/delete/$1';
+
+$route['Post/edit/(:any)']['GET'] = 'PostController/edit/$1';
+$route['Post/update/(:any)']['POST'] = 'PostController/update/$1';
+
+$route['Post/formCreatePost']['POST'] = 'PostController/formCreatePost';
+$route['Post/create']['GET'] = 'PostController/create';
 
 /* -------------------------------------------------------------------------- */

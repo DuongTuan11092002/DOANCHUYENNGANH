@@ -185,7 +185,7 @@ class ProductController extends CI_Controller
 			$this->session->set_flashdata('success', 'sửa thành công');
 			redirect(base_url('productCar/list'));
 		} else {
-			$this->edit();
+			$this->edit($productCarID);
 		}
 	}
 

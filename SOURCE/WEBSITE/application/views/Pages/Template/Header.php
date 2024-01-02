@@ -50,10 +50,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 
     <!-- Page Preloder -->
-    <div id="preloder">
+    <!-- <div id="preloder">
         <div class="loader"></div>
-    </div>
-
+    </div> -->
 
     <!-- Header Section Begin -->
     <header class="header">
@@ -110,7 +109,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <ul>
                             <li class="active"><a href="<?php base_url('/') ?>">Trang chủ</a></li>
                             <!-- <li><a href="./shop-grid.html">Shop</a></li> -->
-                            <li><a href="#">Cửa hàng</a>
+                            <li><a href="#">Dòng xe</a>
                                 <ul class="header__menu__dropdown">
                                     <?php
                                     foreach ($Category as $key => $cate) {
@@ -121,7 +120,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                     ?>
                                 </ul>
                             </li>
-                            <li><a href="./blog.html">Blog</a></li>
+                            <li><a href="#">Tin tức</a>
+                                <ul class="header__menu__dropdown">
+                                    <?php
+                                    foreach ($Category_blog as $key => $cate_blog) {
+                                    ?>
+                                        <li><a href="<?php echo base_url('danh-muc-tin/' . $cate_blog->id . '/' . $cate_blog->slug) ?>"><?php echo $cate_blog->title ?></a></li>
+                                    <?php
+                                    }
+                                    ?>
+                                </ul>
+                            </li>
                             <li><a href="<?php echo base_url('lien-he') ?>">Liên hệ</a></li>
                         </ul>
                     </nav>

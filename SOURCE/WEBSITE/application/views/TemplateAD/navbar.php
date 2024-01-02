@@ -6,12 +6,12 @@
 
   <div class="collapse navbar-collapse " id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      
-    
+
+
       <!-- sản phẩm xe hơi -->
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle text-uppercase" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Quản lý sản phẩm
+          Quản lý sản phẩm
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="<?php echo base_url('productCar/create') ?>">Thêm sản phẩm xe hơi</a>
@@ -21,24 +21,24 @@
 
         </div>
       </li>
-      
+
       <!-- sản phẩm phụ tùng -->
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle text-uppercase" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Quản lý hãng
+          Quản lý hãng
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="<?php echo base_url('AutoMaker/create') ?>">Thêm các hãng xe</a>
           <a class="dropdown-item" href="<?php echo base_url('AutoMaker/list') ?>">Danh sách Hãng xe</a>
-         
+
 
         </div>
       </li>
-      
+
 
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle text-uppercase" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Quản lý Danh mục
+          Quản lý Danh mục
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="<?php echo base_url('Category/create') ?>">Thêm danh mục</a>
@@ -46,36 +46,37 @@
 
         </div>
       </li>
-      
+
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle text-uppercase" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Quản lý Tin tức
+          Quản lý Tin tức
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="<?php echo base_url('New/create') ?>">Thêm tin tức</a>
-          <a class="dropdown-item" href="<?php echo base_url('New/list') ?>">Danh sách tin tức</a>
-          <a class="dropdown-item" href="<?php echo base_url('NewDetail/create') ?>">Thêm chi tiết tin tức</a>
-          <a class="dropdown-item" href="<?php echo base_url('NewDetail/list') ?>">Danh sách chi tiết tin tức</a>
+          <a class="dropdown-item" href="<?php echo base_url('Blog/create') ?>">Thêm danh mục tin tức</a>
+          <a class="dropdown-item" href="<?php echo base_url('Blog/list') ?>">Danh sách danh mục tin tức</a>
+          <a class="dropdown-item" href="<?php echo base_url('Post/create') ?>">Thêm Bài viết</a>
+          <a class="dropdown-item" href="<?php echo base_url('Post/list') ?>">Danh sách bài viết</a>
+
         </div>
       </li>
 
       <!-- sản phẩm phụ tùng -->
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle text-uppercase" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Quản lý đơn hàng
+          Quản lý đơn hàng
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="<?php echo base_url('Order/list') ?>">Danh sách đơn hàng</a>
-         
+
 
         </div>
       </li>
-  
+
 
 
       <li class="nav-item dropdown ">
         <a class="nav-link dropdown-toggle text-uppercase" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <?php echo $this->session->userdata('loggedIn')['fullname'];  ?>
+          <?php echo $this->session->userdata('loggedIn')['fullname'];  ?>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="<?php echo base_url('logout') ?>">logout</a>
@@ -83,11 +84,10 @@
       </li>
     </ul>
 
-    
+
     <!-- <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form> -->
   </div>
 </nav>
-
