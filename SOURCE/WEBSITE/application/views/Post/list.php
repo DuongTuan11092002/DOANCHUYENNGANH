@@ -35,10 +35,10 @@
                     <tr>
                         <th scope="row"><?php echo $i ?></th>
                         <td><?php echo $value->title ?></td>
-                        <td><?php echo $value->description ?></td>
+                        <td class="an"><?php echo $value->description ?></td>
                         <td><?php echo $value->slug ?></td>
-                        <td><?php echo $value->content ?></td>
-                        <td><?php echo $value->short_content ?></td>
+                        <td class="an"><?php echo $value->content ?></td>
+                        <td class="an"><?php echo $value->short_content ?></td>
                         <td><?php echo $value->tendanhmucbaiviet ?></td>
 
                         <td>

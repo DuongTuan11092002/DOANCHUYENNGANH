@@ -103,7 +103,7 @@ class CategoryController extends CI_Controller
 	public function delete($categoriesID)
 	{
 		$this->load->model('CategoryModel');
-		$this->CategoryModel->delete($categoriesID);
+		$this->CategoryModel->deleteCategory($categoriesID);
 		$this->session->set_flashdata('success', 'xoá thành công');
 		redirect(base_url('Category/list'));
 	}

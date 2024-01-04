@@ -16,14 +16,7 @@
                   <div class="col-lg-6 col-md-6">
                       <div class="product__details__text">
                           <h3><?php echo $detail->productCarDetailName ?></h3>
-                          <div class="product__details__rating">
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star-half-o"></i>
-                              <span>(18 reviews)</span>
-                          </div>
+
 
                           <div class="product__details__price"><?php echo number_format($detail->giasanpham) . ' VNĐ' ?></div>
                           <p><?php echo $detail->motasanpham ?></p>
@@ -38,7 +31,6 @@
                                   </div>
                               </div>
                               <input type="submit" class="primary-btn rounded" value="ĐẶT HÀNG">
-                              <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
 
                           </form>
 

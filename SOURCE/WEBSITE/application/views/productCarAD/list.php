@@ -36,7 +36,7 @@
           <tr>
             <th scope="row"><?php echo $i ?></th>
             <td><?php echo $value->productCarName ?></td>
-            <td><?php echo $value->description ?></td>
+            <td class="an"><?php echo $value->description ?></td>
             <td><?php echo $value->slug ?></td>
             <td><?php echo number_format($value->price) . 'VND' ?></td>
             <td><?php echo $value->create_at ?></td>

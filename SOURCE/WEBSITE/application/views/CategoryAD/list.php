@@ -39,7 +39,7 @@
 
               <td>
                 <a href="<?php echo base_url('Category/edit/' . $value->categoriesID) ?>" class="btn btn-warning">Sửa</a>
-                <a onclick="return confirm('Bạn chắc chắn muốn xóa không?')" href="<?php echo base_url('Maker/delete/' . $value->categoriesID) ?>" class="btn btn-danger">Xóa</a>
+                <a onclick="return confirm('Bạn chắc chắn muốn xóa không?')" href="<?php echo base_url('Category/delete/' . $value->categoriesID) ?>" class="btn btn-danger">Xóa</a>
 
               </td>
             </tr>

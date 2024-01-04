@@ -395,7 +395,7 @@ class IndexModel extends CI_model
 
     public function insertContact($data)
     {
-        return $this->db->insert('contact', 'desc', $data);
+        return $this->db->insert('contact', $data);
     }
 
     // delete
