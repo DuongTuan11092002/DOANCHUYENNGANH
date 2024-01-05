@@ -53,4 +53,39 @@ class LoginModel extends CI_model
     {
         $this->db->insert('orderdetail', $data_order_detail);
     }
+
+
+
+    //thống kê
+    // Hàm để đếm đơn hàng chưa xử lý
+
+    public function Count_order_chuaxuly()
+    {
+        $query = $this->db->select('COUNT(*) as count')
+            ->from('order')
+            ->where('status', 1) // Điều kiện chưa xử lý, có thể thay đổi tùy vào cấu trúc bảng của bạn
+            ->get();
+        return $query->row()->count;
+    }
+
+    // Hàm để đếm đơn hàng đã xử lý
+
+    public function Count_order_daxuly()
+    {
+        $query = $this->db->select('COUNT(*) as count')
+            ->from('order')
+            ->where('status', 2) // Điều kiện chưa xử lý, có thể thay đổi tùy vào cấu trúc bảng của bạn
+            ->get();
+        return $query->row()->count;
+    }
+
+    //hàm đếm số tài khoản trong website
+    public function Count_user()
+    {
+        $query = $this->db->select('COUNT(*) as count')
+            ->from('users')
+            ->where('status', 1) // Điều kiện chưa xử lý, có thể thay đổi tùy vào cấu trúc bảng của bạn
+            ->get();
+        return $query->row()->count;
+    }
 }

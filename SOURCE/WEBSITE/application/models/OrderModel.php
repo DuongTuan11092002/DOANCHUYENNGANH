@@ -32,9 +32,9 @@ class OrderModel extends CI_model
         return $this->db->delete('order', ['order_code' => $order_code]);
     }
     //xóa chi tiết đơn hàng 
-    public function DeleteOrderDetail($data, $orderCode)
+    public function DeleteOrderDetail($order_code)
     {
-        return $this->db->update('order', $data, ['order_code' => $orderCode]);
+        return $this->db->delete('orderdetail', ['orderCode' => $order_code]);
     }
 
     public function UpdateOrder($data, $order_code)

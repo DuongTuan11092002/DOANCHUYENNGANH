@@ -1,5 +1,34 @@
 <div class="container mt-5">
-    <h1 class="text-center text-uppercase">Thông tin Liên hệ</h1>
+    <div class="row">
+
+        <div class="col-md-6">
+
+            <h3 class=" text-uppercase">Thông tin đơn hàng</h3>
+            <div class="col-md-12">
+
+                <p>Tổng đơn hàng chưa xử lý: <?php echo $donhang_chuaxuly; ?> Đơn hàng</p>
+
+            </div>
+
+            <div class="col-md-12">
+                <p class="bg-success">Tổng đơn hàng đã xử lý: <?php echo $donhang_daxuly; ?> Đơn hàng</p>
+
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <h3 class="text-uppercase">Tổng số tài khoản khách hàng</h3>
+            <div class="col-md-12">
+
+                <p>Tổng tài khoản Khách hàng : <?php echo $count_user; ?></p>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <h3 class="text-center text-uppercase mt-5">Thông tin Liên hệ</h3>
     <table class="table mt-5">
         <thead class="thead-dark">
             <tr>
