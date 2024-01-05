@@ -52,8 +52,7 @@
                   ?></td>
               <td>
                 <a href="<?php echo base_url('Order/view/' . $value->order_code) ?>" class="btn btn-warning">Xem</a>
-                <a onclick="return confirm('Bạn chắc chắn muốn xóa không?')" href="<?php echo base_url('Order/delete/' . $value->order_code) ?>" class="btn btn-danger">Xóa</a>
-                <a href="<?php echo base_url('Order/print-order/' . $value->order_code) ?>" class="btn btn-success  mt-3">In đơn hàng</a>
+                <a onclick="return confirm('Bạn chắc chắn muốn xóa không?')" href="<?php echo base_url('Order/delete/' . $value->order_code) ?>" class="btn btn-danger mt-4 ">Xóa</a>
 
               </td>
             </tr>
