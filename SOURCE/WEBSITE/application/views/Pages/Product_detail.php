@@ -53,20 +53,20 @@
                               <div class="tab-pane active" id="tabs-1" role="tabpanel">
                                   <div class="product__details__tab__desc">
                                       <h6 class="text-uppercase">Động cơ</h6>
-                                      <p><?php echo $detail->productCarDetailTextEngine ?></p>
+                                      <p class="text-justify"><?php echo $detail->productCarDetailTextEngine ?></p>
                                   </div>
                               </div>
                               <div class="tab-pane" id="tabs-2" role="tabpanel">
                                   <div class="product__details__tab__desc">
                                       <h6 class="text-uppercase">Nội Thất</h6>
-                                      <p><?php echo $detail->productCarDetailTextInterio ?></p>
+                                      <p class="text-justify"><?php echo $detail->productCarDetailTextInterio ?></p>
 
                                   </div>
                               </div>
                               <div class="tab-pane" id="tabs-3" role="tabpanel">
                                   <div class="product__details__tab__desc">
                                       <h6 class="text-uppercase">Công nghệ</h6>
-                                      <p><?php echo $detail->productCarDetailTextTechniques ?></p>
+                                      <p class="text-justify"><?php echo $detail->productCarDetailTextTechniques ?></p>
                                   </div>
                               </div>
                           </div>

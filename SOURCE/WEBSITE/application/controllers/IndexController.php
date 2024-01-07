@@ -253,6 +253,9 @@ class IndexController extends CI_Controller
 			$this->load->view('Pages/Checkout');
 			$this->load->view('Pages/Template/Footer');
 		} else {
+			echo "<script> 
+					alert('Vui lòng đăng nhập tài khoản để thanh toán');
+			</script>";
 			redirect(base_url() . 'gio-hang', 'refresh');
 		}
 	}
@@ -266,8 +269,8 @@ class IndexController extends CI_Controller
 	public function Login()
 	{
 
-		$this->load->view('Pages/Template/Header');
-		$this->load->view('Pages/Login');
+		$this->load->view('Pages/Template/Header', $this->data);
+		$this->load->view('Pages/Login', $this->data);
 		$this->load->view('Pages/Template/Footer');
 	}
 
@@ -299,7 +302,7 @@ class IndexController extends CI_Controller
 				//lệnh thông báo khi đăng nhập thành công
 				$this->session->set_flashdata('success', 'Đăng nhập thành công');
 				//nhảy trang khi đăng nhập thành công
-				redirect(base_url('/kiem-tra-thanh-toan'));
+				redirect(base_url('/gio-hang'));
 			} else {
 				$this->session->set_flashdata('error', 'Sai tài khoản hoặc mật khẩu');
 				redirect(base_url('/dang-nhap'));
@@ -373,7 +376,7 @@ class IndexController extends CI_Controller
 				//lệnh thông báo khi đăng nhập thành công
 				$this->session->set_flashdata('success', 'Đăng nhập thành công');
 				//nhảy trang khi đăng nhập thành công
-				redirect(base_url('/kiem-tra-thanh-toan'));
+				redirect(base_url('/gio-hang'));
 			} else {
 				$this->session->set_flashdata('error', 'Sai tài khoản hoặc mật khẩu');
 				redirect(base_url('dang-ky'));
