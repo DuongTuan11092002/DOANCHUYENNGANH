@@ -88,4 +88,19 @@ class LoginModel extends CI_model
             ->get();
         return $query->row()->count;
     }
+
+
+    public function getTotalAmountForAllOrders()
+    {
+
+        $sql = "SELECT SUM(orderdetail.quantity * productcar.price) as total_amount
+            FROM productcar
+            JOIN orderdetail ON orderdetail.productCarID = productcar.productCarID
+            WHERE productcar.status = 2";
+
+        $query = $this->db->query($sql);
+        $result = $query->row(); // Lấy kết quả dưới dạng đối tượng, nếu chỉ có một dòng kết quả
+
+        return $result->total_amount;
+    }
 }

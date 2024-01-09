@@ -199,4 +199,19 @@ class ProductController extends CI_Controller
 		$this->session->set_flashdata('success', 'xoá thành công');
 		redirect(base_url('productCar/list'));
 	}
+
+
+	//search products
+	public function searchProduct()
+	{
+		if (isset($_GET['keyword']) && $_GET['keyword'] != '') {
+			$keywordProduct = $_GET['keyword'];
+		}
+		$this->load->model('ProductModel');
+		$this->data['Products'] = $this->ProductModel->getProductByKeyWord($keywordProduct); //load data
+		$this->load->view('TemplateAD/header');
+		$this->load->view('TemplateAD/navbar');
+		$this->load->view('productCarAD/searchProduct', $this->data);
+		$this->load->view('TemplateAD/footer');
+	}
 }

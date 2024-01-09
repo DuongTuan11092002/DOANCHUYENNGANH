@@ -62,6 +62,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__left">
                             <ul>
+                                <li><a href="<?php echo base_url('login') ?>"><i class="fa fa-user"></i></a> </li>
+
                                 <li><i class="fa fa-envelope"></i> Kim884740@gmail.com</li>
                             </ul>
                         </div>

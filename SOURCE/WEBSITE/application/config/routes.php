@@ -120,6 +120,10 @@ $route['productCar/update/(:any)']['POST'] = 'ProductController/update/$1';
 $route['productCar/includeProduct']['POST'] = 'ProductController/includeProduct';
 $route['productCar/create']['GET'] = 'ProductController/create';
 
+// tìm kiếm sản phẩm
+$route['search-product']['GET'] = 'ProductController/searchProduct';
+
+
 
 /* -------------------------------------------------------------------------- */
 
@@ -137,6 +141,11 @@ $route['productCarDetail/update/(:any)']['POST'] = 'ProductDetailController/upda
 
 $route['productCarDetail/formCreateProductDetail']['POST'] = 'ProductDetailController/formCreateProductDetail';
 $route['productCarDetail/create']['GET'] = 'ProductDetailController/create';
+
+
+//tìm kiếm chi tiết sản phẩm
+$route['search-productDetail']['GET'] = 'ProductDetailController/searchProductDetail';
+
 /* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */

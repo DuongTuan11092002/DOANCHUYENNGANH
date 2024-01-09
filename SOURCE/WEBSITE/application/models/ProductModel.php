@@ -43,4 +43,15 @@ class ProductModel extends CI_model
 
         return $this->db->delete('productcar', ['productCarID' => $productCarID]);
     }
+
+    public function getProductByKeyWord($keywordProduct)
+    {
+        $query = $this->db->select('categories.categoriesName as tendanhmuc, productcar.*, autoMaker.autoMakerName as tenhang')
+            ->from('categories')
+            ->join('productcar', 'productCar.categoriesID = categories.categoriesID') //khóa ngoại - khóa chính <==> khóa chính = khóa ngoại
+            ->join('autoMaker', 'autoMaker.autoMakerID = productcar.autoMakerID')
+            ->like('productCarName', $keywordProduct)
+            ->get();
+        return $query->result();
+    }
 }

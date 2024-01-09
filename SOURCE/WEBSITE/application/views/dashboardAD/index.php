@@ -23,6 +23,14 @@
                 <p>Tổng tài khoản Khách hàng : <?php echo $count_user; ?></p>
 
             </div>
+
+            <h3 class="text-uppercase">Tổng danh thu đơn hàng</h3>
+            <div class="col-md-12">
+
+                <!-- <p>Tổng tài khoản Khách hàng : //<?php //echo number_format($sum_order) . 'VNĐ' 
+                                                        ?></p> -->
+
+            </div>
         </div>
 
     </div>

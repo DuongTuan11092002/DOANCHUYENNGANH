@@ -1,48 +1,57 @@
 <?php
-    defined('BASEPATH') OR exit('No direct script access allowed');
-    class ProductDetailModel extends CI_model {
+defined('BASEPATH') or exit('No direct script access allowed');
+class ProductDetailModel extends CI_model
+{
 
-        // thêm 
-            public function insertProductDetail($data){
-                // câu lệnh insert
-                   return $this->db->insert('productcardetail',$data);
-            }
+    // thêm 
+    public function insertProductDetail($data)
+    {
+        // câu lệnh insert
+        return $this->db->insert('productcardetail', $data);
+    }
 
-        //show select
-            public function selectAllProduct(){
+    //show select
+    public function selectAllProduct()
+    {
 
-                $query = $this->db->select(' productcar.productCarName as tensanpham, productcardetail.*')
-                ->from('productcar')
-                ->join('productcardetail', 'productcardetail.productCarID = productcar.productCarID') //khóa ngoại - khóa chính <==> khóa chính = khóa ngoại
-                ->get();
-                return $query->result();
-            }
+        $query = $this->db->select(' productcar.productCarName as tensanpham, productcardetail.*')
+            ->from('productcar')
+            ->join('productcardetail', 'productcardetail.productCarID = productcar.productCarID') //khóa ngoại - khóa chính <==> khóa chính = khóa ngoại
+            ->get();
+        return $query->result();
+    }
 
-            //chose edit
-            public function selectProductDetailById($productCarDetailID){
+    //chose edit
+    public function selectProductDetailById($productCarDetailID)
+    {
 
-                $query = $this->db->get_where('productcardetail',['productCarDetailID' =>$productCarDetailID]);
-                return $query->row();
-            }
-
-
-            // edited
-            public function update($productCarDetailID,$data){
-                return $this->db->update('productcardetail',$data,['productCarDetailID' =>$productCarDetailID]);
-
-
-            }
-
-            // delete
-            public function deleteProductDetail($productCarDetailID){
-
-                return $this->db->delete('productcardetail',['productCarDetailID' =>$productCarDetailID]);
-
-
-            }
-
-
+        $query = $this->db->get_where('productcardetail', ['productCarDetailID' => $productCarDetailID]);
+        return $query->row();
     }
 
 
-?>
+    // edited
+    public function update($productCarDetailID, $data)
+    {
+        return $this->db->update('productcardetail', $data, ['productCarDetailID' => $productCarDetailID]);
+    }
+
+    // delete
+    public function deleteProductDetail($productCarDetailID)
+    {
+
+        return $this->db->delete('productcardetail', ['productCarDetailID' => $productCarDetailID]);
+    }
+
+
+    public function getProductByKeyWord($keywordProductDetail)
+    {
+        $query = $this->db->select('productcar.productCarName as tensanpham, productcardetail.*')
+            ->from('productcar')
+            ->join('productcardetail', 'productcardetail.productCarID = productcar.productCarID') // khóa ngoại - khóa chính <==> khóa chính = khóa ngoại
+            ->where("productcardetail.productCarDetailName LIKE '%$keywordProductDetail%'")
+            ->get();
+
+        return $query->result();
+    }
+}

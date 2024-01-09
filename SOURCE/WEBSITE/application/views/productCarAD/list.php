@@ -5,6 +5,11 @@
   <div class="card-header text-uppercase text-center">
     danh sách Sản phẩm
   </div>
+  <form method="GET" action="<?php echo base_url('search-product') ?>" class="mt-4 pl-4">
+    <label for="">Tìm kiếm sản phẩm xe</label>
+    <input type="text" name="keyword" placeholder="Tìm kiếm">
+    <button type="submit" class="btn btn-primary">TÌM KIẾM</button>
+  </form>
   <div class="card-body">
     <div class="">
       <a href="<?php echo base_url('productCar/create') ?>" class="btn btn-success">Thêm sản phẩm</a>

@@ -19,6 +19,8 @@ class DashboardController extends CI_Controller
 		$data['donhang_chuaxuly'] = $this->LoginModel->Count_order_chuaxuly();
 		$data['donhang_daxuly'] = $this->LoginModel->Count_order_daxuly();
 		$data['count_user'] = $this->LoginModel->Count_user();
+		// $data['sum_order'] = $this->LoginModel->getTotalAmountForAllOrders();
+
 		$this->load->view('dashboardAD/index', $data);
 		$this->load->view('TemplateAD/footer');
 	}
