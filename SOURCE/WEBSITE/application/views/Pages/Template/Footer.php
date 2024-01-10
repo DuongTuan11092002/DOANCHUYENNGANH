@@ -118,6 +118,12 @@
      }
  </script>
 
+ <script>
+     function showVerificationMessage() {
+         alert("sau khi đăng ký bạn hãy kiểm tra email để xác thực tài khoản nhé!.");
+     }
+ </script>
+
 
  </body>
 

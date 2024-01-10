@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 04, 2024 at 10:26 AM
+-- Generation Time: Jan 10, 2024 at 10:19 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -162,11 +162,11 @@ CREATE TABLE `order` (
 --
 
 INSERT INTO `order` (`orderID`, `order_code`, `status`, `shippingID`) VALUES
-(4, '90540', 3, 6),
 (7, '22362', 2, 9),
 (8, '46024', 1, 10),
 (9, '45972', 1, 11),
-(10, '94250', 2, 12);
+(10, '94250', 2, 12),
+(11, '76737', 1, 13);
 
 -- --------------------------------------------------------
 
@@ -187,12 +187,12 @@ CREATE TABLE `orderdetail` (
 --
 
 INSERT INTO `orderdetail` (`orderDetailID`, `orderCode`, `quantity`, `productCarID`, `orderID`) VALUES
-(1, '90540', 3, 1, NULL),
 (4, '22362', 10, 1, NULL),
-(5, '46024', 1, 1, NULL),
+(5, '46024', 1, 1, 8),
 (6, '45972', 2, 5, NULL),
 (7, '94250', 6, 1, NULL),
-(8, '94250', 1, 2, NULL);
+(8, '94250', 1, 2, NULL),
+(9, '76737', 1, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -233,8 +233,6 @@ CREATE TABLE `productcar` (
   `thumnail` varchar(255) DEFAULT NULL,
   `slug` varchar(255) DEFAULT NULL,
   `create_at` varchar(255) DEFAULT NULL,
-  `update_at` varchar(255) DEFAULT NULL,
-  `deleted` smallint(6) DEFAULT NULL,
   `autoMakerID` int(11) NOT NULL,
   `categoriesID` int(11) NOT NULL,
   `status` int(11) NOT NULL DEFAULT 1
@@ -244,36 +242,36 @@ CREATE TABLE `productcar` (
 -- Dumping data for table `productcar`
 --
 
-INSERT INTO `productcar` (`productCarID`, `productCarName`, `description`, `price`, `thumnail`, `slug`, `create_at`, `update_at`, `deleted`, `autoMakerID`, `categoriesID`, `status`) VALUES
-(1, 'Toyota Camry 2.5Q', 'Toyota Camry 2.5Q 2022 là phiên bản cao cấp với mức giá đắt hơn khá nhiều so với 2.0G. Chính vì thế, xe được trang bị hàng loạt những công nghệ hàng đầu hiện nay bên cạnh những phẩm chất đã làm nên tên tuổi của dòng xe này.', 1700000000, '1703402468cac-dong-xe-toyota-27.jpg', 'toyota-camry-25q', '2023-02-22', NULL, NULL, 2, 1, 1),
-(2, 'Lexus ES 250', 'Lexus ES 250 là một mẫu sedan hạng sang của thương hiệu xe Nhật Bản Lexus, được giới thiệu vào năm 2018. Đây là phiên bản nâng cấp của Lexus ES 200 và có sự khác biệt về động cơ và trang bị. Ngoài ra, xe còn được trang bị các tính năng tiện nghi cao cấp n', 2700000000, '1703579271Lexus-ES-1_red.jpg', 'lexus-es-250', '2023-12-12', NULL, NULL, 4, 1, 1),
-(3, 'Lexus ES 300h', 'Lexus ES 300h là mẫu sedan hạng sang sử dụng động cơ hybrid của hãng xe Nhật Bản Lexus, được giới thiệu lần đầu tiên vào năm 2012. Hiện nay, Lexus ES 300h đã có mặt tại Việt Nam cũng như nhiều nước trên thế giới.Ở nước ngoài, Lexus ES 300h cũng được bán r', 2000000000, '1703579746lexus-es300h-13.jpg', 'lexus-es-300h', '2024-01-01', NULL, NULL, 4, 1, 1),
-(4, 'Honda City 2022', 'Honda City là một mẫu sedan cỡ B được giới thiệu lần đầu vào năm 1981 bởi hãng sản xuất xe khổng lồ Honda. Trong đó, tính riêng thị trường Châu Á, City xuất hiện khá muộn từ những năm 1996.Honda City luôn đứng trong top 10 mẫu xe bán chạy nhất tại Việt Na', 800000000, '1703656958honda-city.jpg', 'honda-city-2022', '2022-10-24', NULL, NULL, 6, 1, 1),
-(5, 'Honda Civic 2022', 'Phân khúc sedan hạng C đang trở thành khu vực sôi động bậc nhất thị trường xe tại Việt Nam khi có sự khuấy động của những cái tên mới ra mắt gần đây như MG5, Beijing U5, Corolla Altis... Tuy nhiên, nổi bật nhất phải kể Honda Civic 2022, dòng xe được khách', 1100000000, '1703657202honda-civic.jpg', 'honda-civic-2022', '2022-11-25', NULL, NULL, 6, 1, 1),
-(6, 'Mazda3 Sport 1.5L Deluxe', 'Mazda 3 là một mẫu hatchback hạng C của hãng Mazda. Đây gần như là xe hatchback hạng C duy nhất được phân phối chính thức tại thị trường Việt Nam. Xe được THACO Trường Hải lắp ráp và phân phối với tất cả 10 phiên bản, trong đó có 5 phiên bản hatchback gồm', 699000000, '1704093837Mazda-3.jpg', 'mazda3-sport-15l-deluxe', '2023-07-12', NULL, NULL, 1, 2, 1),
-(7, 'Toyota Yaris', 'Toyota Yaris 2023 là mẫu xe hatchback 5 chỗ khiến nhiều đối thủ phải dè chừng với thiết kế mới mẽ, khoang nội thất tiện nghi cùng mức giá bán cạnh tranh', 684000000, '1704094782toyota-yaris.jpg', 'toyota-yaris', '2023-11-09', NULL, NULL, 2, 2, 1),
-(8, 'NEW MAZDA 2', 'Chậm rãi \"Nhìn\",\"Chạm\" và \"Cảm nhận\"hơi thở sành điệu, tự tin trong thiết kế KODO của mẫu xe thế hệ mới. Mẫu xe hướng bạn đến hình mẫu mà bạn khao khát.', 500000000, '1704352069new-mazda2.jpg', 'new-mazda-2', '2023-11-09', NULL, NULL, 1, 1, 1),
-(9, 'New Mazda2 1.5L Luxury', 'Chậm rãi \"Nhìn\",\"Chạm\" và \"Cảm nhận\"hơi thở sành điệu, tự tin trong thiết kế KODO của mẫu xe thế hệ mới. Mẫu xe hướng bạn đến hình mẫu mà bạn khao khát.', 504000000, '1704352389new-mazda2-lux-pre.jpg', 'new-mazda2-15l-luxury', '2023-12-11', NULL, NULL, 1, 1, 1),
-(10, 'New Mazda2 Sport 1.5L Luxury', 'Chậm rãi \"Nhìn\",\"Chạm\" và \"Cảm nhận\"hơi thở sành điệu, tự tin trong thiết kế KODO của mẫu xe thế hệ mới. Mẫu xe hướng bạn đến hình mẫu mà bạn khao khát.', 517000000, '1704352844new-mazda2-lux-hatchback.jpg', 'new-mazda2-sport-15l-luxury', '2023-09-11', NULL, NULL, 1, 2, 1),
-(11, 'Mazda CX-8 2.5L Luxury', 'Tại Mazda, không có chi tiết nào được xem là chi tiết nhỏ khi đề cập đến quá trình tạo nên một mẫu xe. Mazda CX-8 là sự kết hợp hoàn hảo từ thiết kế đến tiện nghi, công nghệ, giúp chiếc xe dễ dàng thu hút mọi ánh nhìn.', 949000000, '1704353086mazda-cx-8_2.jpg', 'mazda-cx-8-25l-luxury', '2023-10-25', NULL, NULL, 1, 3, 1),
-(12, 'Mazda CX-8 2.5L Premium AWD', 'Tại Mazda, không có chi tiết nào được xem là chi tiết nhỏ khi đề cập đến quá trình tạo nên một mẫu xe. Mazda CX-8 là sự kết hợp hoàn hảo từ thiết kế đến tiện nghi, công nghệ, giúp chiếc xe dễ dàng thu hút mọi ánh nhìn.', 1119000000, '1704353501mazda-cx-8_2.jpg', 'mazda-cx-8-25l-premium-awd', '2023-12-10', NULL, NULL, 1, 3, 1),
-(13, 'COROLLA ALTIS 1.8G', 'Đậm chất chơi ngời chuẩn mực', 725000000, '1704353970Corolla-Altis.jpg', 'corolla-altis-18g', '2023-07-12', NULL, NULL, 2, 1, 1),
-(14, 'WIGO E', 'Mượt mà, Lướt êm phố thị', 360000000, '1704354286wigoe.jpg', 'wigo-e', '2023-08-12', NULL, NULL, 2, 2, 1),
-(15, 'YARIS CROSS', 'Toyota Corolla Cross là mẫu xe Toyota SUV 5 chỗ gầm cao được nhập khẩu nguyên chiếc từ Thái Lan và đã được ra mắt chính thức tại thị trường Việt từ tháng 8/2020.', 650000000, '1704354766toyota-suv-2022-3.jpeg', 'yaris-cross', '2023-06-12', NULL, NULL, 2, 3, 1),
-(16, 'FORTUNER 2.4AT 4X2', 'Lướt hành trình - Đậm dấu ấn', 1055000000, '1704354933fortuner-toyota.jpg', 'fortuner-24at-4x2', '2023-10-09', NULL, NULL, 2, 3, 1),
-(17, 'HILUX 2.4L 4X2 AT', 'Chinh phục đỉnh cao', 851999999, '1704355320Toyota-Hilux.jpg', 'hilux-24l-4x2-at', '2023-10-10', NULL, NULL, 2, 6, 1),
-(18, 'C-Class Mercedes-Benz', 'Đây là thế giới của tôi', 1599000000, '1704355831mercedes-benz-c-class-w206.jpg', 'c-class-mercedes-benz', '2023-07-12', NULL, NULL, 3, 1, 1),
-(19, 'mercedes benz E-Class', 'Chọn dẫn đầu', 2159000000, '1704356325mercedes-benz-e-class-w206.jpg', 'mercedes-benz-e-class', '2023-12-12', NULL, NULL, 3, 1, 1),
-(20, 'GLC SUV X253', 'Mạnh mẽ, đa tài.', 1909000000, '1704356644mercedes-benz-glc-w206.jpg', 'glc-suv-x253', '2023-12-12', NULL, NULL, 3, 3, 1),
-(21, 'Mercedes-AMG GT 4-door', 'Hơn cả một chiếc Gran Turismo đầy lôi cuốn.', 6719000000, '1704357136AMG-GT4.jpg', 'mercedes-amg-gt-4-door', '2023-12-12', NULL, NULL, 3, 5, 1),
-(22, 'NX Crossover', 'ĐỊNH HÌNH TƯƠNG LAI', 3130000000, '1704357519lexus-nx-overview.jpg', 'nx-crossover', '2023-12-12', NULL, NULL, 4, 3, 1),
-(23, 'RX Crossover', 'KHAI PHÓNG\r\nMỌI QUY CHUẨN', 3430000000, '1704358051lexus-rx-overview.jpg', 'rx-crossover', '2023-12-12', NULL, NULL, 4, 3, 1),
-(24, 'lexus LX', 'THỐNG LĨNH MỌI\r\nCUNG ĐƯỜNG', 8500000000, '1704358298lexus-lx-overview.jpg', 'lexus-lx', '2023-12-12', NULL, NULL, 4, 3, 1),
-(25, 'Territory Titanium X 1.5L AT', 'Dòng xe Hiện đại', 700000000, '1704359267Ford-Territory.jpg', 'territory-titanium-x-15l-at', '2023-12-21', NULL, NULL, 5, 3, 1),
-(26, 'Ford Everest', 'Ford ra mắt Everest thế hệ mới tại Việt Nam hôm 1/7, với 4 phiên bản, 3 tùy chọn Ambiente, Sport, Titanium đều dẫn động một cầu, turbo đơn và Titanium+ dẫn động 2 cầu, turbo kép.', 1637494000, '1704359508Ford-Everest.jpg', 'ford-everest', '2023-12-12', NULL, NULL, 5, 3, 1),
-(27, 'Ford Explorer', 'Phiên bản Ford Explorer Limited được trang bị động cơ Xăng 2.3L Ecoboost I4 mạnh mẽ và tiết kiệm nhiên liệu. Với công suất lớn hơn thế hệ động cơ trước đó kết hợp cùng hộp số tự động 10 cấp cho phép chuyển số mượt mà và nhạy bén, Explorer mới luôn mang đế', 2439000000, '1704359658Ford-Exporler.jpg', 'ford-explorer', '2023-12-12', NULL, NULL, 5, 3, 1),
-(28, 'Ford Ranger', 'Ford Ranger là mẫu bán tải thành công nhất tại trị trường Việt Nam. Đa dạng phiên bản, kiểu dáng bắt mắt và nhiều trang bị, Ranger đang làm mưa, làm gió trong phân khúc xe bán tải.', 708237000, '1704359953ford-ranger.jpg', 'ford-ranger', '2023-12-12', NULL, NULL, 5, 6, 1),
-(29, 'Ranger Sport 2.0L AT 4X4', 'Ford Ranger Sport sở hữu ngoại hình thể thao, mạnh mẽ Thiết kế ngoại thất Ford Ranger Sport 2023 không có nhiều khác biệt so với các bản còn lại.', 900000000, '1704360273ranger-sport-d536.jpg', 'ranger-sport-20l-at-4x4', '2023-12-12', NULL, NULL, 5, 6, 1);
+INSERT INTO `productcar` (`productCarID`, `productCarName`, `description`, `price`, `thumnail`, `slug`, `create_at`, `autoMakerID`, `categoriesID`, `status`) VALUES
+(1, 'Toyota Camry 2.5Q', 'Toyota Camry 2.5Q 2022 là phiên bản cao cấp với mức giá đắt hơn khá nhiều so với 2.0G. Chính vì thế, xe được trang bị hàng loạt những công nghệ hàng đầu hiện nay bên cạnh những phẩm chất đã làm nên tên tuổi của dòng xe này.', 1700000000, '1703402468cac-dong-xe-toyota-27.jpg', 'toyota-camry-25q', '2023-02-22', 2, 1, 1),
+(2, 'Lexus ES 250', 'Lexus ES 250 là một mẫu sedan hạng sang của thương hiệu xe Nhật Bản Lexus, được giới thiệu vào năm 2018. Đây là phiên bản nâng cấp của Lexus ES 200 và có sự khác biệt về động cơ và trang bị. Ngoài ra, xe còn được trang bị các tính năng tiện nghi cao cấp n', 2700000000, '1703579271Lexus-ES-1_red.jpg', 'lexus-es-250', '2023-12-12', 4, 1, 1),
+(3, 'Lexus ES 300h', 'Lexus ES 300h là mẫu sedan hạng sang sử dụng động cơ hybrid của hãng xe Nhật Bản Lexus, được giới thiệu lần đầu tiên vào năm 2012. Hiện nay, Lexus ES 300h đã có mặt tại Việt Nam cũng như nhiều nước trên thế giới.Ở nước ngoài, Lexus ES 300h cũng được bán r', 2000000000, '1703579746lexus-es300h-13.jpg', 'lexus-es-300h', '2024-01-01', 4, 1, 1),
+(4, 'Honda City 2022', 'Honda City là một mẫu sedan cỡ B được giới thiệu lần đầu vào năm 1981 bởi hãng sản xuất xe khổng lồ Honda. Trong đó, tính riêng thị trường Châu Á, City xuất hiện khá muộn từ những năm 1996.Honda City luôn đứng trong top 10 mẫu xe bán chạy nhất tại Việt Na', 800000000, '1703656958honda-city.jpg', 'honda-city-2022', '2022-10-24', 6, 1, 1),
+(5, 'Honda Civic 2022', 'Phân khúc sedan hạng C đang trở thành khu vực sôi động bậc nhất thị trường xe tại Việt Nam khi có sự khuấy động của những cái tên mới ra mắt gần đây như MG5, Beijing U5, Corolla Altis... Tuy nhiên, nổi bật nhất phải kể Honda Civic 2022, dòng xe được khách', 1100000000, '1703657202honda-civic.jpg', 'honda-civic-2022', '2022-11-25', 6, 1, 1),
+(6, 'Mazda3 Sport 1.5L Deluxe', 'Mazda 3 là một mẫu hatchback hạng C của hãng Mazda. Đây gần như là xe hatchback hạng C duy nhất được phân phối chính thức tại thị trường Việt Nam. Xe được THACO Trường Hải lắp ráp và phân phối với tất cả 10 phiên bản, trong đó có 5 phiên bản hatchback gồm', 699000000, '1704093837Mazda-3.jpg', 'mazda3-sport-15l-deluxe', '2023-07-12', 1, 2, 1),
+(7, 'Toyota Yaris', 'Toyota Yaris 2023 là mẫu xe hatchback 5 chỗ khiến nhiều đối thủ phải dè chừng với thiết kế mới mẽ, khoang nội thất tiện nghi cùng mức giá bán cạnh tranh', 684000000, '1704094782toyota-yaris.jpg', 'toyota-yaris', '2023-11-09', 2, 2, 1),
+(8, 'NEW MAZDA 2', 'Chậm rãi \"Nhìn\",\"Chạm\" và \"Cảm nhận\"hơi thở sành điệu, tự tin trong thiết kế KODO của mẫu xe thế hệ mới. Mẫu xe hướng bạn đến hình mẫu mà bạn khao khát.', 500000000, '1704352069new-mazda2.jpg', 'new-mazda-2', '2023-11-09', 1, 1, 1),
+(9, 'New Mazda2 1.5L Luxury', 'Chậm rãi \"Nhìn\",\"Chạm\" và \"Cảm nhận\"hơi thở sành điệu, tự tin trong thiết kế KODO của mẫu xe thế hệ mới. Mẫu xe hướng bạn đến hình mẫu mà bạn khao khát.', 504000000, '1704352389new-mazda2-lux-pre.jpg', 'new-mazda2-15l-luxury', '2023-12-11', 1, 1, 1),
+(10, 'New Mazda2 Sport 1.5L Luxury', 'Chậm rãi \"Nhìn\",\"Chạm\" và \"Cảm nhận\"hơi thở sành điệu, tự tin trong thiết kế KODO của mẫu xe thế hệ mới. Mẫu xe hướng bạn đến hình mẫu mà bạn khao khát.', 517000000, '1704352844new-mazda2-lux-hatchback.jpg', 'new-mazda2-sport-15l-luxury', '2023-09-11', 1, 2, 1),
+(11, 'Mazda CX-8 2.5L Luxury', 'Tại Mazda, không có chi tiết nào được xem là chi tiết nhỏ khi đề cập đến quá trình tạo nên một mẫu xe. Mazda CX-8 là sự kết hợp hoàn hảo từ thiết kế đến tiện nghi, công nghệ, giúp chiếc xe dễ dàng thu hút mọi ánh nhìn.', 949000000, '1704353086mazda-cx-8_2.jpg', 'mazda-cx-8-25l-luxury', '2023-10-25', 1, 3, 1),
+(12, 'Mazda CX-8 2.5L Premium AWD', 'Tại Mazda, không có chi tiết nào được xem là chi tiết nhỏ khi đề cập đến quá trình tạo nên một mẫu xe. Mazda CX-8 là sự kết hợp hoàn hảo từ thiết kế đến tiện nghi, công nghệ, giúp chiếc xe dễ dàng thu hút mọi ánh nhìn.', 1119000000, '1704353501mazda-cx-8_2.jpg', 'mazda-cx-8-25l-premium-awd', '2023-12-10', 1, 3, 1),
+(13, 'COROLLA ALTIS 1.8G', 'Đậm chất chơi ngời chuẩn mực', 725000000, '1704353970Corolla-Altis.jpg', 'corolla-altis-18g', '2023-07-12', 2, 1, 1),
+(14, 'WIGO E', 'Mượt mà, Lướt êm phố thị', 360000000, '1704354286wigoe.jpg', 'wigo-e', '2023-08-12', 2, 2, 1),
+(15, 'YARIS CROSS', 'Toyota Corolla Cross là mẫu xe Toyota SUV 5 chỗ gầm cao được nhập khẩu nguyên chiếc từ Thái Lan và đã được ra mắt chính thức tại thị trường Việt từ tháng 8/2020.', 650000000, '1704354766toyota-suv-2022-3.jpeg', 'yaris-cross', '2023-06-12', 2, 3, 1),
+(16, 'FORTUNER 2.4AT 4X2', 'Lướt hành trình - Đậm dấu ấn', 1055000000, '1704354933fortuner-toyota.jpg', 'fortuner-24at-4x2', '2023-10-09', 5, 6, 1),
+(17, 'HILUX 2.4L 4X2 AT', 'Chinh phục đỉnh cao', 851999999, '1704355320Toyota-Hilux.jpg', 'hilux-24l-4x2-at', '2023-10-10', 4, 6, 1),
+(18, 'C-Class Mercedes-Benz', 'Đây là thế giới của tôi', 1599000000, '1704355831mercedes-benz-c-class-w206.jpg', 'c-class-mercedes-benz', '2023-07-12', 3, 1, 1),
+(19, 'mercedes benz E-Class', 'Chọn dẫn đầu', 2159000000, '1704356325mercedes-benz-e-class-w206.jpg', 'mercedes-benz-e-class', '2023-12-12', 3, 1, 1),
+(20, 'GLC SUV X253', 'Mạnh mẽ, đa tài.', 1909000000, '1704356644mercedes-benz-glc-w206.jpg', 'glc-suv-x253', '2023-12-12', 3, 3, 1),
+(21, 'Mercedes-AMG GT 4-door', 'Hơn cả một chiếc Gran Turismo đầy lôi cuốn.', 6719000000, '1704357136AMG-GT4.jpg', 'mercedes-amg-gt-4-door', '2023-12-12', 3, 5, 1),
+(22, 'NX Crossover', 'ĐỊNH HÌNH TƯƠNG LAI', 3130000000, '1704357519lexus-nx-overview.jpg', 'nx-crossover', '2023-12-12', 4, 3, 1),
+(23, 'RX Crossover', 'KHAI PHÓNG\r\nMỌI QUY CHUẨN', 3430000000, '1704358051lexus-rx-overview.jpg', 'rx-crossover', '2023-12-12', 4, 3, 1),
+(24, 'lexus LX', 'THỐNG LĨNH MỌI\r\nCUNG ĐƯỜNG', 8500000000, '1704358298lexus-lx-overview.jpg', 'lexus-lx', '2023-12-12', 4, 3, 1),
+(25, 'Territory Titanium X 1.5L AT', 'Dòng xe Hiện đại', 700000000, '1704359267Ford-Territory.jpg', 'territory-titanium-x-15l-at', '2023-12-21', 5, 3, 1),
+(26, 'Ford Everest', 'Ford ra mắt Everest thế hệ mới tại Việt Nam hôm 1/7, với 4 phiên bản, 3 tùy chọn Ambiente, Sport, Titanium đều dẫn động một cầu, turbo đơn và Titanium+ dẫn động 2 cầu, turbo kép.', 1637494000, '1704359508Ford-Everest.jpg', 'ford-everest', '2023-12-12', 5, 3, 1),
+(27, 'Ford Explorer', 'Phiên bản Ford Explorer Limited được trang bị động cơ Xăng 2.3L Ecoboost I4 mạnh mẽ và tiết kiệm nhiên liệu. Với công suất lớn hơn thế hệ động cơ trước đó kết hợp cùng hộp số tự động 10 cấp cho phép chuyển số mượt mà và nhạy bén, Explorer mới luôn mang đế', 2439000000, '1704359658Ford-Exporler.jpg', 'ford-explorer', '2023-12-12', 5, 3, 1),
+(28, 'Ford Ranger', 'Ford Ranger là mẫu bán tải thành công nhất tại trị trường Việt Nam. Đa dạng phiên bản, kiểu dáng bắt mắt và nhiều trang bị, Ranger đang làm mưa, làm gió trong phân khúc xe bán tải.', 708237000, '1704359953ford-ranger.jpg', 'ford-ranger', '2023-12-12', 5, 6, 1),
+(29, 'Ranger Sport 2.0L AT 4X4', 'Ford Ranger Sport sở hữu ngoại hình thể thao, mạnh mẽ Thiết kế ngoại thất Ford Ranger Sport 2023 không có nhiều khác biệt so với các bản còn lại.', 900000000, '1704360273ranger-sport-d536.jpg', 'ranger-sport-20l-at-4x4', '2023-12-12', 5, 6, 1);
 
 -- --------------------------------------------------------
 
@@ -355,7 +353,10 @@ INSERT INTO `shipping` (`shippingID`, `fullname`, `phone`, `address`, `email`, `
 (9, 'Trần Thanh A', '0923234334', 'An giang', 'ThanhA@gmail.com', 'vnpay'),
 (10, 'Nguyễn Văn A', '0911096648', 'Ấp bàu sơn, xã đa lộc , huyện châu thành , trà vinh', 'Kim884740@gmail.com', 'cod'),
 (11, 'Kim Dương Tuấn', '0364202648', 'Trà vinh', 'Kim884740@gmail.com', 'vnpay'),
-(12, 'Kim Dương Tuấn', '0932143432', 'Cà Mau', 'Kim884740@gmail.com', 'vnpay');
+(12, 'Kim Dương Tuấn', '0932143432', 'Cà Mau', 'Kim884740@gmail.com', 'vnpay'),
+(13, 'Kim Dương Tuấn', '0911096648', 'Càng long', 'Kim884740@gmail.com', 'cod'),
+(14, 'Kim Dương Tuấn', '0911096648', 'Châu thành', 'Kim884740@gmail.com', 'cod'),
+(15, 'Kim Dương Tuấn', '0911096648', 'Châu thành', 'Kim884740@gmail.com', 'cod');
 
 -- --------------------------------------------------------
 
@@ -369,18 +370,21 @@ CREATE TABLE `users` (
   `fullname` varchar(255) NOT NULL,
   `address` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
-  `status` varchar(255) DEFAULT '1',
+  `status` varchar(255) DEFAULT '0',
   `phone` varchar(255) DEFAULT NULL,
-  `avatar` varchar(255) DEFAULT NULL
+  `avatar` varchar(255) DEFAULT NULL,
+  `token` varchar(20) NOT NULL,
+  `date_created` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`account`, `password`, `fullname`, `address`, `email`, `status`, `phone`, `avatar`) VALUES
-('Duongtuan', '202cb962ac59075b964b07152d234b70', 'Kim Dương Tuấn', 'Trà Vinh', 'Duongtuan@gmail.com', '1', '0364202648', NULL),
-('VanA', '202cb962ac59075b964b07152d234b70', 'Nguyễn Văn A', 'Châu thành, Trà Vinh', 'VanA@gmail.com', '1', '0922093345', NULL);
+INSERT INTO `users` (`account`, `password`, `fullname`, `address`, `email`, `status`, `phone`, `avatar`, `token`, `date_created`) VALUES
+('Duongtuan', '202cb962ac59075b964b07152d234b70', 'Kim Dương Tuấn', 'Trà Vinh', 'Duongtuan@gmail.com', '1', '0364202648', NULL, '', ''),
+('Kimtuan', '202cb962ac59075b964b07152d234b70', 'Kim Tuấn', 'Thanh háo', 'Kim884740@gmail.com', '1', '0911096648', NULL, '3643', '2024-01-10 16:15:54'),
+('VanA', '202cb962ac59075b964b07152d234b70', 'Nguyễn Văn A', 'Châu thành, Trà Vinh', 'VanA@gmail.com', '1', '0922093345', NULL, '', '');
 
 --
 -- Indexes for dumped tables
@@ -497,13 +501,13 @@ ALTER TABLE `contact`
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-  MODIFY `orderID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `orderID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `orderdetail`
 --
 ALTER TABLE `orderdetail`
-  MODIFY `orderDetailID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `orderDetailID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `post`
@@ -527,7 +531,7 @@ ALTER TABLE `productcardetail`
 -- AUTO_INCREMENT for table `shipping`
 --
 ALTER TABLE `shipping`
-  MODIFY `shippingID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `shippingID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables

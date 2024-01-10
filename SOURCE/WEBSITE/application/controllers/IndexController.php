@@ -1,4 +1,7 @@
 <?php
+
+use Carbon\Carbon;
+
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class IndexController extends CI_Controller
@@ -29,7 +32,8 @@ class IndexController extends CI_Controller
 
 	public function index()
 	{
-
+		/* ------------------------------- carbon time ------------------------------ */
+		// echo Carbon::now('Asia/Ho_Chi_Minh');
 		/* ----------------------------- PANIGATION-PAGE ---------------------------- */
 
 		// //custom config link
@@ -253,9 +257,12 @@ class IndexController extends CI_Controller
 			$this->load->view('Pages/Checkout');
 			$this->load->view('Pages/Template/Footer');
 		} else {
-			echo "<script> 
-					alert('Vui lòng đăng nhập tài khoản để thanh toán');
-			</script>";
+			//kiểm tra xem có login chưa nếu không có thì thông báo
+			if (!$this->session->userdata('loggedInCustomer') && $this->cart->contents()) {
+				echo "<script>
+					alert('Vui lòng đăng nhập tài khoản mới được xác nhận đặt hàng');	
+				</script>";
+			}
 			redirect(base_url() . 'gio-hang', 'refresh');
 		}
 	}
@@ -304,7 +311,7 @@ class IndexController extends CI_Controller
 				//nhảy trang khi đăng nhập thành công
 				redirect(base_url('/gio-hang'));
 			} else {
-				$this->session->set_flashdata('error', 'Sai tài khoản hoặc mật khẩu');
+				$this->session->set_flashdata('error', 'Sai tài khoản hoặc mật khẩu hoặc chưa kích hoạt tài khoản');
 				redirect(base_url('/dang-nhap'));
 			}
 		} else {
@@ -349,13 +356,18 @@ class IndexController extends CI_Controller
 			$phone = $this->input->post('phone');
 			$email = $this->input->post('email'); //create a variable for the email 
 			$password = md5($this->input->post('password')); //create a variable for the password
+			$token = rand(0000, 9999); // ngẫu nhiên mã số
+			$datetime = Carbon::now('Asia/Ho_Chi_Minh');
+
 			$data = array(
 				'account' => $account,
 				'fullname' => $fullname,
 				'address' => $address,
 				'phone' => $phone,
 				'email' => $email,
-				'password' => $password
+				'password' => $password,
+				'token' => $token,
+				'date_created	' => $datetime
 
 			);
 			$this->load->model('LoginModel'); //this is use all functions in file
@@ -364,17 +376,24 @@ class IndexController extends CI_Controller
 			//cho điều kiện if else
 			if ($result) {
 				//mảng session 
-				$session_array = array(
-					//dòng id sẽ lấy kết quả $result[0] đầu tiên tham chiếu trong cột id database
-					'accountName' => $account,
-					//dòng fullname sẽ lấy kết quả $result[0] đầu tiên tham chiếu trong cột fullname database
-					'fullname' => $fullname,
-					//dòng email sẽ lấy kết quả $result[0] đầu tiên tham chiếu trong cột email database
-					'email' => $email,
-				);
-				$this->session->set_userdata('loggedInCustomer', $session_array);
-				//lệnh thông báo khi đăng nhập thành công
-				$this->session->set_flashdata('success', 'Đăng nhập thành công');
+				// $session_array = array(
+				// 	//dòng id sẽ lấy kết quả $result[0] đầu tiên tham chiếu trong cột id database
+				// 	'accountName' => $account,
+				// 	//dòng fullname sẽ lấy kết quả $result[0] đầu tiên tham chiếu trong cột fullname database
+				// 	'fullname' => $fullname,
+				// 	//dòng email sẽ lấy kết quả $result[0] đầu tiên tham chiếu trong cột email database
+				// 	'email' => $email,
+				// );
+				// $this->session->set_userdata('loggedInCustomer', $session_array);
+				// //lệnh thông báo khi đăng nhập thành công
+				// $this->session->set_flashdata('success', 'Đăng nhập thành công');
+				//gửi email
+				$fullurl = base_url() . 'xac-thuc-dang-ky/?token=' . $token . '&email=' . $email;
+				$title = "Đăng ký tài khoản tại cửa hàng F8-Car thành công";
+				$message = "Vui lòng nhấn vào đường dẫn để kích hoạt tài khoản:" . $fullurl;
+				$to_email = $email;
+				$this->SendEmail($to_email, $title, $message);
+
 				//nhảy trang khi đăng nhập thành công
 				redirect(base_url('/gio-hang'));
 			} else {
@@ -383,6 +402,40 @@ class IndexController extends CI_Controller
 			}
 		} else {
 			$this->Register();
+		}
+	}
+
+	/* --------------------------- xác thực tài khoản --------------------------- */
+	public function AuthenticationCustomer()
+	{
+		if (isset($_GET['email']) && $_GET['token']) {
+			$token = $_GET['token'];
+			$email = $_GET['email'];
+		}
+
+		$data['get_customer'] = $this->IndexModel->getCustomerToken($email);
+
+		//Authentication
+		$timenow = Carbon::now('Asia/Ho_Chi_Minh')->addMinutes(5); //take time now plus 5 minutes
+		$newtoken = rand(0000, 9999);
+		foreach ($data['get_customer'] as $key => $value) {
+			if ($token != $value->token) {
+				$this->session->set_flashdata('success', 'Kích hoạt tài khoản thất bại, mời bạn đăng ký lại');
+				redirect(base_url('/dang-nhap'));
+			}
+			$data_customer = [
+				'status' => 1,
+				'token' => $newtoken
+			];
+
+			if ($value->date_created < $timenow) {
+				$active_customer = $this->IndexModel->ActiveCustomer($email, $data_customer);
+				$this->session->set_flashdata('success', 'Kích hoạt tài khoản thành công, mời bạn đăng nhập lại');
+				redirect(base_url('/dang-nhap'));
+			} else {
+				$this->session->set_flashdata('error', 'Kích hoạt tài khoản thất bại, mời bạn đăng ký lại');
+				redirect(base_url('/dang-ky'));
+			}
 		}
 	}
 

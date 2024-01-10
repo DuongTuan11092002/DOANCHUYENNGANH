@@ -70,6 +70,7 @@ $route['dang-xuat']['GET'] = 'IndexController/Logout';
 /* --------------------------------- ĐĂNG-KÝ -------------------------------- */
 $route['dang-ky']['GET'] = 'IndexController/Register';
 $route['dang-ky-customer']['POST'] = 'IndexController/RegisterCustomer';
+$route['xac-thuc-dang-ky']['GET'] = 'IndexController/AuthenticationCustomer';
 
 
 /* -------------------------------------------------------------------------- */

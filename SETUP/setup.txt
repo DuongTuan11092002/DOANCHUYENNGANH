@@ -1,0 +1,4 @@
+Vui lòng cài bản  XAMPP (7.33 đến  8.1) cài đặt xong
+- Vui lòng import dữ liệu vào phpmyadmin
+- Dùng công cụ vs sudio code để chạy code 
+- Dùng lệnh  php -S localhost:7000 

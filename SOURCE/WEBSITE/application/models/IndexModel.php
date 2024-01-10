@@ -405,4 +405,19 @@ class IndexModel extends CI_model
         return $this->db->delete('contact', ['contactID' => $contactID]);
     }
     /* -------------------------------------------------------------------------- */
+
+    /* -------------------------------------------------------------------------- */
+    /*                           Authentication register                          */
+    public function getCustomerToken($email)
+    {
+        $query = $this->db->get_where('users', ['email' => $email]);
+        return $query->result();
+    }
+
+    //hàm xác nhận status
+    public function ActiveCustomer($email, $data_customer)
+    {
+        return $this->db->update('users', $data_customer, ['email' => $email]);
+    }
+    /* -------------------------------------------------------------------------- */
 }

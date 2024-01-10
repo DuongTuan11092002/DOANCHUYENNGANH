@@ -26,7 +26,7 @@ class LoginModel extends CI_model
         //email = $email gán biến trong bẳng data là email
         //password = $password gán biến trong bảng data là password
         //phương thức get('') cọn bảng trong database cần lấy
-        $query = $this->db->where('email', $email)->where('password', $password)->get('users');
+        $query = $this->db->where('email', $email)->where('password', $password)->where('status', 1)->get('users');
         return $query->result(); // trả về kết quả
     }
     public function RegisterCustomer($data)
