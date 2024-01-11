@@ -1,7 +1,10 @@
   <!-- Product Details Section Begin -->
   <section class="product-details spad">
       <div class="container">
+
           <div class="row">
+
+              <!-- show chi tiết sản phẩm -->
               <?php
                 foreach ($Product_Detail as $key => $detail) {
                 ?>
@@ -20,7 +23,21 @@
 
                           <div class="product__details__price"><?php echo number_format($detail->giasanpham) . ' VNĐ' ?></div>
                           <p><?php echo $detail->motasanpham ?></p>
+                          <p class="font-italic text-dark">Số lượng hiện tại: <?php echo $detail->soluong ?> chiếc</p>
 
+
+                          <!-- thông báo -->
+                          <?php
+                            if ($this->session->flashdata('success')) {
+                            ?>
+                              <div class="alert alert-success"> <?php echo $this->session->flashdata('success') ?></div>
+                          <?php
+                            } elseif ($this->session->flashdata('error')) {
+                            ?>
+                              <div class="alert alert-danger"> <?php echo $this->session->flashdata('error') ?></div>
+                          <?php
+                            }
+                            ?>
                           <form action="<?php echo base_url('them-gio-hang') ?>" method="post">
                               <input type="hidden" value="<?php echo $detail->productCarID ?>" name="product_id">
                               <div class="product__details__quantity">

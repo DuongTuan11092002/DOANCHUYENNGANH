@@ -52,6 +52,7 @@ class ProductController extends CI_Controller
 		$this->form_validation->set_rules('productSlug', 'slug', 'trim|required', ['required' => 'Vui lòng nhập %s ']);
 		$this->form_validation->set_rules('productPrice', 'Giá', 'trim|required', ['required' => 'Vui lòng nhập %s ']);
 		$this->form_validation->set_rules('productTime', 'Ngày', 'trim|required', ['required' => 'Vui lòng nhập %s ']);
+		$this->form_validation->set_rules('productQuantity', 'Số lượng', 'trim|required', ['required' => 'Vui lòng nhập %s ']);
 		if ($this->form_validation->run() == true) {
 			// upload file image
 			$ori_filename = $_FILES['productIMG']['name'];
@@ -80,9 +81,9 @@ class ProductController extends CI_Controller
 					'description' => $this->input->post('productDesc'),
 					'slug' => $this->input->post('productSlug'),
 					'price' => $this->input->post('productPrice'),
+					'quantity' => $this->input->post('productQuantity'),
 					'create_at' => $this->input->post('productTime'),
 					'status' => $this->input->post('productStatus'),
-
 					'autoMakerID' => $this->input->post('autoMaker_id'),
 					'categoriesID' => $this->input->post('categories_id'),
 					'thumnail' => $product_filename
@@ -126,6 +127,7 @@ class ProductController extends CI_Controller
 		$this->form_validation->set_rules('productSlug', 'slug', 'trim|required', ['required' => 'Vui lòng nhập %s ']);
 		$this->form_validation->set_rules('productPrice', 'Giá', 'trim|required', ['required' => 'Vui lòng nhập %s ']);
 		$this->form_validation->set_rules('productTime', 'Ngày', 'trim|required', ['required' => 'Vui lòng nhập %s ']);
+		$this->form_validation->set_rules('productQuantity', 'Số lượng', 'trim|required', ['required' => 'Vui lòng nhập %s ']);
 		if ($this->form_validation->run() == true) {
 			if (!empty($_FILES['productIMG']['name'])) {
 				// upload file image
@@ -155,6 +157,7 @@ class ProductController extends CI_Controller
 						'description' => $this->input->post('productDesc'),
 						'slug' => $this->input->post('productSlug'),
 						'price' => $this->input->post('productPrice'),
+						'quantity' => $this->input->post('productQuantity'),
 						'create_at' => $this->input->post('productTime'),
 						'status' => $this->input->post('productStatus'),
 						'autoMakerID' => $this->input->post('autoMaker_id'),
@@ -170,6 +173,7 @@ class ProductController extends CI_Controller
 					'description' => $this->input->post('productDesc'),
 					'slug' => $this->input->post('productSlug'),
 					'price' => $this->input->post('productPrice'),
+					'quantity' => $this->input->post('productQuantity'),
 					'create_at' => $this->input->post('productTime'),
 					'status' => $this->input->post('productStatus'),
 					'autoMakerID' => $this->input->post('autoMaker_id'),

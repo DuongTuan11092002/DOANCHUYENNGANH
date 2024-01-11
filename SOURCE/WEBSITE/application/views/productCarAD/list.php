@@ -24,6 +24,7 @@
           <th scope="col" style="width:300px;">Mô tả</th>
           <th scope="col">Slug</th>
           <th scope="col">Giá</th>
+          <th scope="col">Số lượng</th>
           <th scope="col">Ngày Tạo</th>
           <th scope="col">Hãng</th>
           <th scope="col">danh mục</th>
@@ -44,6 +45,7 @@
             <td class="an"><?php echo $value->description ?></td>
             <td><?php echo $value->slug ?></td>
             <td><?php echo number_format($value->price) . 'VND' ?></td>
+            <td><?php echo $value->quantity ?></td>
             <td><?php echo $value->create_at ?></td>
             <td><?php echo $value->tenhang ?></td>
             <td><?php echo $value->tendanhmuc ?></td>

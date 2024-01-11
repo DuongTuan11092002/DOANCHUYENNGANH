@@ -123,7 +123,7 @@ class IndexModel extends CI_model
     public function getProductDetail($id)
     {
 
-        $query = $this->db->select('productcar.price as giasanpham, productcardetail.*, productcar.description as motasanpham')
+        $query = $this->db->select('productcar.price as giasanpham, productcardetail.*, productcar.description as motasanpham, productcar.quantity as soluong')
             ->from('productcar')
             ->join('productcardetail', 'productcardetail.productCarID = productcar.productCarID') //khóa ngoại - khóa chính <==> khóa chính = khóa ngoại
             ->where('productcardetail.productCarID=', $id)

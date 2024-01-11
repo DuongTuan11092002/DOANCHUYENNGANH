@@ -50,6 +50,14 @@
         </div>
 
         <div class="form-group">
+          <label for="exampleInputPassword1">Số lượng</label>
+          <input type="number" name="productQuantity" value="<?php echo $products->quantity ?>" class="form-control" id="exampleInputPassword1">
+          <?php echo '<span class="text text-danger">' . form_error('productQuantity') . '</span>'; ?>
+
+
+        </div>
+
+        <div class="form-group">
           <label for="exampleInputPassword1">Ngày Tạo</label>
           <input type="text" name="productTime" value="<?php echo $products->create_at ?>" class="form-control" id="exampleInputPassword1">
           <?php echo '<span class="text text-danger">' . form_error('productTime') . '</span>'; ?>

@@ -200,15 +200,19 @@ class IndexController extends CI_Controller
 		$this->data['Product_Detail'] = $this->IndexModel->getProductDetail($product_id); //load data
 		//DAT-HANG có thư viện có sẵn của CodeIgniter
 		foreach ($this->data['Product_Detail'] as $key => $value) {
-			//thêm câu lệnh kiểm tra số lượng đặt
-
-			$cart = array(
-				'id'      => $value->productCarID,
-				'qty'     => $quantity,
-				'price'   => $value->giasanpham,
-				'name'    => $value->productCarDetailName,
-				'options' => array('image' => $value->images)
-			);
+			//Câu lệnh kiểm tra số lượng đặt nếu cao hơn sô lượng sản phẩm đặt
+			if ($value->soluong >= $quantity) {
+				$cart = array(
+					'id'      => $value->productCarID,
+					'qty'     => $quantity,
+					'price'   => $value->giasanpham,
+					'name'    => $value->productCarDetailName,
+					'options' => array('image' => $value->images, 'quantity_current' => $value->soluong)
+				);
+			} else {
+				$this->session->set_flashdata('error', 'Vui lòng đặt hàng thấp hơn số lượng hiện tại của sản phẩm');
+				redirect($_SERVER['HTTP_REFERER']);
+			}
 			//hàm thêm giỏ hàng
 			$this->cart->insert($cart);
 			redirect(base_url() . 'gio-hang', 'refresh');

@@ -44,15 +44,20 @@
           <input type="number" name="productPrice" class="form-control" id="exampleInputPriceCar">
           <?php echo '<span class="text text-danger">' . form_error('productPrice') . '</span>'; ?>
 
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputPriceCar">Số lượng</label>
+          <input type="number" name="productQuantity" class="form-control" id="exampleInputPriceCar">
+          <?php echo '<span class="text text-danger">' . form_error('productQuantity') . '</span>'; ?>
 
         </div>
 
         <div class="form-group">
           <label for="exampleInputTimeCar">Ngày Tạo</label>
           <input type="date" name="productTime" class="form-control" id="exampleInputTimeCar">
-          <?php echo '<span class="text text-danger">' . form_error('productTime') . '</span>'; ?>
-
-
+          <?php echo '<span class="text text-danger">' . form_error('productTime') . '</span>';
+          ?>
         </div>
 
         <div class="form-group">
