@@ -87,8 +87,8 @@ class IndexController extends CI_Controller
 
 		}
 
-		// category items
-		// $data['items_category'] = $this->IndexModel->getCategoryItems();
+		// phân danh mục sản phẩm trang chủ
+		$this->data['itemsAutomaker'] = $this->IndexModel->ItemsAutoMaker();
 
 		$this->load->view('Pages/Template/Header', $this->data);
 		$this->load->view('Pages/Home', $this->data);
@@ -195,23 +195,34 @@ class IndexController extends CI_Controller
 	//Chức năng đặt hàng và số lượng trong trang chi tiết sản phẩm
 	public function AddToCart()
 	{
-		$product_id = $this->input->post('product_id');
+		$product_id = $this->input->post('product_id'); //sản phẩm đã thêm
 		$quantity = $this->input->post('quantity');
 		$this->data['Product_Detail'] = $this->IndexModel->getProductDetail($product_id); //load data
 		//DAT-HANG có thư viện có sẵn của CodeIgniter
-		foreach ($this->data['Product_Detail'] as $key => $value) {
-			//Câu lệnh kiểm tra số lượng đặt nếu cao hơn sô lượng sản phẩm đặt
-			if ($value->soluong >= $quantity) {
-				$cart = array(
-					'id'      => $value->productCarID,
-					'qty'     => $quantity,
-					'price'   => $value->giasanpham,
-					'name'    => $value->productCarDetailName,
-					'options' => array('image' => $value->images, 'quantity_current' => $value->soluong)
-				);
-			} else {
-				$this->session->set_flashdata('error', 'Vui lòng đặt hàng thấp hơn số lượng hiện tại của sản phẩm');
-				redirect($_SERVER['HTTP_REFERER']);
+		if ($this->cart->contents()  > 0) { //kiểm tra có sản phẩm có hay không
+			foreach ($this->cart->contents() as $items) {
+				if ($items['id'] == $product_id) { //nếu sản phẩm đã có trong giỏ hàng thì thông báo
+					$this->session->set_flashdata('error', 'Sản phẩm đã có trong giỏ hàng vui lòng cập nhật số lượng trong giỏ hàng!'); //thông báo
+					redirect(base_url() . 'gio-hang', 'refresh'); // chuyển trang qua giỏ hàng
+				} else {
+
+					//handle thêm sản phẩm trang chi tiết
+					foreach ($this->data['Product_Detail'] as $key => $value) { // thêm sản phẩm từ trang chi tiết
+						//Câu lệnh kiểm tra số lượng đặt nếu cao hơn sô lượng sản phẩm đặt
+						if ($value->soluong >= $quantity) { //kiểm tra số lượng ở trang chi tiết
+							$cart = array( //dữ liệu có trong thư viện codeIgniter
+								'id'      => $value->productCarID,
+								'qty'     => $quantity,
+								'price'   => $value->giasanpham,
+								'name'    => $value->productCarDetailName,
+								'options' => array('image' => $value->images, 'quantity_current' => $value->soluong)
+							);
+						} else {
+							$this->session->set_flashdata('error', 'Vui lòng đặt hàng thấp hơn số lượng hiện tại của sản phẩm');
+							redirect($_SERVER['HTTP_REFERER']);
+						}
+					}
+				}
 			}
 			//hàm thêm giỏ hàng
 			$this->cart->insert($cart);
@@ -241,10 +252,18 @@ class IndexController extends CI_Controller
 		$quantity = $this->input->post('quantity');
 		foreach ($this->cart->contents() as $items) {
 			if ($rowid == $items['rowid']) {
-				$cart = array( //cho phép chỉnh sửa số lượng
-					'rowid' => $rowid, //tip: cần phải có rowid mới cập nhật số lượng được
-					'qty'     => $quantity, //tip: số lượng tăng hoặc giảm
-				);
+				// dòng lệnh kiểm tra xem người dùng chỉnh số lượng trong giỏ hàng nếu thấp thì đc không thì giới hạn số lượng trong kho
+				if ($quantity < $items['options']['quantity_current']) {
+					$cart = array( //cho phép chỉnh sửa số lượng
+						'rowid' => $rowid, //tip: cần phải có rowid mới cập nhật số lượng được
+						'qty'     => $quantity, //tip: số lượng tăng hoặc giảm
+					);
+				} elseif ($quantity >= $items['options']['quantity_current']) {
+					$cart = array( //cho phép chỉnh sửa số lượng
+						'rowid' => $rowid, //tip: cần phải có rowid mới cập nhật số lượng được
+						'qty'     => $items['options']['quantity_current'], //tip: số lượng tăng hoặc giảm
+					);
+				}
 			}
 		}
 		$this->cart->update($cart);

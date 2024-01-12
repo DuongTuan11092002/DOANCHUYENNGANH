@@ -4,6 +4,18 @@
         <div class="row">
             <div class="col-lg-12">
 
+                <!-- thông báo -->
+                <?php
+                if ($this->session->flashdata('success')) {
+                ?>
+                    <div class="alert alert-success"> <?php echo $this->session->flashdata('success') ?></div>
+                <?php
+                } elseif ($this->session->flashdata('error')) {
+                ?>
+                    <div class="alert alert-danger"> <?php echo $this->session->flashdata('error') ?></div>
+                <?php
+                }
+                ?>
                 <div class="shoping__cart__table">
                     <?php
                     if ($this->cart->contents()) {
