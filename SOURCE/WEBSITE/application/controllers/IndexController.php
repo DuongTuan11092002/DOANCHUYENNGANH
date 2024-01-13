@@ -11,14 +11,14 @@ class IndexController extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('IndexModel');
-		$this->load->library('cart');
+		$this->load->library("cart");
 		$this->load->library('email');
 		$this->data['Category'] = $this->IndexModel->getCategoryHome();
 		$this->data['Category_blog'] = $this->IndexModel->getCategoryBlogHome();
 		$this->data['AutoMaker'] = $this->IndexModel->getAutoMakerHome();
 		$this->data['post_list'] = $this->IndexModel->getPost(); //load blog
 
-		$this->load->library('pagination');
+		// $this->load->library('pagination');
 	}
 
 	public function Error404()
@@ -88,7 +88,7 @@ class IndexController extends CI_Controller
 		}
 
 		// phân danh mục sản phẩm trang chủ
-		$this->data['itemsAutomaker'] = $this->IndexModel->ItemsAutoMaker();
+		// $this->data['itemsAutomaker'] = $this->IndexModel->ItemsAutoMaker();
 
 		$this->load->view('Pages/Template/Header', $this->data);
 		$this->load->view('Pages/Home', $this->data);
@@ -195,38 +195,47 @@ class IndexController extends CI_Controller
 	//Chức năng đặt hàng và số lượng trong trang chi tiết sản phẩm
 	public function AddToCart()
 	{
-		$product_id = $this->input->post('product_id'); //sản phẩm đã thêm
+		$product_id = $this->input->post('product_id'); // Sản phẩm đã thêm
 		$quantity = $this->input->post('quantity');
-		$this->data['Product_Detail'] = $this->IndexModel->getProductDetail($product_id); //load data
-		//DAT-HANG có thư viện có sẵn của CodeIgniter
-		if ($this->cart->contents()  > 0) { //kiểm tra có sản phẩm có hay không
-			foreach ($this->cart->contents() as $items) {
-				if ($items['id'] == $product_id) { //nếu sản phẩm đã có trong giỏ hàng thì thông báo
-					$this->session->set_flashdata('error', 'Sản phẩm đã có trong giỏ hàng vui lòng cập nhật số lượng trong giỏ hàng!'); //thông báo
-					redirect(base_url() . 'gio-hang', 'refresh'); // chuyển trang qua giỏ hàng
-				} else {
+		$this->data['Product_Detail'] = $this->IndexModel->getProductDetail($product_id); // Load data
 
-					//handle thêm sản phẩm trang chi tiết
-					foreach ($this->data['Product_Detail'] as $key => $value) { // thêm sản phẩm từ trang chi tiết
-						//Câu lệnh kiểm tra số lượng đặt nếu cao hơn sô lượng sản phẩm đặt
-						if ($value->soluong >= $quantity) { //kiểm tra số lượng ở trang chi tiết
-							$cart = array( //dữ liệu có trong thư viện codeIgniter
-								'id'      => $value->productCarID,
-								'qty'     => $quantity,
-								'price'   => $value->giasanpham,
-								'name'    => $value->productCarDetailName,
-								'options' => array('image' => $value->images, 'quantity_current' => $value->soluong)
-							);
-						} else {
-							$this->session->set_flashdata('error', 'Vui lòng đặt hàng thấp hơn số lượng hiện tại của sản phẩm');
-							redirect($_SERVER['HTTP_REFERER']);
-						}
-					}
+		$cart = array(); // Khởi tạo biến $cart trước khi sử dụng
+
+		// Đặt hàng có thư viện có sẵn của CodeIgniter
+		$existing_product = false; // Biến để kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng hay chưa
+
+		// Kiểm tra có sản phẩm có hay không
+		foreach ($this->cart->contents() as $items) {
+			if ($items['id'] == $product_id) { // Nếu sản phẩm đã có trong giỏ hàng thì thông báo
+				$existing_product = true;
+				break;
+			}
+		}
+
+		if ($existing_product) {
+			$this->session->set_flashdata('error', 'Sản phẩm đã có trong giỏ hàng, vui lòng cập nhật số lượng trong giỏ hàng!');
+			redirect(base_url() . 'gio-hang', 'refresh');
+		} else {
+			// Thêm sản phẩm từ trang chi tiết
+			foreach ($this->data['Product_Detail'] as $key => $value) {
+				// Câu lệnh kiểm tra số lượng đặt nếu cao hơn số lượng sản phẩm đặt
+				if ($value->soluong >= $quantity) { // Kiểm tra số lượng ở trang chi tiết
+					$cart = array( // Dữ liệu có trong thư viện CodeIgniter
+						'id'      => $value->productCarID,
+						'qty'     => $quantity,
+						'price'   => $value->giasanpham,
+						'name'    => $value->productCarDetailName,
+						'options' => array('image' => $value->images, 'quantity_current' => $value->soluong)
+					);
+				} else {
+					$this->session->set_flashdata('error', 'Vui lòng đặt hàng thấp hơn số lượng hiện tại của sản phẩm');
+					redirect($_SERVER['HTTP_REFERER']);
 				}
 			}
-			//hàm thêm giỏ hàng
+
+			// Hàm thêm giỏ hàng
 			$this->cart->insert($cart);
-			redirect(base_url() . 'gio-hang', 'refresh');
+			Redirect(base_url() . 'gio-hang', 'refresh');
 		}
 	}
 	/* -------------------------------------------------------------------------- */

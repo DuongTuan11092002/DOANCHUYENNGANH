@@ -75,24 +75,24 @@ class IndexModel extends CI_model
 
     /* -------------------------------------------------------------------------- */
     /*                         Danh-mục-theo-từng-sản-phẩm                        */
-    public function ItemsAutoMaker()
-    {
-        $this->db->select('productcar.*, automaker.autoMakerName as titleAuto, automaker.autoMakerID');
-        $this->db->from('automaker');
-        $this->db->join('productcar', 'productcar.autoMakerID = automaker.autoMakerID');
-        $query = $this->db->get();
-        $result = $query->result_array();
+    // public function ItemsAutoMaker()
+    // {
+    //     $this->db->select('productcar.*, automaker.autoMakerName as titleAuto, automaker.autoMakerID');
+    //     $this->db->from('automaker');
+    //     $this->db->join('productcar', 'productcar.autoMakerID = automaker.autoMakerID');
+    //     $query = $this->db->get();
+    //     $result = $query->result_array();
 
-        // echo "<pre>";
-        // print_r($result);
+    //     // echo "<pre>";
+    //     // print_r($result);
 
-        $newArray = array();
-        foreach ($result as $key => $value) {
-            $newArray[$value['titleAuto']][] = $value;
-        }
-        return $newArray;
-        // print_r($newArray);
-    }
+    //     $newArray = array();
+    //     foreach ($result as $key => $value) {
+    //         $newArray[$value['titleAuto']][] = $value;
+    //     }
+    //     return $newArray;
+    //     // print_r($newArray);
+    // }
 
     /* -------------------------------------------------------------------------- */
 
