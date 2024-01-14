@@ -17,7 +17,6 @@ class IndexModel extends CI_model
         return $query->result();
     }
 
-
     public function getAllProducts()
     {
 
@@ -66,33 +65,44 @@ class IndexModel extends CI_model
         return $query->result();
     }
 
-    public function getPost()
+    public function getPostBlogTitle($id)
     {
-        $query = $this->db->get_where('post', ['status' => 1]);
-        return $query->result();
+        $this->db->select('post.*');
+        $this->db->from('post');
+        $this->db->limit(1);
+        $this->db->where('post.id=', $id);
+        $query = $this->db->get();
+        $result = $query->row();
+        return $title = $result->title;
+    }
+
+    public function getBlogByID($id)
+    {
+        $query = $this->db->get_where('post', ['id' => $id]);
+        return $query->row();
     }
     /* -------------------------------------------------------------------------- */
 
     /* -------------------------------------------------------------------------- */
     /*                         Danh-mục-theo-từng-sản-phẩm                        */
-    // public function ItemsAutoMaker()
-    // {
-    //     $this->db->select('productcar.*, automaker.autoMakerName as titleAuto, automaker.autoMakerID');
-    //     $this->db->from('automaker');
-    //     $this->db->join('productcar', 'productcar.autoMakerID = automaker.autoMakerID');
-    //     $query = $this->db->get();
-    //     $result = $query->result_array();
+    public function ItemsAutoMaker()
+    {
+        $this->db->select('productcar.*, automaker.autoMakerName as titleAuto, automaker.autoMakerID');
+        $this->db->from('automaker');
+        $this->db->join('productcar', 'productcar.autoMakerID = automaker.autoMakerID');
+        $query = $this->db->get();
+        $result = $query->result_array();
 
-    //     // echo "<pre>";
-    //     // print_r($result);
+        // echo "<pre>";
+        // print_r($result);
 
-    //     $newArray = array();
-    //     foreach ($result as $key => $value) {
-    //         $newArray[$value['titleAuto']][] = $value;
-    //     }
-    //     return $newArray;
-    //     // print_r($newArray);
-    // }
+        $newArray = array();
+        foreach ($result as $key => $value) {
+            $newArray[$value['titleAuto']][] = $value;
+        }
+        return $newArray;
+        // print_r($newArray);
+    }
 
     /* -------------------------------------------------------------------------- */
 
@@ -124,21 +134,23 @@ class IndexModel extends CI_model
     public function getProductDetail($id)
     {
 
-        $query = $this->db->select('productcar.price as giasanpham, productcardetail.*, productcar.description as motasanpham, productcar.quantity as soluong')
+        $query = $this->db->select('productcar.price as giasanpham, productcardetail.*, productcar.description as motasanpham, productcar.quantity as soluong, categories.categoriesID as tendanhmuc')
             ->from('productcar')
             ->join('productcardetail', 'productcardetail.productCarID = productcar.productCarID') //khóa ngoại - khóa chính <==> khóa chính = khóa ngoại
+            ->join('categories', 'categories.categoriesID = productcar.categoriesID')
             ->where('productcardetail.productCarID=', $id)
             ->get();
         return $query->result();
     }
 
     /* ------------------------- Sản-phẩm-cùng-danh-mục ------------------------- */
-    public function getProductRelated($id)
+    public function getProductRelated($id, $category_id)
     {
         $query = $this->db->select('categories.categoriesName as tendanhmuc, productcar.*, automaker.autoMakerName as tenhang')
             ->from('categories')
             ->join('productcar', 'productcar.categoriesID = categories.categoriesID ')
             ->join('automaker', 'automaker.automakerID = productcar.autoMakerID')
+            ->where('productcar.categoriesID', $category_id)
             ->where_not_in('productcar.productCarID', $id) //trừ ra sản phẩm hiện tại 
             ->get();
         return $query->result();

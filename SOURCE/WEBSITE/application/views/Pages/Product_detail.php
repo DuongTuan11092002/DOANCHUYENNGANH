@@ -1,4 +1,4 @@
-  <!-- Product Details Section Begin -->
+  <!-- Chi tiết sản phẩm -->
   <section class="product-details spad">
       <div class="container">
 
@@ -95,15 +95,15 @@
           </div>
       </div>
   </section>
-  <!-- Product Details Section End -->
+  <!-- hết phần chi tiết sản phẩm -->
 
-  <!-- Related Product Section Begin -->
+  <!-- Sản phẩm liên quan - BEGIN -->
   <section class="related-product">
       <div class="container">
           <div class="row">
               <div class="col-lg-12">
                   <div class="section-title related__product__title">
-                      <h2>SẢN PHẨM XE KHÁC</h2>
+                      <h2>SẢN PHẨM LIÊN QUAN</h2>
                   </div>
               </div>
           </div>
@@ -112,19 +112,24 @@
                 foreach ($Product_related as $key => $product) {
                 ?>
                   <div class="col-lg-3 col-md-4 col-sm-6">
-                      <div class="product__item <?php echo $key == 0 ? 'active' : '' ?>">
-                          <div class="product__item__pic set-bg" data-setbg="<?php echo base_url('uploads/productCar/' . $product->thumnail) ?>">
-                              <ul class="product__item__pic__hover">
-                                  <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                  <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                  <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                              </ul>
+                      <form action="<?php echo base_url('them-gio-hang') ?>" method="post">
+                          <div class="featured__item">
+                              <input type="hidden" value="<?php echo $product->productCarID ?>" name="product_id">
+                              <input type="hidden" value="1" name="quantity">
+                              <div class="featured__item__pic set-bg rounded">
+                                  <img src="<?php echo base_url('uploads/productCar/' . $product->thumnail) ?>" alt="" width="100%" height="100%">
+                                  <ul class="featured__item__pic__hover">
+                                      <li><button href="#" class="btn btn-primary"><i class="fa fa-heart"></i></button></li>
+                                      <li><button href="#" class="btn btn-success"><i class="fa fa-retweet"></i></button></li>
+                                      <li><button type="submit" class="btn btn-warning"><i class="fa fa-shopping-cart"></i></button></li>
+                                  </ul>
+                              </div>
+                              <div class="featured__item__text">
+                                  <h6><a href="<?php echo base_url('san-pham/' . $product->productCarID . '/' . $product->slug) ?>" class="text-uppercase"><?php echo $product->productCarName ?></a></h6>
+                                  <h5>Giá: <?php echo number_format($product->price) . 'VNĐ' ?> </h5>
+                              </div>
                           </div>
-                          <div class="product__item__text">
-                              <h6><a href="<?php echo base_url('san-pham/' . $product->productCarID . '/' . $product->slug) ?>"><?php echo $product->productCarName ?></a></h6>
-                              <h5><?php echo number_format($product->price) . ' VNĐ' ?></h5>
-                          </div>
-                      </div>
+                      </form>
                   </div>
               <?php
                 }
@@ -133,4 +138,4 @@
           </div>
       </div>
   </section>
-  <!-- Related Product Section End -->
+  <!-- Sản phẩm liên quan - END -->

@@ -9,6 +9,7 @@ class PostModel extends CI_model
         $query = $this->db->select('category_blog.title as tendanhmucbaiviet, post.*')
             ->from('category_blog')
             ->join('post', 'post.category_id_blog = category_blog.id') //khóa ngoại - khóa chính <==> khóa chính = khóa ngoại
+
             ->get();
         return $query->result();
     }

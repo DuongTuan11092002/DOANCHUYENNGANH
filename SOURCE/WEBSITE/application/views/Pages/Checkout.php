@@ -24,6 +24,7 @@
                                     $total = 0;
                                     foreach ($this->cart->contents() as $items) {
                                         $subtotal = $items['qty'] * $items['price'];
+                                        $total += $subtotal;
                                     ?>
                                         <tr>
                                             <td class="shoping__cart__item">
@@ -137,7 +138,7 @@
                         <h5 class="text-uppercase">Tổng hóa đơn</h5>
                         <ul>
                             <li>Tổng <span>
-                                    <?php echo number_format($subtotal) ?>
+                                    <?php echo number_format($total) ?>
                                 </span></li>
                         </ul>
                         <button type="submit" class="primary-btn text-uppercase">Xác nhận thanh toán</button>

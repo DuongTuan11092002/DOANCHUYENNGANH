@@ -44,7 +44,7 @@
                 <div class="form-group">
                     <label for="exampleInputDescCar">Nội dung</label>
                     <!--<input type="text" name="productDesc" class="form-control" id="exampleInputDescCar" >-->
-                    <textarea name="content" class="form-control" id="exampleInputDescCar" cols="500" rows="10"><?php echo $PostEdit->content ?></textarea>
+                    <textarea name="content" class="form-control" id="editor_post" cols="500" rows="10"><?php echo $PostEdit->content ?></textarea>
                     <?php echo '<span class="text text-danger">' . form_error('content') . '</span>'; ?>
                 </div>
 

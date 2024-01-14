@@ -43,7 +43,7 @@
                 <div class="form-group">
                     <label for="exampleInputDescCar">Nội dung</label>
                     <!--<input type="text" name="productDesc" class="form-control" id="exampleInputDescCar" >-->
-                    <textarea name="content" class="form-control" id="exampleInputDescCar" cols="500" rows="4"></textarea>
+                    <textarea name="content" class="form-control" id="editor_post" cols="500" rows="4"></textarea>
                     <?php echo '<span class="text text-danger">' . form_error('content') . '</span>'; ?>
                 </div>
 
@@ -92,7 +92,7 @@
                 </div>
 
 
-                <button type="submit" class="btn btn-primary">Thêm</button>
+                <button type="submit" class="btn btn-primary">Sửa</button>
             </form>
         </div>
     </div>

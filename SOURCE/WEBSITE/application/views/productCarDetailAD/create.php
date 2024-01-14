@@ -30,19 +30,19 @@
 
         <div class="form-group">
           <label for="exampleInputDescEngine">Mô tả về động cơ của xe</label>
-          <textarea name="DescEngine" class="form-control" id="exampleInputDescEngine" cols="30" rows="10"></textarea>
+          <textarea name="DescEngine" class="form-control" id="editor_engine" cols="30" rows="10"></textarea>
           <?php echo '<span class="text text-danger">' . form_error('DescEngine') . '</span>'; ?>
         </div>
 
         <div class="form-group">
           <label for="exampleInputDescInterio">Mô tả về nội thất của xe</label>
-          <textarea name="DescInterio" class="form-control" id="exampleInputDescInterio" cols="30" rows="10"></textarea>
+          <textarea name="DescInterio" class="form-control" id="editor_interio" cols="30" rows="10"></textarea>
           <?php echo '<span class="text text-danger">' . form_error('DescInterio') . '</span>'; ?>
         </div>
 
         <div class="form-group">
           <label for="exampleInputDescTechniques">Mô tả về công nghệ của xe</label>
-          <textarea name="DescTechniques" class="form-control" id="exampleInputDescTechniques" cols="30" rows="10"></textarea>
+          <textarea name="DescTechniques" class="form-control" id="editor_technique" cols="30" rows="10"></textarea>
           <?php echo '<span class="text text-danger">' . form_error('DescTechniques') . '</span>'; ?>
         </div>
 

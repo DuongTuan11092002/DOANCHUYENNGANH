@@ -16,7 +16,6 @@ class IndexController extends CI_Controller
 		$this->data['Category'] = $this->IndexModel->getCategoryHome();
 		$this->data['Category_blog'] = $this->IndexModel->getCategoryBlogHome();
 		$this->data['AutoMaker'] = $this->IndexModel->getAutoMakerHome();
-		$this->data['post_list'] = $this->IndexModel->getPost(); //load blog
 
 		// $this->load->library('pagination');
 	}
@@ -35,36 +34,6 @@ class IndexController extends CI_Controller
 		/* ------------------------------- carbon time ------------------------------ */
 		// echo Carbon::now('Asia/Ho_Chi_Minh');
 		/* ----------------------------- PANIGATION-PAGE ---------------------------- */
-
-		// //custom config link
-		// $config = array();
-		// $config["base_url"] = base_url() . '/phan-trang/index';
-		// $config['total_rows'] = ceil($this->IndexModel->countAllProduct()); //đếm tất cả sản phẩm //8 //hàm ceil làm tròn phân trang 
-		// $config["per_page"] = 4; //từng trang 3 sản phẩm
-		// $config["uri_segment"] = 3; //lấy số trang hiện tại
-		// $config['use_page_numbers'] = TRUE; //trang có số
-		// $config['full_tag_open'] = '<ul class="pagination">';
-		// $config['full_tag_close'] = '</ul>';
-		// $config['first_link'] = 'First';
-		// $config['first_tag_open'] = '<li>';
-		// $config['first_tag_close'] = '</li>';
-		// $config['last_link'] = 'Last';
-		// $config['last_tag_open'] = '<li>';
-		// $config['last_tag_close'] = '</li>';
-		// $config['cur_tag_open'] = '<li class="active"><a>';
-		// $config['cur_tag_close'] = '</a></li>';
-		// $config['num_tag_open'] = '<li>';
-		// $config['num_tag_close'] = '</li>';
-		// $config['next_tag_open'] = '<li>';
-		// $config['next_tag_close'] = '</li>';
-		// $config['prev_tag_open'] = '<li>';
-		// $config['prev_tag_close'] = '</li>';
-		// //end custom config link
-		// $this->pagination->initialize($config); //tự động tạo trang
-		// $this->page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 1; //Trang hiện tại đang chọn
-		// $this->data["links"] = $this->pagination->create_links(); //tự động tạo links phân trang dựa vào trang hiện tại
-		// $this->data['allproduct_pagination'] = $this->IndexModel->getIndexPagination($config["per_page"], $this->page);
-		// //pagination
 
 		/* ------------------------------- FILTER ------------------------------ */
 
@@ -88,7 +57,7 @@ class IndexController extends CI_Controller
 		}
 
 		// phân danh mục sản phẩm trang chủ
-		// $this->data['itemsAutomaker'] = $this->IndexModel->ItemsAutoMaker();
+		$this->data['itemsAutomaker'] = $this->IndexModel->ItemsAutoMaker();
 
 		$this->load->view('Pages/Template/Header', $this->data);
 		$this->load->view('Pages/Home', $this->data);
@@ -170,7 +139,12 @@ class IndexController extends CI_Controller
 	{
 		$this->data['Product_Detail'] = $this->IndexModel->getProductDetail($id); //load data 
 		// những sản phẩm khác cùng một danh mục
-		$this->data['Product_related'] = $this->IndexModel->getProductRelated($id); //load dữ liệu về sản phẩm khác trong cùng một danh mục
+
+		foreach ($this->data['Product_Detail'] as $key => $val) {
+			$category_id = $val->tendanhmuc;
+		}
+		$this->data['Product_related'] = $this->IndexModel->getProductRelated($id, $category_id); //load dữ liệu về sản phẩm khác trong cùng một danh mục
+
 		//khi nhấn vào xem chi tiết của một sản phẩm thì trang đó có những sản phẩm khác
 
 
@@ -650,9 +624,7 @@ class IndexController extends CI_Controller
 
 	public function Blog($id)
 	{
-
-		$this->data['Slug'] = $this->IndexModel->getCategorySlugBlog($id); //load title slug
-		$this->data['post_list'] = $this->IndexModel->getPost(); //load blog
+		$this->data['post_with_id'] = $this->IndexModel->getBlogByID($id); //load title slug
 
 		$this->load->view('Pages/Template/Header', $this->data);
 		$this->load->view('Pages/Blog', $this->data);
