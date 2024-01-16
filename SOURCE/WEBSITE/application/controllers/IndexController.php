@@ -16,6 +16,7 @@ class IndexController extends CI_Controller
 		$this->data['Category'] = $this->IndexModel->getCategoryHome();
 		$this->data['Category_blog'] = $this->IndexModel->getCategoryBlogHome();
 		$this->data['AutoMaker'] = $this->IndexModel->getAutoMakerHome();
+		$this->data['All_post'] = $this->IndexModel->getPost();
 
 		// $this->load->library('pagination');
 	}

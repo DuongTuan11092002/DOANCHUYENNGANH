@@ -26,6 +26,12 @@ class IndexModel extends CI_model
 
     /* -------------------------------------------------------------------------- */
     /*                                    BLOG                                    */
+    public function getPost()
+    {
+        $query = $this->db->get_where('post', ['status' => 1]);
+        return $query->result();
+    }
+
     public function getCategoryBlogHome()
     {
         $query = $this->db->get_where('category_blog', ['status' => 1]);

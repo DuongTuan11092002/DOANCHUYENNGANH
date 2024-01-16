@@ -65,7 +65,13 @@
                                   <ul class="featured__item__pic__hover">
                                       <li><button href="#" class="btn btn-primary"><i class="fa fa-heart"></i></button></li>
                                       <li><button href="#" class="btn btn-success"><i class="fa fa-retweet"></i></button></li>
-                                      <li><button type="submit" class="btn btn-warning"><i class="fa fa-shopping-cart"></i></button></li>
+                                      <?php
+                                        if ($productCar->quantity > 0) {
+                                        ?>
+                                          <li><button type="submit" class="btn btn-warning"><i class="fa fa-shopping-cart"></i></button></li>
+                                      <?php
+                                        }
+                                        ?>
                                   </ul>
                               </div>
                               <div class="featured__item__text">
@@ -121,7 +127,13 @@
                                   <ul class="featured__item__pic__hover">
                                       <li><button href="#" class="btn btn-primary"><i class="fa fa-heart"></i></button></li>
                                       <li><button href="#" class="btn btn-success"><i class="fa fa-retweet"></i></button></li>
-                                      <li><button type="submit" class="btn btn-warning"><i class="fa fa-shopping-cart"></i></button></li>
+                                      <?php
+                                        if ($items_pro['quantity'] > 0) {
+                                        ?>
+                                          <li><button type="submit" class="btn btn-warning"><i class="fa fa-shopping-cart"></i></button></li>
+                                      <?php
+                                        }
+                                        ?>
                                   </ul>
                               </div>
                               <div class="featured__item__text">
@@ -161,7 +173,7 @@
           </div>
           <div class="row">
               <?php
-                foreach ($post_list as $key => $value) {
+                foreach ($All_post as $key => $value) {
                 ?>
                   <div class="col-lg-4 col-md-4 col-sm-6">
                       <div class="blog__item">
