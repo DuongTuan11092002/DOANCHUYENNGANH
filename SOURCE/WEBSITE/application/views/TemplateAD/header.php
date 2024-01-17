@@ -9,12 +9,27 @@
     <style>
         .an {
             white-space: nowrap;
-            /* Ngăn chữ xuống dòng */
             overflow: hidden;
             text-overflow: ellipsis;
             max-width: 150px;
-            /* Đặt độ rộng tối đa của phần tử để hiển thị */
+            overflow-y: auto;
+
+            /* Đặt giới hạn chiều dọc, có thể thay đổi giá trị theo nhu cầu */
         }
+
+        .anPost {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 150px;
+            max-height: 4em;
+            /* Đặt giới hạn chiều dọc, có thể thay đổi giá trị theo nhu cầu */
+            display: inline-flex;
+            overflow-y: auto;
+            /* Thêm thanh cuộn dọc khi nội dung vượt quá chiều cao */
+        }
+
+
+
 
         /* Áp dụng cho thẻ p bên trong col-md-12 */
         .col-md-12 p {

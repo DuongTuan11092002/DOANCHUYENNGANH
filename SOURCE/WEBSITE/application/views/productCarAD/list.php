@@ -30,6 +30,7 @@
           <th scope="col">danh mục</th>
           <th scope="col">Hình ảnh</th>
           <th scope="col">Tình trạng</th>
+          <th scope="col">Sản phẩm hot</th>
           <th scope="col">Quản lý</th>
         </tr>
       </thead>
@@ -56,6 +57,16 @@
             <td>
               <?php
               if ($value->status == 1) {
+                echo "<span class='text text-primary'>Hiển thị</span>";
+              } else {
+                echo "<span class='text text-warning'>Không hiển thị</span>";
+              }
+              ?>
+            </td>
+
+            <td>
+              <?php
+              if ($value->productHot == 1) {
                 echo "<span class='text text-primary'>Hiển thị</span>";
               } else {
                 echo "<span class='text text-warning'>Không hiển thị</span>";

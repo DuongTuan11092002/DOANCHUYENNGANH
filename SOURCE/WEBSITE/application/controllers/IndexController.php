@@ -57,6 +57,8 @@ class IndexController extends CI_Controller
 
 		}
 
+		$this->data['ProductCarHot'] = $this->IndexModel->getProductsHot(); //load data
+
 		// phân danh mục sản phẩm trang chủ
 		$this->data['itemsAutomaker'] = $this->IndexModel->ItemsAutoMaker();
 

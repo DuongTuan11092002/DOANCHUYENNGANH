@@ -7,7 +7,7 @@
     </div>
     <div class="card-body">
         <div class="">
-            <a href="<?php echo base_url('productCar/create') ?>" class="btn btn-success">Thêm bài viết</a>
+            <a href="<?php echo base_url('Post/create') ?>" class="btn btn-success">Thêm bài viết</a>
             <hr>
         </div>
 
@@ -37,7 +37,7 @@
                         <td><?php echo $value->title ?></td>
                         <td class="an"><?php echo $value->description ?></td>
                         <td><?php echo $value->slug ?></td>
-                        <td class="an"><?php echo $value->content ?></td>
+                        <td class="anPost"><?php echo $value->content ?></td>
                         <td class="an"><?php echo $value->short_content ?></td>
                         <td><?php echo $value->tendanhmucbaiviet ?></td>
 

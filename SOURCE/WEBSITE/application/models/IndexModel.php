@@ -24,6 +24,12 @@ class IndexModel extends CI_model
         return $query->result();
     }
 
+    public function getProductsHot()
+    {
+
+        $query = $this->db->get_where('productCar', ['productHot' => 1]);
+        return $query->result();
+    }
     /* -------------------------------------------------------------------------- */
     /*                                    BLOG                                    */
     public function getPost()

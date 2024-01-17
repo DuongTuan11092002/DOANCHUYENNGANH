@@ -113,11 +113,42 @@
         <div class="form-group">
           <label for="exampleInputCategory">Trạng thái</label>
           <select name="productStatus" id="" class="form-control">
-            <option value="1" selected>Hiển thị</option>
-            <option value="0">Không hiển thị</option>
+            <?php
+            if ($products->status == 1) {
+            ?>
+              <option value="1" selected>Hiển thị</option>
+              <option value="0">Không hiển thị</option>
+            <?php
+            } else {
+            ?>
+              <option value="1">Hiển thị</option>
+              <option value="0" selected>Không hiển thị</option>
+            <?php
+            }
+            ?>
           </select>
         </div>
 
+        <div class="form-group">
+          <label for="exampleInputCategory">Sản phẩm hot</label>
+          <select name="productStatusHot" id="" class="form-control">
+            <?php
+            if ($products->productHot == 1) {
+            ?>
+              <option value="1" selected>Hiển thị</option>
+              <option value="0">Không hiển thị</option>
+
+            <?php
+            } else {
+            ?>
+              <option value="1">Hiển thị</option>
+              <option value="0" selected>Không hiển thị</option>
+            <?php
+            }
+
+            ?>
+          </select>
+        </div>
 
         <button type="submit" class="btn btn-primary">Cập nhật</button>
       </form>
